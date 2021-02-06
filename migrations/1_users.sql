@@ -19,8 +19,8 @@ CREATE TABLE interests (
 CREATE TABLE markers (
   id SERIAL PRIMARY KEY NOT NULL,
   map_id INTEGER REFRENCES maps(id),
-  x_coordinate DECIMAL(5, 3) NOT NULL,
-  y_coordinate DECIMAL(5, 3) NOT NULL,
+  x_coordinate DECIMAL(8, 6) NOT NULL,
+  y_coordinate DECIMAL(8, 6) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
   created_at TIMESTAMP
