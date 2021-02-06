@@ -14,6 +14,7 @@
 
 * POST                /login                      Verifies user with email and grants authentication cookie
 * POST                /register                   Verifies if user is unique and grants authentication cookie
+* POST                /register                   Sets login cookie to null
 * POST                /maps/new                 Creates a new blank map template with a unique id and redirects to GET map/:id  
 * POST                /maps/:id/edit               Verifies if user is authenticated and edits the map
 * POST                /maps/:id/marker/:id/edit    Verifies if user is authenticated and edits the marker
