@@ -35,6 +35,7 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
+const poolFactory = require('pg/lib/pool-factory');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -47,7 +48,41 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
-  res.render("index");
+  res.redirect("/maps");
+});
+
+app.get("/maps", (req, res) => {
+  res.render("maps_by_interest");
+});
+
+app.get("/maps:query", (req, res) => {
+  db.query(
+    // Search query goes here
+    `
+
+    `
+  , [queryParams])
+  res.render("map_show");
+});
+
+app.get("/map:id", (req, res) => {
+  res.render("map_show");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
+app.get("/profile/:id", (req, res) => {
+  res.render("user_profile");
+});
+
+app.get("map/:id/edit", (req, res) => {
+  res.render("edit_map");
 });
 
 app.listen(PORT, () => {
