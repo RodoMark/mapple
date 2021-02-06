@@ -36,31 +36,22 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const mapRoutes = require("./routes/mapRoutes")
+const userRoutes = require('./routes/userRoutes')
 const widgetsRoutes = require("./routes/widgets");
 const poolFactory = require('pg/lib/pool-factory');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+app.use('/maps', mapRoutes(db))
+app.use('/', userRoutes(db))
 // Note: mount other resources here, using the same pattern above
 
-app.use('/maps', mapRoutes(db))
+
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-app.get("/", (req, res) => {
-  res.redirect("/maps");
-});
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-app.get("/register", (req, res) => {
-  res.render("register");
-});
 
 app.get("/profile/:id", (req, res) => {
   res.render("user_profile");
@@ -70,11 +61,6 @@ app.get("/profile/:id", (req, res) => {
 
 
 
-app.post("/login", (req, res) => {
-});
-
-app.post("/register", (req, res) => {
-});
 
 
 

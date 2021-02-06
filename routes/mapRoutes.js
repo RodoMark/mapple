@@ -26,10 +26,11 @@ module.exports = (db) => {
   });
 
   router.post("/:id", (req, res) => {
-    res.render("edit_map");
+
   });
 
   router.post("/new", (req, res) => {
+
   });
 
   return router;
