@@ -19,14 +19,14 @@ describe("#userExists(email)", function() { // 3
   it("should return true if email exists in database", function() { // 4
     const incomingEmail = 'example@domain.com'
 
-    assert.isTrue(userExists(incomingEmail), true)
+    assert.isEqual(userExists(incomingEmail), true)
 
   });
 
   it("should return false if email doesn't exist in database", function() { // 4
     const incomingEmail = 'not@there.com'
 
-    assert.isFalse(userExists(incomingEmail), false)
+    assert.isEqual(userExists(incomingEmail), false)
 
 
   });
