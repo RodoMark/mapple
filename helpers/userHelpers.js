@@ -25,12 +25,23 @@ const userExists = function(email) {
     WHERE email = $1
     `, [email]
   )
-    .then((output) => {
-        return output.rows[0];
+    .then((res) => {
+      if (res) {
+        console.log(res.rows[0])
+        return res.rows[0];
+      }
+      return null;
     })
     .catch(err => console.error('query error', err.stack));
 };
 
-module.exports = {
-  userExists
+const registerTripmine = function(details) {
+
 }
+
+module.exports = {
+  userExists,
+  registerTripmine,
+}
+
+userExists('glenman@mail.com')
