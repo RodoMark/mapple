@@ -36,13 +36,11 @@ module.exports = (db) => {
         if (incomingPassword === userPassword) {
           res.session.user = fetchedUser
           res.redirect("/profile")
-      } else {
-          res.status(400)
-          res.send('Invalid login credentials.')
         }
+      } else {
+        res.status(400)
+        res.send('Login info incorrect.')
       }
-    } else {
-      res.redirect("/maps")
     }
   });
 
