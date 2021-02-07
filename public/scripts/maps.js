@@ -12,6 +12,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(mymap);
 
 const marker1 = L.marker([45.40764, -75.695393]).addTo(mymap);
+const marker2 = L.marker([46.40764, -70.695393]).addTo(mymap);
 
 const circle1 = L.circle([45.40764, -75.695393], {
   color: 'red',
@@ -34,13 +35,44 @@ const polygon1 = L.polygon([
 
 // mymap.on('click', onMapClick);
 
+
+// create an array to store markers in???
+let markers = []
+
 function addMarker(e) {
-  const mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
+  let mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
+
+  let id;
+  if (markers.length < 1) {
+    id = 0
+  } else {
+  id = markers[markers.length - 1]._id + 1
+  }
+  var popupContent =
+    '<p>Some Infomation</p></br>' +
+    '<p>This is a test</p></br>' +
+    '<button onclick="clearMarker(' + id + ')">Delete</button>';
+
+    mp._id = id
+    mp.bindPopup(popupContent, {
+      closeButton: false
+    });
+    mymap.addLayer(mp)
+    markers.push(mp)
+}
+
+function clearMarker(id) {
+	console.log(markers)
+  let new_markers = []
+  markers.forEach(function(marker) {
+    if (marker._id === id) mymap.removeLayer(marker)
+    else new_markers.push(marker)
+  })
+  markers = new_markers
 }
 
 
 function onLocationFound(e) {
-
   console.log(e)
   const radius = e.accuracy / 2;
 
@@ -55,10 +87,10 @@ function onLocationError(e) {
 }
 
 function onMapClick(e) {
-  popup
-      .setLatLng(e.latlng)
-      .setContent("You clicked the map at " + e.latlng.toString())
-      .openOn(mymap);
+  // popup
+  //     .setLatLng(e.latlng)
+  //     .setContent("You clicked the map at " + e.latlng.toString())
+  //     .openOn(mymap);
 
       console.log(e)
       console.log("lat", e.latlng.lat)
@@ -79,6 +111,9 @@ mymap.locate({watch:true});
 polygon1.bindPopup("I am a polygon.");
 marker1.bindPopup('You are here');
 circle1.bindPopup("Here is a circle");
+
+
+
 
 
 
