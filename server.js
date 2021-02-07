@@ -51,7 +51,7 @@ const poolFactory = require('pg/lib/pool-factory');
 // Note: Feel free to replace the example routes below with your own
 app.use('/maps', mapRoutes(db))
 app.use('/auth', userRoutes(db))
-app.use('/profiles', profileRoutes(db))
+app.use('/profile', profileRoutes(db))
 // Note: mount other resources here, using the same pattern above
 
 
