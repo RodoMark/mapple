@@ -45,9 +45,23 @@ module.exports = (db) => {
   });
 
   router.post("register", (req, res) => {
-    const incomingName = req.username
-    const incomingEmail = req.email;
-    const incomingPassword = req.password;
+    details = {
+      incomingName: req.username,
+      incomingEmail: req.email,
+      incomingPassword = req.password
+    }
+
+    if(!registrationTripmine(details)) {
+      const newUser = {
+        incomingName,
+        incomingEmail,
+        incomingPassword
+      }
+      req.session.cookie = newUser
+    } else {
+      res.status(400)
+      res.send(registrationTripmine(details))
+    }
   });
 
 
