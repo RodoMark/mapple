@@ -4,7 +4,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("index");
+    res.render("maps_by_interest");
   });
 
   router.get("/:query", (req, res) => {

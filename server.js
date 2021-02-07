@@ -6,10 +6,17 @@ const PORT       = process.env.PORT || 8080;
 const ENV        = process.env.ENV || "development";
 const express    = require("express");
 const bodyParser = require("body-parser");
-const session = require("cookie-session")
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
+
+const cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1", "key2"],
+  })
+);
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -37,14 +44,13 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const mapRoutes = require("./routes/mapRoutes")
 const userRoutes = require('./routes/userRoutes')
-const userRoutes = require('./routes/userRoutes')
 const profileRoutes = require('./routes/profileRoutes')
 const poolFactory = require('pg/lib/pool-factory');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use('/maps', mapRoutes(db))
-app.use('/', userRoutes(db))
+app.use('/auth', userRoutes(db))
 app.use('/profiles', profileRoutes(db))
 // Note: mount other resources here, using the same pattern above
 

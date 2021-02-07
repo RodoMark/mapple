@@ -7,24 +7,25 @@ module.exports = (db) => {
     res.redirect("/maps");
   });
 
-  router.get("login", (req, res) => {
-  if(!req.session.user) {
+  router.get("/login", (req, res) => {
     res.render("login");
-  } else {
-    res.redirect("/maps")
-  }
+    // if(!req.session.user) {
+  //   res.render("login");
+  // } else {
+  //   res.redirect("/maps")
+  // }
 
   });
 
-  router.get("register", (req, res) => {
-    if(!req.session.user) {
+  router.get("/register", (req, res) => {
+    if(req.session.user === undefined) {
       res.render("register");
     } else {
       res.redirect("/maps")
     }
   });
 
-  router.post("login", (req, res) => {
+  router.post("/login", (req, res) => {
     const incomingEmail = req.body.email;
     const incomingPassword = req.body.password;
 
@@ -44,11 +45,11 @@ module.exports = (db) => {
     }
   });
 
-  router.post("register", (req, res) => {
+  router.post("/register", (req, res) => {
     details = {
       incomingName: req.username,
       incomingEmail: req.email,
-      incomingPassword = req.password
+      incomingPassword: req.password
     }
 
     if(!registrationTripmine(details)) {
@@ -64,7 +65,7 @@ module.exports = (db) => {
     }
   });
 
-  router.post("logout", (req, res) => {
+  router.post("/logout", (req, res) => {
     req.session.user = null
     res.redirect("/maps")
   })
