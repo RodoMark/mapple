@@ -64,6 +64,11 @@ module.exports = (db) => {
     }
   });
 
+  router.post("logout", (req, res) => {
+    req.session.user = null
+    res.redirect("/maps")
+  })
+
 
   return router;
 };
