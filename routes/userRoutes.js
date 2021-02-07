@@ -8,8 +8,6 @@ module.exports = (db) => {
   });
 
   router.get("login", (req, res) => {
-
-
   if(!req.session.user) {
     res.render("login");
   } else {
@@ -27,8 +25,25 @@ module.exports = (db) => {
   });
 
   router.post("login", (req, res) => {
-    const incomingEmail = req.email;
-    const incomingPassword = req.password;
+    const incomingEmail = req.body.email;
+    const incomingPassword = req.body.password;
+
+    if(!req.session.user) {
+      if(emailExists(incomingEmail)) {
+        const fetchedUser = fetchUserByEmail(userDatabase, incomingEmail);
+        const requestedPassword = fetchedUser.password;
+
+        if (incomingPassword === userPassword) {
+          res.session.user = fetchedUser
+          res.redirect("/profile")
+      } else {
+          res.status(400)
+          res.send('Invalid login credentials.')
+        }
+      }
+    } else {
+      res.redirect("/maps")
+    }
   });
 
   router.post("register", (req, res) => {
