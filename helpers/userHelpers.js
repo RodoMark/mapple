@@ -25,11 +25,8 @@ const userExists = function(email) {
     WHERE email = $1
     `, [email]
   )
-    .then((res) => {
-      if (res) {
-        return res.rows[0];
-      }
-      return null;
+    .then((output) => {
+        return output.rows[0];
     })
     .catch(err => console.error('query error', err.stack));
 };
