@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+    <h1>REGISTER FOR A NEW ACCOUNT</h1>
+    <form method="POST" action="/auth/register">
+      <label for="handle">Username:</label>
+        <input name="handle" placeholder="SuperMapMaker"></input><br>
+      <label for="email">Email:</label>
+        <input name="email" placeholder="example@email.com"></input><br>
+    <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Password"></input><br>
+    <button type="submit" class="btn">REGISTER</button>
+    </form>
+  </body>
+</html>
