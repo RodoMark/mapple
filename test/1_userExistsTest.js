@@ -12,22 +12,21 @@ const assert = chai.assert;
 //   }
 // }
 
-const userExists = require('../helpers/userHelpers.js'); // 2
+const { userExists } = require('../helpers/userHelpers.js'); // 2
 
 describe("#userExists(email)", function() { // 3
 
   it("should return true if email exists in database", function() { // 4
     const incomingEmail = 'example@domain.com'
 
-    assert.isEqual(userExists(incomingEmail), true)
+    assert.equal(userExists(incomingEmail), true)
 
   });
 
   it("should return false if email doesn't exist in database", function() { // 4
     const incomingEmail = 'not@there.com'
 
-    assert.isEqual(userExists(incomingEmail), false)
-
+    assert.equal(userExists(incomingEmail), false)
 
   });
 
