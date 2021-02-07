@@ -1,6 +1,8 @@
 const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
 // const mymap = L.map('mapid').fitWorld();
 const popup = L.popup();
+// create an array to store markers in for addMarker and clearMarker
+let markers = []
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -11,33 +13,23 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoibWFja2lzb24iLCJhIjoiY2trdTN4M3FvMHBhdzJwbjB2bWFua2RwNSJ9.66BkZT9vhAC042qQSiQdiA'
 }).addTo(mymap);
 
-const marker1 = L.marker([45.40764, -75.695393]).addTo(mymap);
-const marker2 = L.marker([46.40764, -70.695393]).addTo(mymap);
+// const marker1 = L.marker([45.40764, -75.695393]).addTo(mymap);
+// const marker2 = L.marker([46.40764, -70.695393]).addTo(mymap);
 
-const circle1 = L.circle([45.40764, -75.695393], {
-  color: 'red',
-  fillColor: '#f03',
-  fillOpacity: 0.5,
-  radius: 200
-}).addTo(mymap);
+// const circle1 = L.circle([45.40764, -75.695393], {
+//   color: 'red',
+//   fillColor: '#f03',
+//   fillOpacity: 0.5,
+//   radius: 200
+// }).addTo(mymap);
 
-const polygon1 = L.polygon([
-  [45.408815, -75.730648],
-  [45.399053, -75.748672],
-  [45.406646, -75.717087]
-]).addTo(mymap);
-
-// alert pop up
-
-// function onMapClick(e) {
-//   alert("You clicked the map at " + e.latlng);
-// }
-
-// mymap.on('click', onMapClick);
+// const polygon1 = L.polygon([
+//   [45.408815, -75.730648],
+//   [45.399053, -75.748672],
+//   [45.406646, -75.717087]
+// ]).addTo(mymap);
 
 
-// create an array to store markers in???
-let markers = []
 
 function addMarker(e) {
   let mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
@@ -48,7 +40,7 @@ function addMarker(e) {
   } else {
   id = markers[markers.length - 1]._id + 1
   }
-  var popupContent =
+  const popupContent =
     '<p>Some Infomation</p></br>' +
     '<p>This is a test</p></br>' +
     '<button onclick="clearMarker(' + id + ')">Delete</button>';
@@ -79,7 +71,12 @@ function onLocationFound(e) {
   L.marker(e.latlng).addTo(mymap)
     .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-  L.circle(e.latlng, radius).addTo(mymap);
+  L.circle(e.latlng, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 200
+  }).addTo(mymap).bindPopup('You are here');
 }
 
 function onLocationError(e) {
@@ -108,14 +105,9 @@ mymap.on('click', onMapClick);
 mymap.locate({watch:true});
 
 
-polygon1.bindPopup("I am a polygon.");
-marker1.bindPopup('You are here');
-circle1.bindPopup("Here is a circle");
-
-
-
-
-
+// polygon1.bindPopup("I am a polygon.");
+// marker1.bindPopup('You are here');
+// circle1.bindPopup("Here is a circle");
 
 
 
