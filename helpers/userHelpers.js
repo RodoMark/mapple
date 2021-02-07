@@ -27,6 +27,7 @@ const userExists = function(email) {
   )
     .then((res) => {
       if (res) {
+        console.log(res.rows[0])
         return res.rows[0];
       }
       return null;
@@ -34,6 +35,13 @@ const userExists = function(email) {
     .catch(err => console.error('query error', err.stack));
 };
 
-module.exports = {
-  userExists
+const registerTripmine = function(details) {
+
 }
+
+module.exports = {
+  userExists,
+  registerTripmine,
+}
+
+userExists('glenman@mail.com')

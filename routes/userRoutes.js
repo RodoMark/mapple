@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
+const { userExists } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("", (req, res) => {
@@ -29,7 +30,7 @@ module.exports = (db) => {
     const incomingPassword = req.body.password;
 
     if(!req.session.user) {
-      if(emailExists(incomingEmail)) {
+      if(userExists(incomingEmail)) {
         const fetchedUser = fetchUserByEmail(userDatabase, incomingEmail);
         const requestedPassword = fetchedUser.password;
 
