@@ -9,7 +9,7 @@
 
 INSERT INTO users (name, email, password) VALUES ('Alice', 'alice@borderlands.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
 INSERT INTO users (name, email, password) VALUES ('Kira', 'shinigami@deathnote.jp', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
-INSERT INTO users (name) VALUES ('Example', 'email@domain.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
+INSERT INTO users (name, email, password) VALUES ('Example', 'email@domain.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
 INSERT INTO users (email, password) VALUES ('horsewithnoname@punny.co', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
-INSERT INTO users (name) VALUES ('Glenn', 'glenman@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
-INSERT INTO users (name) VALUES ('Kevin', 'iamkenvin@partymachine.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
+INSERT INTO users (name, email, password) VALUES ('Glenn', 'glenman@mail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
+INSERT INTO users (name, email, password) VALUES ('Kevin', 'iamkenvin@partymachine.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u');
