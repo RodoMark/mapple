@@ -4,7 +4,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("index");
+    res.render("maps_by_interest");
   });
 
   router.get("/:query", (req, res) => {
@@ -26,10 +26,11 @@ module.exports = (db) => {
   });
 
   router.post("/:id", (req, res) => {
-    res.render("edit_map");
+
   });
 
   router.post("/new", (req, res) => {
+
   });
 
   return router;
