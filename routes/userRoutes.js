@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const saltRounds = 10
 
 const { userExists } = require('../helpers/userHelpers.js')
 
