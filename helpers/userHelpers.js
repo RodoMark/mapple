@@ -45,6 +45,7 @@ const checkObjectKeyLength = function (obj) {
     return false
 }
 
+// REGISTRATION ERROR FINDER FUNCTION
 const registerTripmine = function(details) {
   let message = null;
 
@@ -62,9 +63,21 @@ const registerTripmine = function(details) {
 
 }
 
+const addNewUser = function (details) {
+
+  const newUser = {
+    name: incomingName || null,
+    email: details.incomingEmail,
+    password: bcrypt.hashSync(details.incomingPassword, saltRounds),
+  };
+
+  return newUser;
+};
+
 module.exports = {
   userExists,
   registerTripmine,
+  addNewUser,
 }
 
 

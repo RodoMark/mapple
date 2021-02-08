@@ -1,6 +1,9 @@
 const express = require('express');
 const router  = express.Router();
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 const { userExists } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
@@ -53,11 +56,14 @@ module.exports = (db) => {
     }
 
     if(!registrationTripmine(details)) {
+
       const newUser = {
-        incomingName,
-        incomingEmail,
-        incomingPassword
+        name: details.incomingName || null,
+        email: details.incomingEmail,
+        password: bcrypt.hashSync(details.incomingPassword, saltRounds),
       }
+
+
       req.session.cookie = newUser
     } else {
       res.status(400)
