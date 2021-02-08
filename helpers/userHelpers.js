@@ -35,7 +35,30 @@ const userExists = function(email) {
     .catch(err => console.error('query error', err.stack));
 };
 
+const checkObjectKeyLength = function (obj) {
+    for (const key in obj) {
+      if(key.length < 1) {
+        return true
+      }
+    }
+
+    return false
+}
+
 const registerTripmine = function(details) {
+  let message = null;
+
+  if (userExists(details.incomingEmail)) {
+    message = `User with the email ${details.incomingEmail} already exists. Please enter a different one.`;
+  } else if (
+    checkObjectKeyLength(details)
+  ) {
+    message = `One or more fields are empty`;
+  } else if (!details.incomingEmail.includes("@")) {
+    message = "Improperly formatted email address.";
+  }
+
+  return message;
 
 }
 
@@ -44,4 +67,4 @@ module.exports = {
   registerTripmine,
 }
 
-userExists('glenman@mail.com')
+
