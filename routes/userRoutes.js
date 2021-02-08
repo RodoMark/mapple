@@ -4,7 +4,7 @@ const router  = express.Router();
 // const bcrypt = require("bcrypt");
 // const saltRounds = 10
 
-const { userExists, authenticateUser, registerTripmine } = require('../helpers/userHelpers.js')
+const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registerTripmine } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("", (req, res) => {
@@ -36,11 +36,12 @@ module.exports = (db) => {
       if(userExists(incomingEmail)) {
 
         if(authenticateUser(incomingEmail, incomingPassword)) {
-          fetchUser(incomingEmail)
+          fetchUserByEmail(incomingEmail)
             .then(output => {
-              req.session.cookie.user = output.id
+              console.log("OUTPUT!", output)
+              req.session.user = output.id
               res.redirect("/profile")
-            })
+          }).catch(err => console.error('query error', err.stack));
 
         }
 

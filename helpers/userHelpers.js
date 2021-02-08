@@ -14,7 +14,6 @@ const userExists = function(email) {
     `, [email]
   )
     .then((output) => {
-        console.log(output.rows[0])
         return output.rows[0];
     })
     .catch(err => console.error('query error', err.stack));
@@ -29,9 +28,7 @@ const authenticateUser = function(incomingEmail, incomingPassword) {
     WHERE email = $1
     `, [incomingEmail]
     ).then(output => {
-      console.log(output.rows[0].password)
-      console.log(output.rows[0].password === incomingPassword)
-      if(output.rows[0] === incomingPassword) {
+      if(output.rows[0].password === incomingPassword) {
         return true
       }
     })
@@ -41,7 +38,7 @@ const authenticateUser = function(incomingEmail, incomingPassword) {
 
 // FETCHES USER INFO BY EMAIL SO WE CAN MAKE A COOKIE
 const fetchUserByEmail = function(incomingEmail){
-  db.query(
+  return db.query(
     `
     SELECT id, name, email
     FROM users
@@ -49,14 +46,15 @@ const fetchUserByEmail = function(incomingEmail){
     `
   , [incomingEmail]
   ).then(output => {
-      const fetchedUser = {
-        id: output.rows[0].id,
-        name: output.rows[0].name,
-        email: output.rows[0].email,
+
+    return {
+      id: output.rows[0].id,
+      name: output.rows[0].name,
+      email: output.rows[0].email,
       }
     }
-  )
-  return fetchedUser
+  ).catch(err => console.error('query error', err.stack));
+
 }
 
 // FETCHES USER INFO BY EMAIL SO WE CAN MAKE A COOKIE
@@ -69,14 +67,14 @@ const fetchUserByID = function(userID){
     `
   , [userID]
   ).then(output => {
-      const fetchedUser = {
-        id: output.rows[0].id,
-        name: output.rows[0].name,
-        email: output.rows[0].email,
+    return {
+      id: output.rows[0].id,
+      name: output.rows[0].name,
+      email: output.rows[0].email,
       }
     }
-  )
-  return fetchedUser
+  ).catch(err => console.error('query error', err.stack));
+
 }
 
 // CHECKS IF OBJECT KEY HAS AT LEAST 1 CHARACTER
@@ -122,6 +120,8 @@ const addNewUser = function (details) {
 module.exports = {
   authenticateUser,
   userExists,
+  fetchUserByEmail,
+  fetchUserByID,
   registerTripmine,
   addNewUser,
 }
