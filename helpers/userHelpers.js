@@ -25,15 +25,29 @@ const userExists = function(email) {
     WHERE email = $1
     `, [email]
   )
-    .then((res) => {
-      if (res) {
-        console.log(res.rows[0])
-        return res.rows[0];
-      }
-      return null;
+    .then((output) => {
+        console.log(output.rows[0])
+        return output.rows[0];
     })
     .catch(err => console.error('query error', err.stack));
 };
+
+const authenticateUser = function(incomingEmail, incomingPassword) {
+  return db.query(
+    `
+    SELECT password
+    FROM users
+    WHERE email = $1
+    `, [incomingEmail]
+    ).then(output => {
+      console.log(output.row[0])
+      console.log(output.row[0] === incomingPassword)
+      if(output.row[0] === incomingPassword) {
+        return true
+      }
+    })
+
+}
 
 const checkObjectKeyLength = function (obj) {
     for (const key in obj) {

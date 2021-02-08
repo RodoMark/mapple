@@ -1,8 +1,8 @@
 const express = require('express');
 const router  = express.Router();
 
-const bcrypt = require("bcrypt");
-const saltRounds = 10
+// const bcrypt = require("bcrypt");
+// const saltRounds = 10
 
 const { userExists } = require('../helpers/userHelpers.js')
 
@@ -34,7 +34,6 @@ module.exports = (db) => {
 
     if(!req.session.user) {
       if(userExists(incomingEmail)) {
-        const fetchedUser = fetchUserByEmail(userDatabase, incomingEmail);
         const requestedPassword = fetchedUser.password;
 
         if (incomingPassword === userPassword) {
