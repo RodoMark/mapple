@@ -1,5 +1,5 @@
-const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
-// const mymap = L.map('mapid').fitWorld();
+// const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
+const mymap = L.map('mapid').fitWorld();
 const popup = L.popup();
 // create an array to store markers in for addMarker and clearMarker
 let markers = []
@@ -13,7 +13,26 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoibWFja2lzb24iLCJhIjoiY2trdTN4M3FvMHBhdzJwbjB2bWFua2RwNSJ9.66BkZT9vhAC042qQSiQdiA'
 }).addTo(mymap);
 
-// const marker1 = L.marker([45.40764, -75.695393]).addTo(mymap);
+const userMarkers = {
+  m1: [
+    43.8399130020632,
+    -79.40664768218996
+  ],
+
+  m2: [
+    43.8399130020532,
+    -79.40664768218996
+    ],
+
+  m3: [
+    43.8399130020789,
+    -79.40664768218996
+  ],
+}
+
+L.marker(userMarkers.m1).addTo(mymap);
+L.marker(userMarkers.m2).addTo(mymap);
+L.marker(userMarkers.m3).addTo(mymap);
 // const marker2 = L.marker([46.40764, -70.695393]).addTo(mymap);
 
 // const circle1 = L.circle([45.40764, -75.695393], {
@@ -31,21 +50,38 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 
 
-function addMarker(e) {
-  let mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
+const renderMap = function(userMarkers) {
+  for (const key in userMarkers) {
+    // click on a specific spot on the screen
+    // or somehow else add using addMarker()
+    // let lat = key[0]
+    // let lng = key[1]
+    let output = L.marker(userMarkers[key]).addTo(mymap);
+    console.log(output)
+  }
+ return output
+}
+
+// we need to be able to use render map to get a bunch of points already saved. then, we need to
+// modify that funtion to access the database, and have it still work.
+const addMarker = function (e) {
+
+let mp = renderMap()
+
+mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
 
   let id;
   if (markers.length < 1) {
     id = 0
   } else {
-  id = markers[markers.length - 1]._id + 1
+  id = markers[markers.length - 1].id + 1
   }
   const popupContent =
     '<p>Some Infomation</p></br>' +
     '<p>This is a test</p></br>' +
     '<button onclick="clearMarker(' + id + ')">Delete</button>';
 
-    mp._id = id
+    mp.id = id
     mp.bindPopup(popupContent, {
       closeButton: false
     });
@@ -53,18 +89,18 @@ function addMarker(e) {
     markers.push(mp)
 }
 
-function clearMarker(id) {
+const clearMarker = function(id) {
 	console.log(markers)
   let new_markers = []
   markers.forEach(function(marker) {
-    if (marker._id === id) mymap.removeLayer(marker)
+    if (marker.id === id) mymap.removeLayer(marker)
     else new_markers.push(marker)
   })
   markers = new_markers
 }
 
 
-function onLocationFound(e) {
+const onLocationFound = function(e) {
   console.log(e)
   const radius = e.accuracy / 2;
 
@@ -79,11 +115,11 @@ function onLocationFound(e) {
   }).addTo(mymap).bindPopup('You are here');
 }
 
-function onLocationError(e) {
+const onLocationError = function(e) {
   alert(e.message);
 }
 
-function onMapClick(e) {
+const onMapClick = function (e) {
   // popup
   //     .setLatLng(e.latlng)
   //     .setContent("You clicked the map at " + e.latlng.toString())
