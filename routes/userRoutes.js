@@ -4,7 +4,7 @@ const router  = express.Router();
 // const bcrypt = require("bcrypt");
 // const saltRounds = 10
 
-const { userExists } = require('../helpers/userHelpers.js')
+const { userExists, authenticateUser, registerTripmine } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("", (req, res) => {
@@ -34,9 +34,8 @@ module.exports = (db) => {
 
     if(!req.session.user) {
       if(userExists(incomingEmail)) {
-        const requestedPassword = fetchedUser.password;
 
-        if (incomingPassword === userPassword) {
+        if(authenticateUser(incomingEmail, incomingPassword)) {
           res.session.user = fetchedUser
           res.redirect("/profile")
         }
