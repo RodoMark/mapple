@@ -38,8 +38,8 @@ CREATE TABLE maps (
 CREATE TABLE markers (
   id SERIAL PRIMARY KEY NOT NULL,
   map_id INTEGER REFERENCES maps(id) NOT NULL,
-  x_coordinate DECIMAL(5, 3) NOT NULL,
-  y_coordinate DECIMAL(5, 3) NOT NULL,
+  lat DECIMAL(16, 14) NOT NULL,
+  lng DECIMAL(16, 14) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT DEFAULT NULL,
   created_at TIMESTAMP

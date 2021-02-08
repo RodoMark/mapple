@@ -1,6 +1,10 @@
 const express = require('express');
 const router  = express.Router();
 
+// const bcrypt = require("bcrypt");
+// const saltRounds = 10
+
+const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registerTripmine } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("", (req, res) => {
@@ -29,14 +33,18 @@ module.exports = (db) => {
     const incomingPassword = req.body.password;
 
     if(!req.session.user) {
-      if(emailExists(incomingEmail)) {
-        const fetchedUser = fetchUserByEmail(userDatabase, incomingEmail);
-        const requestedPassword = fetchedUser.password;
+      if(userExists(incomingEmail)) {
 
-        if (incomingPassword === userPassword) {
-          res.session.user = fetchedUser
-          res.redirect("/profile")
+        if(authenticateUser(incomingEmail, incomingPassword)) {
+          fetchUserByEmail(incomingEmail)
+            .then(output => {
+              console.log("OUTPUT!", output)
+              req.session.user = output.id
+              res.redirect("/profile")
+          }).catch(err => console.error('query error', err.stack));
+
         }
+
       } else {
         res.status(400)
         res.send('Login info incorrect.')
@@ -52,11 +60,14 @@ module.exports = (db) => {
     }
 
     if(!registrationTripmine(details)) {
+
       const newUser = {
-        incomingName,
-        incomingEmail,
-        incomingPassword
+        name: details.incomingName || null,
+        email: details.incomingEmail,
+        password: bcrypt.hashSync(details.incomingPassword, saltRounds),
       }
+
+
       req.session.cookie = newUser
     } else {
       res.status(400)
