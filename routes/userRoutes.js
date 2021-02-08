@@ -36,9 +36,14 @@ module.exports = (db) => {
       if(userExists(incomingEmail)) {
 
         if(authenticateUser(incomingEmail, incomingPassword)) {
-          res.session.user = fetchedUser
-          res.redirect("/profile")
+          fetchUser(incomingEmail)
+            .then(output => {
+              req.session.cookie.user = output.id
+              res.redirect("/profile")
+            })
+
         }
+
       } else {
         res.status(400)
         res.send('Login info incorrect.')

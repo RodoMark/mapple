@@ -29,9 +29,9 @@ const authenticateUser = function(incomingEmail, incomingPassword) {
     WHERE email = $1
     `, [incomingEmail]
     ).then(output => {
-      console.log(output.row[0])
-      console.log(output.row[0] === incomingPassword)
-      if(output.row[0] === incomingPassword) {
+      console.log(output.rows[0].password)
+      console.log(output.rows[0].password === incomingPassword)
+      if(output.rows[0] === incomingPassword) {
         return true
       }
     })
@@ -39,9 +39,8 @@ const authenticateUser = function(incomingEmail, incomingPassword) {
 
 }
 
-// FETCHES USER INFO SO WE CAN MAKE A COOKIE
-const fetchUser = function(incomingEmail){
-  // query database for user info
+// FETCHES USER INFO BY EMAIL SO WE CAN MAKE A COOKIE
+const fetchUserByEmail = function(incomingEmail){
   db.query(
     `
     SELECT id, name, email
@@ -56,14 +55,31 @@ const fetchUser = function(incomingEmail){
         email: output.rows[0].email,
       }
     }
-
   )
-
-  // make an object that has user_id, name, and email in it
-
   return fetchedUser
 }
 
+// FETCHES USER INFO BY EMAIL SO WE CAN MAKE A COOKIE
+const fetchUserByID = function(userID){
+  db.query(
+    `
+    SELECT id, name, email
+    FROM users
+    WHERE id = $1
+    `
+  , [userID]
+  ).then(output => {
+      const fetchedUser = {
+        id: output.rows[0].id,
+        name: output.rows[0].name,
+        email: output.rows[0].email,
+      }
+    }
+  )
+  return fetchedUser
+}
+
+// CHECKS IF OBJECT KEY HAS AT LEAST 1 CHARACTER
 const checkObjectKeyLength = function (obj) {
     for (const key in obj) {
       if(key.length < 1) {
