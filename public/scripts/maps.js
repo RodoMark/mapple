@@ -1,7 +1,7 @@
 // PG database client/connection setup
-const { Pool } = require('pg');
-const dbParams = require('../lib/db');
-const db = new Pool(dbParams);
+// const { Pool } = require('pg');
+// const dbParams = require('../lib/db');
+// const db = new Pool(dbParams);
 
 
 // const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
@@ -99,20 +99,6 @@ const fetchMapsByMapID = function(mapID) {
     `, [mapID])
 
 }
-
-// const renderMap = function(userMarkers) {
-//   for (const key in userMarkers) {
-//     // click on a specific spot on the screen
-//     // or somehow else add using addMarker()
-//     // let lat = key[0]
-//     // let lng = key[1]
-//     let output = L.marker(userMarkers[key]).addTo(mymap);
-//     console.log(output)
-//   }
-//  return output
-// }
-
-
 
 // we need to be able to use render map to get a bunch of points already saved. then, we need to
 // modify that funtion to access the database, and have it still work.
