@@ -27,7 +27,7 @@ const deleteMarker = function(markerID) {
   return db.query(
     `
     DELETE FROM markers
-    WHERE marker_id = $1
+    WHERE id = $1
     `, [markerID])
 
 }
