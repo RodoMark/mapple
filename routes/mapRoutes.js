@@ -7,6 +7,10 @@ module.exports = (db) => {
     res.render("maps_by_interest");
   });
 
+  router.get("/example", (req, res) => {
+    res.render("map_template");
+  });
+
   router.get("/:search", (req, res) => {
     return db.query(
       // Search query goes here
