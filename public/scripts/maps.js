@@ -3,6 +3,10 @@
 // const dbParams = require('../lib/db');
 // const db = new Pool(dbParams);
 
+// const { userExists } = require('../../helpers/userHelpers.js')
+
+
+
 
 // const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
 const mymap = L.map('mapid').fitWorld();
