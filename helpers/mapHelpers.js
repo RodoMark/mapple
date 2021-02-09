@@ -8,15 +8,9 @@ const fetchMapsByUserID = function(userID) {
   `
   SELECT id
   FROM maps
-  WHERE owner_id = 1
+  WHERE owner_id = $1
   `
-  , [userID]).then(output => {
-    return {
-      lat: output.rows[0].lat,
-      lng: output.rows[0].lng}
-  }
-
-  )
+  , [userID])
 }
 
 const fetchMarkersByMapID = function(mapID) {

@@ -130,7 +130,7 @@ const clearMarker = function(id) {
 }
 
 
-const onLocationFound = function(e) {
+const onLocationFound = function(e, markers) {
   console.log(e)
   const radius = e.accuracy / 2;
 
@@ -146,8 +146,7 @@ const onLocationFound = function(e) {
   }).addTo(mymap).bindPopup('You are here');
 
   for (let m in userMarkers) {
-    console.log("---------LOOP STARTS---------")
-  // addMarker({latlng: {lat: 45.411406096232525, lng: -75.68974971771242}})
+
   addMarker({latlng: userMarkers[m]})
   }
 
@@ -188,7 +187,9 @@ mymap.locate({setView: true, maxZoom: 16});
 // marker1.bindPopup('You are here');
 // circle1.bindPopup("Here is a circle");
 
-
+window.mapHelpers = {
+  onLocationFound,
+}
 
 
 

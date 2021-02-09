@@ -29,12 +29,8 @@ module.exports = (db) => {
   });
 
   router.get("/:mapID/latlng/", (req, res) => {
-
-      // Search query goes here
-      // console.log('querying markers', req.params)
       return fetchMarkersByMapID(req.params.mapID)
       .then(output => {
-      //     console.log("SENDING MAP COORDINATES")
           res.send(output.rows)
         })
     ;
