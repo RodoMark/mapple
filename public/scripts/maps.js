@@ -104,11 +104,6 @@ const fetchMapsByMapID = function(mapID) {
 
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f1efb8eceaa60a4e696a4e1b34a9e722a2039559
 // we need to be able to use render map to get a bunch of points already saved. then, we need to
 // modify that funtion to access the database, and have it still work.
 
