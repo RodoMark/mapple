@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMarkersByMapID } = require('../helpers/mapHelpers.js')
+const { fetchMarkersByMapID, clearMarker } = require('../helpers/mapHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -50,6 +50,11 @@ module.exports = (db) => {
   router.post("/:id", (req, res) => {
 
   });
+
+  router.delete("/maps/:map_id/markers/:marker_id", (req, res) => {
+    clearMarker(req.params.marker_id)
+    res.end()
+  })
 
   router.post("/new", (req, res) => {
     db.query(

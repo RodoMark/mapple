@@ -40,14 +40,17 @@ $.ajax({
   populateMarkers(output)
 });
 
+const marker_id = 2
+
+$.ajax({
+  url: `/maps/${map_id}/markers/${marker_id}`,
+  method: 'DELETE'
+}).then(output => {
+  // populateMarkers(output)
+});
 
 
 // const mymap = L.map(`mapid-${details.id}`).setView([details.lat_start, details.lng_start], details.zoom)
-
-
-
-
-
 
 const popup = L.popup();
 // create an array to store markers in for addMarker and clearMarker
