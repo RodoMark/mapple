@@ -1,10 +1,10 @@
 const express = require('express');
 const router  = express.Router();
 
-const bcrypt = require("bcrypt");
-const saltRounds = 10
+// const bcrypt = require("bcrypt");
+// const saltRounds = 10
 
-const { userExists } = require('../helpers/userHelpers.js')
+const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrationTripmine } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("", (req, res) => {
@@ -34,13 +34,17 @@ module.exports = (db) => {
 
     if(!req.session.user) {
       if(userExists(incomingEmail)) {
-        const fetchedUser = fetchUserByEmail(userDatabase, incomingEmail);
-        const requestedPassword = fetchedUser.password;
 
-        if (incomingPassword === userPassword) {
-          res.session.user = fetchedUser
-          res.redirect("/profile")
+        if(authenticateUser(incomingEmail, incomingPassword)) {
+          fetchUserByEmail(incomingEmail)
+            .then(output => {
+              console.log("OUTPUT!", output)
+              req.session.user = output.id
+              res.redirect("/profile")
+          }).catch(err => console.error('query error', err.stack));
+
         }
+
       } else {
         res.status(400)
         res.send('Login info incorrect.')
@@ -50,7 +54,7 @@ module.exports = (db) => {
 
   router.post("/register", (req, res) => {
     details = {
-      incomingName: req.username,
+      incomingName: req.handle,
       incomingEmail: req.email,
       incomingPassword: req.password
     }
@@ -65,6 +69,7 @@ module.exports = (db) => {
 
 
       req.session.cookie = newUser
+      res.redirect("/maps")
     } else {
       res.status(400)
       res.send(registrationTripmine(details))

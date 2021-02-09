@@ -13,21 +13,17 @@ CREATE TABLE users (
 
 CREATE TABLE interests (
   id SERIAL PRIMARY KEY NOT NULL,
-<<<<<<< HEAD:migrations/1_users.sql
-  name VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE markers (
   id SERIAL PRIMARY KEY NOT NULL,
-  map_id INTEGER REFRENCES maps(id),
+  map_id INTEGER REFERENCES maps(id),
   x_coordinate DECIMAL(8, 6) NOT NULL,
   y_coordinate DECIMAL(8, 6) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
   created_at TIMESTAMP
-=======
-  name VARCHAR(255) NOT NULL
->>>>>>> origin:db/migrations/01_users.sql
 );
 
 CREATE TABLE maps (
@@ -42,8 +38,8 @@ CREATE TABLE maps (
 CREATE TABLE markers (
   id SERIAL PRIMARY KEY NOT NULL,
   map_id INTEGER REFERENCES maps(id) NOT NULL,
-  x_coordinate DECIMAL(5, 3) NOT NULL,
-  y_coordinate DECIMAL(5, 3) NOT NULL,
+  lat DECIMAL(16, 14) NOT NULL,
+  lng DECIMAL(16, 14) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT DEFAULT NULL,
   created_at TIMESTAMP
