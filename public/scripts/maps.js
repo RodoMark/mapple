@@ -1,3 +1,9 @@
+// PG database client/connection setup
+const { Pool } = require('pg');
+const dbParams = require('../lib/db');
+const db = new Pool(dbParams);
+
+
 // const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
 const mymap = L.map('mapid').fitWorld();
 const popup = L.popup();
@@ -12,23 +18,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoibWFja2lzb24iLCJhIjoiY2trdTN4M3FvMHBhdzJwbjB2bWFua2RwNSJ9.66BkZT9vhAC042qQSiQdiA'
 }).addTo(mymap);
-
-const userMarkers = {
-  m1: [
-    43.8399130020632,
-    -79.40664768218996
-  ],
-
-  m2: [
-    43.8399130020532,
-    -79.40664768218996
-    ],
-
-  m3: [
-    43.8399130020789,
-    -79.40664768218996
-  ],
-}
 
 L.marker(userMarkers.m1).addTo(mymap);
 L.marker(userMarkers.m2).addTo(mymap);
@@ -48,19 +37,33 @@ L.marker(userMarkers.m3).addTo(mymap);
 //   [45.406646, -75.717087]
 // ]).addTo(mymap);
 
+const fetchMapsByUserID = function(userID) {
+    return db.query(
+    `
+    SELECT id
+    FROM maps
+    WHERE owner_id = 1
+    `
+    , [userID]).then(output => {
+      return {
+        lat: output.rows[0].lat,
+        lng: output.rows[0].lng}
+    }
 
-
-const renderMap = function(userMarkers) {
-  for (const key in userMarkers) {
-    // click on a specific spot on the screen
-    // or somehow else add using addMarker()
-    // let lat = key[0]
-    // let lng = key[1]
-    let output = L.marker(userMarkers[key]).addTo(mymap);
-    console.log(output)
-  }
- return output
+    )
 }
+
+const fetchMapsByMapID = function(mapID) {
+  return db.query(
+    `
+    SELECT lat, lng
+    FROM markers
+    WHERE map_id = 1
+    `, [mapID])
+  
+}
+
+
 
 // we need to be able to use render map to get a bunch of points already saved. then, we need to
 // modify that funtion to access the database, and have it still work.
