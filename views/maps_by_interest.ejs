@@ -27,6 +27,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -34,25 +35,103 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <!-- Bootstrap JS -->
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/styles/custom.css" type="text/css" />
 
 </head>
 
 <body>
   <%- include("partials/_header") %>
-    <h1>Hello World!</h1>
+    <div class="container" style="border-top:0">
+      <div class="container2" style="height:70px"></div>
+      <div class="container1">
+        <div class="row" style="margin-bottom:4em">
+          <div class="col-lg-4 d-flex flex-column align-items-center">
+            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+              role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#bedbb6"></rect><text x="50%" y="50%" fill="#bedbb6"
+                dy=".3em">140x140</text> d-flex justify-content-center
+            </svg>
+            <h2>Interest1</h2>
+            <p>Description</p>
+            <p>
+              <a class="btn btn-secondary" href="#" role="button" style="background: green">View</a>
+            </p>
+          </div>
+          <div class=" col-lg-4 d-flex flex-column align-items-center">
+            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+              role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#bedbb6"></rect><text x="50%" y="50%" fill="#bedbb6"
+                dy=".3em">140x140</text>
+            </svg>
+            <h2>Interest1</h2>
+            <p>Description</p>
+            <p>
+              <a class="btn btn-secondary" href="#" role="button" style="background: green">View</a>
+            </p>
+          </div>
+          <div class=" col-lg-4 d-flex flex-column align-items-center">
+            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg"
+              role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#bedbb6"></rect><text x="50%" y="50%" fill="#bedbb6"
+                dy=".3em">140x140</text>
+            </svg>
+            <h2>Interest1</h2>
+            <p>Description</p>
+            <p>
+              <a class="btn btn-secondary" href="#" role="button" style="background: green">View</a>
+            </p>
+          </div>
+        </div>
+        <hr class="featurette-divider">
+        <div class="row featurette" style="margin-top:4em">
+          <div class="col-md-7">
+            <h2 class="featurette-heading" style="color:rgb(81, 81, 81)">
+              "Super cool example map"
+              <span class="text-muted">"Check it out"</span>
+            </h2>
+            <p class="lead">"description text inside"</p>
+          </div>
+          <div class="col-md-5">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+              height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+              preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">"Example
+                map"</text>
+            </svg>
+          </div>
+        </div>
+        <hr class="featurette-divider" style="margin-top:4em; margin-bottom:1em">
+      </div>
+      <footer class="container4">
+        <p>© 2021 Mapple project</p>
+      </footer>
+    </div>
 
     <div id="mapid"></div>
     <script type="text/javascript" src="/scripts/maps.js"></script>
   </body>
 </html>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"></script>
 </body>
 
 </html>
