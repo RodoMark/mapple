@@ -1,4 +1,11 @@
 // PG database client/connection setup
+// const { Pool } = require('pg');
+// const dbParams = require('../lib/db');
+// const db = new Pool(dbParams);
+
+// const { userExists } = require('../../helpers/userHelpers.js')
+
+
 
 
 // const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
@@ -97,8 +104,11 @@ const fetchMapsByMapID = function(mapID) {
 
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f1efb8eceaa60a4e696a4e1b34a9e722a2039559
 // we need to be able to use render map to get a bunch of points already saved. then, we need to
 // modify that funtion to access the database, and have it still work.
 
