@@ -13,26 +13,46 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoibWFja2lzb24iLCJhIjoiY2trdTN4M3FvMHBhdzJwbjB2bWFua2RwNSJ9.66BkZT9vhAC042qQSiQdiA'
 }).addTo(mymap);
 
+// latlng: m1 ----> {latlng: {lat: x, lng: y}}
+
+
 const userMarkers = {
-  m1: [
-    43.8399130020632,
-    -79.40664768218996
-  ],
+  m1: {
+    lat: 45.410216064971344,
+    lng: -75.6917452812195
+  },
 
-  m2: [
-    43.8399130020532,
-    -79.40664768218996
-    ],
+  m2: {
+    lat: 45.40953818785395,
+    lng: -75.69047927856447
+  },
 
-  m3: [
-    43.8399130020789,
-    -79.40664768218996
-  ],
+  m3: {
+    lat: 45.411406096232525,
+    lng: -75.68974971771242
+  },
+
+  m4: {
+    lat: 45.411426098232525,
+    lng: -75.68974971771242
+  },
+
+  m5: {
+    lat: 45.41426098232525,
+    lng: -75.68974971771242
+  },
+
+  m6: {
+    lat: 45.40053818785895,
+    lng: -75.69047627856547
+  },
 }
 
-L.marker(userMarkers.m1).addTo(mymap);
-L.marker(userMarkers.m2).addTo(mymap);
-L.marker(userMarkers.m3).addTo(mymap);
+// L.marker(userMarkers.m1).addTo(mymap);
+// L.marker(userMarkers.m2).addTo(mymap);
+// L.marker(userMarkers.m3).addTo(mymap);
+
+
 // const marker2 = L.marker([46.40764, -70.695393]).addTo(mymap);
 
 // const circle1 = L.circle([45.40764, -75.695393], {
@@ -50,24 +70,25 @@ L.marker(userMarkers.m3).addTo(mymap);
 
 
 
-const renderMap = function(userMarkers) {
-  for (const key in userMarkers) {
-    // click on a specific spot on the screen
-    // or somehow else add using addMarker()
-    // let lat = key[0]
-    // let lng = key[1]
-    let output = L.marker(userMarkers[key]).addTo(mymap);
-    console.log(output)
-  }
- return output
-}
+// const renderMap = function(userMarkers) {
+//   for (const key in userMarkers) {
+//     // click on a specific spot on the screen
+//     // or somehow else add using addMarker()
+//     // let lat = key[0]
+//     // let lng = key[1]
+//     let output = L.marker(userMarkers[key]).addTo(mymap);
+//     console.log(output)
+//   }
+//  return output
+// }
 
 // we need to be able to use render map to get a bunch of points already saved. then, we need to
 // modify that funtion to access the database, and have it still work.
+
+// event = e
 const addMarker = function (e) {
-
-let mp = renderMap()
-
+console.log("addMArker", e);
+// {{latlng: {lat: 45.411406096232525, lng: -75.68974971771242}}
 mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
 
   let id;
@@ -113,7 +134,18 @@ const onLocationFound = function(e) {
     fillOpacity: 0.5,
     radius: 200
   }).addTo(mymap).bindPopup('You are here');
+
+  for (let m in userMarkers) {
+  // addMarker({latlng: {lat: 45.411406096232525, lng: -75.68974971771242}})
+  addMarker({latlng: userMarkers[m]})
+  }
+
 }
+  // L.marker(userMarkers.m1).addTo(mymap);
+  // L.marker(userMarkers.m2).addTo(mymap);
+  // L.marker(userMarkers.m3).addTo(mymap);
+
+
 
 const onLocationError = function(e) {
   alert(e.message);
@@ -137,8 +169,8 @@ mymap.on('locationfound', onLocationFound);
 mymap.on('locationerror', onLocationError);
 mymap.on('click', onMapClick);
 
-// mymap.locate({setView: true, maxZoom: 16});
-mymap.locate({watch:true});
+mymap.locate({setView: true, maxZoom: 16});
+// mymap.locate({watch:true});
 
 
 // polygon1.bindPopup("I am a polygon.");
