@@ -1,0 +1,28 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+
+
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.8em;
+  color:aliceblue, fill
+}
+
+
+.avatar {
+  width: 85px;
+  height: 75px;
+  margin-right: 1.5em;
+}
+
+.navbar {
+  background: linear-gradient(to bottom right, #bedbb6 40%, #d4dbd2 100%);
+}
+
+.container {
+  background: linear-gradient(to bottom right,#eef7ec 30%,#e5f4e1  100%);
+  // background-color:#edf6eb; 
+  border: 4px outset #C3E3C1;
+}
