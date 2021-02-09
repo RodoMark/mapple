@@ -21,7 +21,7 @@ module.exports = (db) => {
   });
 
   router.get("/register", (req, res) => {
-    if(req.session.user) {
+    if(!req.session.user) {
       res.render("register");
     } else {
       res.redirect("/maps")
