@@ -37,3 +37,7 @@
 .card:hover {
   box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
 }
+
+.card-body {
+  background: linear-gradient(to bottom right, #ecf1eb 40%, #ffffff 100%);
+}
