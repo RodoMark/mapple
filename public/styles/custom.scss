@@ -27,4 +27,13 @@
   border: 4px outset #C3E3C1;
 }
 
-.col:hover{transform:scale(1.7);}
+.col:hover{
+  transform:scale(1.06);
+}
+.card {
+  box-shadow: 0.3px 0.3px 9px 1px rgba(1, 42, 0, 0.75);
+}
+
+.card:hover {
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
+}
