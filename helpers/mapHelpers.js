@@ -1,7 +1,7 @@
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('../lib/db');
-const db = new Pool(dbParams);
+const db = new Pool(dbParams)c
 
 const fetchMapsByUserID = function(userID) {
   return db.query(
@@ -34,6 +34,10 @@ const clearMarker = function(markerID) {
 
 
 module.exports = {
-  fetchMarkersByMapID,
+  fet
+chMarkersByMapID,
   clearMarker
+
+
 }
+maps/

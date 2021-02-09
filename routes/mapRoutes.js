@@ -54,12 +54,6 @@ module.exports = (db) => {
   router.delete("/maps/:map_id/markers/:marker_id", (req, res) => {
     clearMarker(req.params.marker_id)
     res.end()
-  })
-
-  router.post("/new", (req, res) => {
-    db.query(
-
-    )
   });
 
   return router;
