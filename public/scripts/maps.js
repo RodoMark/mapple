@@ -87,21 +87,7 @@ const userMarkers = {
 //   [45.406646, -75.717087]
 // ]).addTo(mymap);
 
-const fetchMapsByUserID = function(userID) {
-    return db.query(
-    `
-    SELECT id
-    FROM maps
-    WHERE owner_id = 1
-    `
-    , [userID]).then(output => {
-      return {
-        lat: output.rows[0].lat,
-        lng: output.rows[0].lng}
-    }
 
-    )
-}
 
 
 
