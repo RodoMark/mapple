@@ -22,7 +22,7 @@ module.exports = (db) => {
       `
     , [req.body.search]).then(
 
-      res.render("map_show", templateVars)
+      res.render("map_show")
     )
     ;
   });
