@@ -1,9 +1,7 @@
-// PG database client/connection setup
-// const { Pool } = require('pg');
-// const dbParams = require('../lib/db');
-// const db = new Pool(dbParams);
+// render map with starting lat and lng and zoom from user
+//
 
-// const { userExists } = require('../../helpers/userHelpers.js')
+
 
 // const greenIcon = L.icon({
 //   iconUrl: 'green.png',
@@ -16,6 +14,9 @@
 //   popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 // });
 
+$(document).ready(function () {
+
+const map_id = 1
 
 const details = {
  lat_start: 45.407031,
@@ -26,17 +27,24 @@ const details = {
 const mymap = L.map('mapid').setView([details.lat_start, details.lng_start], details.zoom);
 
 
+const populateMarkers = function(arr) {
+  for (const m of arr) {
+    L.marker([m.lat, m.lng]).addTo(mymap)
+  }
+}
+
+$.ajax({
+  url: `/maps/${map_id}/points`,
+  method: 'GET'
+}).then(output => {
+  populateMarkers(output)
+});
+
+
+
 // const mymap = L.map(`mapid-${details.id}`).setView([details.lat_start, details.lng_start], details.zoom)
 
-const definedData = [{"lat":"45.39603920754866","lng":"-75.67670345306398"},{"lat":"45.40269870584852","lng":"-75.68674564361574"},{"lat":"45.39911291968070","lng":"-75.68447113037110"},{"lat":"45.40541049382391","lng":"-75.68955659866334"},{"lat":"45.40910548803815","lng":"-75.68851131967678"},{"lat":"45.40427385054299","lng":"-75.68928994282034"},{"lat":"45.41081186891614","lng":"-75.68976201160696"}]
 
-const populateMarkers = function(arr) {
-    for (const m of arr) {
-      L.marker([m.lat, m.lng]).addTo(mymap)
-    }
-  }
-
-populateMarkers(definedData)
 
 
 
@@ -122,6 +130,8 @@ console.log("addMArker", e);
 // {{latlng: {lat: 45.411406096232525, lng: -75.68974971771242}}
 mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
 
+
+
   let id;
   if (markers.length < 1) {
     id = 0
@@ -205,5 +215,5 @@ mymap.on('click', onMapClick);
 // circle1.bindPopup("Here is a circle");
 
 
-
+});
 

@@ -28,7 +28,7 @@ module.exports = (db) => {
     ;
   });
 
-  router.get("/:mapID/latlng/", (req, res) => {
+  router.get("/:mapID/points/", (req, res) => {
       return fetchMarkersByMapID(req.params.mapID)
       .then(output => {
           res.send(output.rows)

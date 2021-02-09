@@ -16,7 +16,7 @@ const fetchMapsByUserID = function(userID) {
 const fetchMarkersByMapID = function(mapID) {
   return db.query(
     `
-    SELECT lat, lng
+    SELECT id, lat, lng
     FROM markers
     WHERE map_id = $1
     `, [mapID])
