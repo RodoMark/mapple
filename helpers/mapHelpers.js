@@ -23,7 +23,7 @@ const fetchMarkersByMapID = function(mapID) {
 
 }
 
-const clearMarker = function(markerID) {
+const deleteMarker = function(markerID) {
   return db.query(
     `
     DELETE FROM markers
@@ -32,8 +32,18 @@ const clearMarker = function(markerID) {
 
 }
 
+const insertMarker = function(details) {
+  return db.query(
+    `
+    INSERT INTO markers
+    VALUES ($1, $2, $3, $4, $5)
+    `, [details.map_id, details.lat, details.lng, details.title, details.description])
+}
+
 
 module.exports = {
+  fetchMapsByUserID,
   fetchMarkersByMapID,
-  clearMarker
+  deleteMarker,
+  insertMarker,
 }
