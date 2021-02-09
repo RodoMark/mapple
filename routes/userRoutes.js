@@ -77,7 +77,7 @@ module.exports = (db) => {
   });
 
   router.post("/logout", (req, res) => {
-    req.session.user = null
+    req.session = null
     res.redirect("/maps")
   })
 
