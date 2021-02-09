@@ -40,14 +40,17 @@ $.ajax({
   populateMarkers(output)
 });
 
-const marker_id = 2
+const marker_id = 4
 
-$.ajax({
-  url: `/maps/${map_id}/markers/${marker_id}`,
-  method: 'DELETE'
-}).then(output => {
-  // populateMarkers(output)
-});
+const removeMarker = function() {
+  $.ajax({
+    url: `/maps/${map_id}/markers/${marker_id}`,
+    method: 'DELETE'
+  })
+}
+
+$('#delete-btn').on('click', removeMarker)
+
 
 
 // const mymap = L.map(`mapid-${details.id}`).setView([details.lat_start, details.lng_start], details.zoom)
