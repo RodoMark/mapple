@@ -17,15 +17,16 @@
 // });
 
 
-// const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
 const details = {
-  id: 1,
-  lat_start: 45.407031,
-  lng_start: -75.690927,
-  zoom: 13,
+ lat_start: 45.407031,
+ lng_start: -75.690927,
+  zoom: 13
 }
 
-const mymap = L.map(`mapid-${details.id}`).setView([details.lat_start, details.lng_start], details.zoom)
+const mymap = L.map('mapid').setView([details.lat_start, details.lng_start], details.zoom);
+
+
+// const mymap = L.map(`mapid-${details.id}`).setView([details.lat_start, details.lng_start], details.zoom)
 
 const definedData = [{"lat":"45.39603920754866","lng":"-75.67670345306398"},{"lat":"45.40269870584852","lng":"-75.68674564361574"},{"lat":"45.39911291968070","lng":"-75.68447113037110"},{"lat":"45.40541049382391","lng":"-75.68955659866334"},{"lat":"45.40910548803815","lng":"-75.68851131967678"},{"lat":"45.40427385054299","lng":"-75.68928994282034"},{"lat":"45.41081186891614","lng":"-75.68976201160696"}]
 
@@ -151,31 +152,24 @@ const clearMarker = function(id) {
 }
 
 
-const onLocationFound = function(e) {
-  console.log(e)
-  const radius = e.accuracy / 2;
+// const onLocationFound = function(e) {
+//   console.log(e)
+//   const radius = e.accuracy / 2;
 
-  // L.marker(e.latlng, {icon: greenIcon} ).addTo(mymap)
-  L.marker(e.latlng ).addTo(mymap)
-    .bindPopup("You are within " + radius + " meters from this point").openPopup();
+//   // L.marker(e.latlng, {icon: greenIcon} ).addTo(mymap)
+//   L.marker(e.latlng ).addTo(mymap)
+//     .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-  L.circle(e.latlng, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 200
-  }).addTo(mymap).bindPopup('You are here');
-
-
-
-}
-  // L.marker(userMarkers.m1).addTo(mymap);
-  // L.marker(userMarkers.m2).addTo(mymap);
-  // L.marker(userMarkers.m3).addTo(mymap);
+//   L.circle(e.latlng, {
+//     color: 'red',
+//     fillColor: '#f03',
+//     fillOpacity: 0.5,
+//     radius: 200
+//   }).addTo(mymap).bindPopup('You are here');
 
 
 
-
+// }
 
 
 
@@ -198,11 +192,11 @@ const onMapClick = function (e) {
 
 
 
-mymap.on('locationfound', onLocationFound);
-mymap.on('locationerror', onLocationError);
+// mymap.on('locationfound', onLocationFound);
+// mymap.on('locationerror', onLocationError);
 mymap.on('click', onMapClick);
 
-mymap.locate({setView: true, maxZoom: 16});
+// mymap.locate({setView: true, maxZoom: 16});
 // mymap.locate({watch:true});
 
 
@@ -210,9 +204,6 @@ mymap.locate({setView: true, maxZoom: 16});
 // marker1.bindPopup('You are here');
 // circle1.bindPopup("Here is a circle");
 
-window.mapHelpers = {
-  onLocationFound,
-}
 
 
 
