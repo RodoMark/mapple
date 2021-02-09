@@ -36,9 +36,6 @@ module.exports = (db) => {
     ;
   });
 
-
-i
-
   router.get("/:id", (req, res) => {
     res.render("map_show");
   });
@@ -52,6 +49,7 @@ i
   });
 
   router.delete("/maps/:map_id/markers/:marker_id", (req, res) => {
+    console.log("MARKER ID", req.params.marker_id)
     deleteMarker(req.params.marker_id)
     res.end()
   })

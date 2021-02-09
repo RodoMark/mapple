@@ -123,7 +123,7 @@ mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
   const popupContent =
     '<p>Some Infomation</p></br>' +
     '<p>This is a test</p></br>' +
-    '<button class="btn" onclick="clearMarker(' + id + ')">Delete</button>';
+    '<button onclick="clearMarker(' + id + ')">Delete</button>';
 
     mp.id = id
     mp.bindPopup(popupContent, {
@@ -201,4 +201,8 @@ mymap.locate({setView: true, maxZoom: 16});
 // polygon1.bindPopup("I am a polygon.");
 // marker1.bindPopup('You are here');
 // circle1.bindPopup("Here is a circle");
+
+
+
+
 

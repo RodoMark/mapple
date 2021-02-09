@@ -28,7 +28,7 @@ const deleteMarker = function(markerID) {
     `
     DELETE FROM markers
     WHERE marker_id = $1
-    `, [mapID])
+    `, [markerID])
 
 }
 
