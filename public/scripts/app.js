@@ -17,7 +17,7 @@ $(document).ready(function () {
     $.ajax({
       url: "http://localhost:8080/maps/:id/latlng",
       method: "GET",
-    }).then(function (e, markers) {
+    }).then(function (e) {
       window.mapHelpers.onLocationFound
     });
   };

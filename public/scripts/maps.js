@@ -130,7 +130,7 @@ const clearMarker = function(id) {
 }
 
 
-const onLocationFound = function(e, markers) {
+const onLocationFound = function(e) {
   console.log(e)
   const radius = e.accuracy / 2;
 
@@ -145,15 +145,25 @@ const onLocationFound = function(e, markers) {
     radius: 200
   }).addTo(mymap).bindPopup('You are here');
 
-  for (let m in userMarkers) {
 
-  addMarker({latlng: userMarkers[m]})
-  }
 
 }
   // L.marker(userMarkers.m1).addTo(mymap);
   // L.marker(userMarkers.m2).addTo(mymap);
   // L.marker(userMarkers.m3).addTo(mymap);
+
+const dataforDumDums = [{"lat":"45.39603920754866","lng":"-75.67670345306398"},{"lat":"45.40269870584852","lng":"-75.68674564361574"},{"lat":"45.39911291968070","lng":"-75.68447113037110"},{"lat":"45.40541049382391","lng":"-75.68955659866334"},{"lat":"45.40910548803815","lng":"-75.68851131967678"},{"lat":"45.40427385054299","lng":"-75.68928994282034"},{"lat":"45.41081186891614","lng":"-75.68976201160696"}]
+
+const populateMarkers = function(arr) {
+  const latLng =
+    arr
+    .map(obj => { return {latlng: obj}})
+
+    for (const m of latlng) {
+      L.marker(m.lat, m.lng).addTo(mymap)
+    }
+  }
+
 
 
 

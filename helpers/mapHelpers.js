@@ -23,6 +23,17 @@ const fetchMarkersByMapID = function(mapID) {
 
 }
 
+const clearMarker = function(markerID) {
+  return db.query(
+    `
+    DELETE FROM markers
+    WHERE marker_id = $1
+    `, [mapID])
+
+}
+
+
 module.exports = {
   fetchMarkersByMapID,
+  clearMarker
 }
