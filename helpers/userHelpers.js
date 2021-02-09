@@ -89,7 +89,7 @@ const checkObjectKeyLength = function (obj) {
 }
 
 // REGISTRATION ERROR FINDER FUNCTION
-const registerTripmine = function(details) {
+const registrationTripmine = function(details) {
   let message = null;
 
   if (userExists(details.incomingEmail)) {
@@ -122,7 +122,7 @@ module.exports = {
   userExists,
   fetchUserByEmail,
   fetchUserByID,
-  registerTripmine,
+  registrationTripmine,
   addNewUser,
 }
 

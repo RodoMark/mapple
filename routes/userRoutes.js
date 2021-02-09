@@ -4,7 +4,7 @@ const router  = express.Router();
 // const bcrypt = require("bcrypt");
 // const saltRounds = 10
 
-const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registerTripmine } = require('../helpers/userHelpers.js')
+const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrationTripmine } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("", (req, res) => {
@@ -54,7 +54,7 @@ module.exports = (db) => {
 
   router.post("/register", (req, res) => {
     details = {
-      incomingName: req.username,
+      incomingName: req.handle,
       incomingEmail: req.email,
       incomingPassword: req.password
     }
@@ -69,6 +69,7 @@ module.exports = (db) => {
 
 
       req.session.cookie = newUser
+      res.redirect("/maps")
     } else {
       res.status(400)
       res.send(registrationTripmine(details))
