@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
+const { fetchMarkersByMapID } = require('../helpers/mapHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -27,20 +28,15 @@ module.exports = (db) => {
     ;
   });
 
-  router.get("/latlng/:mapID", (req, res) => {
-    return db.query(
+  router.get("/:mapID/latlng/", (req, res) => {
+
       // Search query goes here
-      `
-      SELECT lat, lng
-      FROM markers
-      WHERE map_id = $1
-      `
-    , [req.body.mapID]).then(output => {
-      res.send(JSON.stringify(output))
-    }
-
-
-    )
+      // console.log('querying markers', req.params)
+      return fetchMarkersByMapID(req.params.mapID)
+      .then(output => {
+      //     console.log("SENDING MAP COORDINATES")
+          res.send(output.rows)
+        })
     ;
   });
 
