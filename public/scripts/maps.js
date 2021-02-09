@@ -103,15 +103,7 @@ const fetchMapsByUserID = function(userID) {
     )
 }
 
-const fetchMapsByMapID = function(mapID) {
-  return db.query(
-    `
-    SELECT lat, lng
-    FROM markers
-    WHERE map_id = 1
-    `, [mapID])
 
-}
 
 // we need to be able to use render map to get a bunch of points already saved. then, we need to
 // modify that funtion to access the database, and have it still work.
@@ -168,6 +160,7 @@ const onLocationFound = function(e) {
   }).addTo(mymap).bindPopup('You are here');
 
   for (let m in userMarkers) {
+    console.log("---------LOOP STARTS---------")
   // addMarker({latlng: {lat: 45.411406096232525, lng: -75.68974971771242}})
   addMarker({latlng: userMarkers[m]})
   }
