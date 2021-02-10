@@ -52,22 +52,26 @@ module.exports = (db) => {
 
   });
 
-  router.delete("/:map_id/markers/:marker_id", (req, res) => {
+  router.post("/:map_id/markers/:marker_id/delete", (req, res) => {
     console.log("MARKER ID", req.params.marker_id)
     deleteMarker(req.params.marker_id)
-    res.end()
+    res.redirect("/maps/example")
   })
 
-  router.put("/:map_id/markers/", (req,res) => {
+  router.post("/:map_id/markers/", (req,res) => {
+    console.log(req.body)
     details = {
-      map_id: req.params.map_id,
-      lat: req.params.latlng.lat,
-      lng: req.params.latlng.lng,
-      title: req.params.title,
-      description: req.params.title,
+      map_id: Number(req.params.map_id),
+      lat: Number(req.body.lat),
+      lng: Number(req.body.lng),
+      title: req.body.title,
+      description: req.body.description,
     }
 
-    insertMarker(details)
+    insertMarker(details).then(() => {
+      res.redirect('/maps/example')
+    }
+    )
   })
 
   router.put("/new", (req, res) => {

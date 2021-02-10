@@ -47,13 +47,17 @@ $(document).ready(function () {
 
     const popup =
     `
-    <form data-marker-id="${markerObj.marker_id}" id="submit-marker" action="/maps/${markerObj.map_id}/markers" method="PUT">
+    <form data-marker-id="${markerObj.marker_id}" id="submit-marker" action="/maps/${markerObj.map_id}/markers" method="POST">
     <label for="title">Title: </label>
     <input name="title"></input><br>
     <label for="description">Description: </label>
     <input name="description"></input><br>
 
     <button class="submit-btn" type="submit">Submit</button><br>
+
+    </form>
+
+    <form method="POST" action="/maps/${markerObj.map_id}/markers/${markerObj.marker_id}/delete">
     <button class="delete-btn">DELETE MARKER</button>
     </form>
     `
@@ -117,8 +121,9 @@ const putMarker = function(markerObj) {
   // How do we communicate the map ID in the PUT form?
   $.ajax({
     url: `/maps/${markerObj["map_id"]}/markers/`,
-    method: 'PUT'
+    method: 'POST'
   }).then( output => {
+    debugger
     location.reload()
   })
 }
@@ -133,11 +138,13 @@ const insertMark = function() {
 const onMapClick = function(e) {
 let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
 const markerInputPopUp = `
-<form data-marker-id="${markerObj.marker_id}" id="submit-marker" action="/maps/${markerObj.map_id}/markers" method="PUT">
+<form data-marker-id="${markerObj.marker_id}" id="submit-marker" action="/maps/${markerObj.map_id}/markers" method="POST">
 <label for="title">Title: </label>
 <input name="title"></input><br>
 <label for="description">Description: </label>
 <input name="description"></input><br>
+<input type="hidden" name="lat" value="${e.latlng.lat}"/>
+<input type="hidden" name="lng" value="${e.latlng.lng}"/>
 
 <button class="submit-btn" type="submit">Submit</button><br>
 <button class="delete-btn">DELETE MARKER</button>
