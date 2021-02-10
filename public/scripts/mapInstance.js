@@ -4,19 +4,33 @@
 
 $(document).ready(function () {
 
-
   const map_id = 1
 
+  const mapContent = `<div data-map-id="${map_id} id="mapid" class="map"></div>`
 
   const generateMap = function(map_id) {
-    // Insert map HTML onto the page
-    // It will have a mapID of the map's id "map-id-1"
-    const mapContent = `<div data-map-id="${map_id} id="mapid" class="map"></div>`
-
-    $('body').append(mapcontent)
+    $('body').append(mapContent)
   }
 
 
+
+  const mapObj = {
+    id: 1,
+    owner_id: 1,
+    title: "THE TITLE",
+    description: "",
+    lat_start: 45.407031,
+    lng_start: -75.690927,
+     zoom: 13
+   }
+
+  const initializeMap = function(mapObj) {
+    generateMap(mapObj.id)
+
+    return L.map('mapid').setView([mapObj.lat_start, mapObj.lng_start], mapObj.zoom);
+  }
+
+  const mymap = initializeMap(mapObj)
 
   const markerObj = {
     "marker_id":1,
@@ -68,13 +82,7 @@ $(document).ready(function () {
 
 
 
-const details = {
- lat_start: 45.407031,
- lng_start: -75.690927,
-  zoom: 13
-}
 
-const mymap = L.map('mapid').setView([details.lat_start, details.lng_start], details.zoom);
 
 
 const bindPopUp = function() {
@@ -124,12 +132,24 @@ const insertMark = function() {
 
 const onMapClick = function(e) {
 let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
+const markerInputPopUp = `
+<form data-marker-id="${markerObj.marker_id}" id="submit-marker" action="/maps/${markerObj.map_id}/markers" method="PUT">
+<label for="title">Title: </label>
+<input name="title"></input><br>
+<label for="description">Description: </label>
+<input name="description"></input><br>
+
+<button class="submit-btn" type="submit">Submit</button><br>
+<button class="delete-btn">DELETE MARKER</button>
+</form>
+`
+
 
       console.log("MP LATLNG", mp._latlng)
       console.log("lat", e.latlng.lat)
       console.log("long", e.latlng.lng)
 
-      mp.bindPopup(popupContent, {
+      mp.bindPopup(markerInputPopUp, {
         closeButton: false
       });
 }
