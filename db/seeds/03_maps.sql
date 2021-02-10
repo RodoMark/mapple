@@ -1,5 +1,5 @@
 INSERT INTO maps (owner_id, interest_id, name, description, created_at, last_edited)
-VALUES (1, 3, 'Food In The City', 'Some of my favorite places to eat.' ,NULL, NULL);
+VALUES (1, 3, 'Food In The City', 'Some of my favourite places to eat.' ,NULL, NULL);
 
 INSERT INTO maps (owner_id, interest_id, name, created_at, last_edited)
 VALUES (2, 1, 'Art Tour', NULL, NULL);
