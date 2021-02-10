@@ -67,6 +67,7 @@ module.exports = {
   fetchMarkersByMapID,
   deleteMarker,
   insertMarker,
+  insertMap,
 }
 
 

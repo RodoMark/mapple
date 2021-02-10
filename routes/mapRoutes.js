@@ -57,8 +57,6 @@ module.exports = (db) => {
         last_edited: table.last_edited
       }
 
-      console.log("----TEMPLATE VARS----", templateVars)
-
       res.render("maps_show", templateVars);
     })
   });
@@ -109,7 +107,9 @@ module.exports = (db) => {
     )
   });
 
-});
 
-return router
-};
+
+})
+
+return router;
+}

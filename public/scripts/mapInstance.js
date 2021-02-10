@@ -105,6 +105,15 @@ const populateMarkers = function(markerArr) {
       closeButton: false
     });
 
+    // add a class called marker to each marker
+    // give each marker a specific id (reference leaflet_id to table SELECT WHERE leaflet_id = $1)
+    // access one marker on click
+    // ****New DOM elements need click handlers verify that handlers are being attached****
+    // when "edit" button is clicked
+    // delete empty() content
+    // append a form with TEXT
+    // when cancel is press, or if marker was called from   database show form with TEXT
+
   }
 }
 
@@ -137,6 +146,7 @@ const insertMark = function() {
 
 const onMapClick = function(e) {
 let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
+console.log(mp)
 const markerInputPopUp = `
 <form data-marker-id="${markerObj.marker_id}" id="submit-marker" action="/maps/${markerObj.map_id}/markers" method="POST">
 <label for="title">Title: </label>
@@ -151,8 +161,8 @@ const markerInputPopUp = `
 </form>
 `
 
-
-      console.log("MP LATLNG", mp._latlng)
+      console.log("e OBJECT", e)
+      console.log("MP OBJECT", mp)
       console.log("lat", e.latlng.lat)
       console.log("long", e.latlng.lng)
 
