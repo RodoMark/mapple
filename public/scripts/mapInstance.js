@@ -10,30 +10,6 @@ $(document).ready(function () {
 
   }
 
-  // const addMarker = function (e) {
-  //   console.log("addMArker", e);
-  //   // {{latlng: {lat: 45.411406096232525, lng: -75.68974971771242}}
-  //   mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
-
-  //     let id;
-  //     if (markers.length < 1) {
-  //       id = 0
-  //     } else {
-  //     id = markers[markers.length - 1].id + 1
-  //     }
-
-  //     const popupContent =
-  //       '<p>Some Infomation</p></br>' +
-  //       '<p>This is a test</p></br>' +
-  //       '<button onclick="clearMarker(' + id + ')">Delete</button>';
-
-  //       mp.id = id
-  //       mp.bindPopup(popupContent, {
-  //         closeButton: false
-  //       });
-  //       mymap.addLayer(mp)
-  //       markers.push(mp)
-  //   }
 
     const clearMarker = function(id) {
       console.log(markers)
