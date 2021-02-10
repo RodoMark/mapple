@@ -77,7 +77,7 @@ module.exports = (db) => {
     )
   })
 
-  router.put("/new", (req, res) => {
+  router.post("/new", (req, res) => {
     db.query(
       details = {
         owner_id: req.session.id,
