@@ -80,7 +80,7 @@ const addMarker = function() {
 }
 
 function onMapClick(e) {
-
+new L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
       console.log("lat", e.latlng.lat)
       console.log("long", e.latlng.lng)
   addMarker(e)
@@ -120,26 +120,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 
 
-
-
-// const onLocationFound = function(e) {
-//   console.log(e)
-//   const radius = e.accuracy / 2;
-
-//   // L.marker(e.latlng, {icon: greenIcon} ).addTo(mymap)
-//   L.marker(e.latlng ).addTo(mymap)
-//     .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-//   L.circle(e.latlng, {
-//     color: 'red',
-//     fillColor: '#f03',
-//     fillOpacity: 0.5,
-//     radius: 200
-//   }).addTo(mymap).bindPopup('You are here');
-
-
-
-// }
 
 
 
