@@ -48,13 +48,13 @@ module.exports = (db) => {
 
   });
 
-  router.delete("/maps/:map_id/markers/:marker_id", (req, res) => {
+  router.delete("/:map_id/markers/:marker_id", (req, res) => {
     console.log("MARKER ID", req.params.marker_id)
     deleteMarker(req.params.marker_id)
     res.end()
   })
 
-  router.put("/maps/:map_id/markers/add", (req,res) => {
+  router.put("/:map_id/markers/add", (req,res) => {
     details = {
       map_id: req.params.map_id,
       lat: req.params.latlng.lat,

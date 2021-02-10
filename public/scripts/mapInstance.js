@@ -2,18 +2,6 @@
 //
 
 
-
-// const greenIcon = L.icon({
-//   iconUrl: 'green.png',
-//   shadowUrl: 'https://leafletjs.com/examples/custom-icons/leaf-shadow.png',
-
-//   iconSize:     [38, 95], // size of the icon
-//   shadowSize:   [50, 64], // size of the shadow
-//   iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-//   shadowAnchor: [4, 62],  // the same for the shadow
-//   popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
-
 $(document).ready(function () {
 
 const map_id = 1
@@ -51,9 +39,6 @@ const removeMarker = function() {
 
 $('#delete-btn').on('click', removeMarker)
 
-
-
-// const mymap = L.map(`mapid-${details.id}`).setView([details.lat_start, details.lng_start], details.zoom)
 
 const popup = L.popup();
 // create an array to store markers in for addMarker and clearMarker
