@@ -8,6 +8,10 @@ module.exports = (db) => {
     res.render("maps_by_interest");
   });
 
+  router.get("/new", (req, res) => {
+    res.render("new_map");
+  });
+
   router.get("/example", (req, res) => {
     res.render("map_template");
   });
@@ -68,6 +72,12 @@ module.exports = (db) => {
 
   router.post("/new", (req, res) => {
     db.query(
+      details = {
+        owner_id: req.session.id,
+        interest_id: req.params.interest_id,
+        name: req.params.name,
+        name: req.params.description,
+      }
 
     )
   });

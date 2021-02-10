@@ -70,9 +70,9 @@ const populateMarkers = function(arr) {
   `
   <form id="submit-marker" action="/maps/:map_id/markers/add" method="PUT">
   <label for="title">Title: </label>
-  <input name="title"></input>
+  <input name="title"></input><br>
   <label for="description">Description: </label>
-  <input name="description"></input>
+  <input name="description"></input><br>
 
   <button type=submit>Submit</button>
   </form>
