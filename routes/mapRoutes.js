@@ -12,20 +12,20 @@ module.exports = (db) => {
     res.render("map_template");
   });
 
-  router.get("/:search", (req, res) => {
-    return db.query(
-      // Search query goes here
-      `
-      SELECT map_id
-      FROM maps
-      JOIN interests ON interests.id = interest_id
-      WHERE interests.name = $1
-      `
-    , [req.body.search]).then(
+  router.get("/search", (req, res) => {
+    // return db.query(
+    //   // Search query goes here
+    //   `
+    //   SELECT map_id
+    //   FROM maps
+    //   JOIN interests ON interests.id = interest_id
+    //   WHERE interests.name = $1
+    //   `
+    // , [req.body.search]).then(
 
-      res.render("map_show")
-    )
-    ;
+      res.render("maps_show")
+    // )
+    // ;
   });
 
   router.get("/:mapID/latlng/", (req, res) => {
