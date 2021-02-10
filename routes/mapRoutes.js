@@ -70,7 +70,7 @@ module.exports = (db) => {
     insertMarker(details)
   })
 
-  router.post("/new", (req, res) => {
+  router.put("/new", (req, res) => {
     db.query(
       details = {
         owner_id: req.session.id,
