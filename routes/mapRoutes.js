@@ -50,6 +50,9 @@ module.exports = (db) => {
   //   res.render("map_show");
   // });
 
+  router.get("/specific", (req, res) => {
+    res.render("specific_map");
+  })
 
   router.post("/:id", (req, res) => {
 
