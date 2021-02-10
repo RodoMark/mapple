@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMarkersByMapID, deleteMarker, insertMarker } = require('../helpers/mapHelpers.js')
+const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, deleteMarker, insertMarker } = require('../helpers/mapHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -39,11 +39,26 @@ module.exports = (db) => {
         })
     ;
   });
-  
+
   router.get("/editmap", (req, res) => {
     res.render("edit_map");
 
-    //:id/edit
+  router.get("/:mapID", (req, res) => {
+    fetchMapByMapID(req.params.mapID)
+    .then(output => {
+      const table = output.rows[0]
+      const templateVars = {
+        map_id: table.id,
+        owner_id: table.owner_id,
+        interest_id: table.interest_id,
+        name: table.name,
+        description: table.description,
+        created_at: table.created_at,
+        last_edited: table.last_edited
+      }
+
+      res.render("maps_show", templateVars);
+    })
   });
 
   // router.get("/:id", (req, res) => {
@@ -58,16 +73,16 @@ module.exports = (db) => {
 
   });
 
-  router.post("/:map_id/markers/:marker_id/delete", (req, res) => {
-    console.log("MARKER ID", req.params.marker_id)
-    deleteMarker(req.params.marker_id)
+  router.post("/:mapID/markers/:markerID/delete", (req, res) => {
+    console.log("MARKER ID", req.params.markerID)
+    deleteMarker(req.params.markerID)
     res.redirect("/maps/example")
   })
 
-  router.post("/:map_id/markers/", (req,res) => {
+  router.post("/:mapID/markers/", (req,res) => {
     console.log(req.body)
     details = {
-      map_id: Number(req.params.map_id),
+      map_id: Number(req.params.mapID),
       lat: Number(req.body.lat),
       lng: Number(req.body.lng),
       title: req.body.title,
@@ -93,5 +108,5 @@ module.exports = (db) => {
   });
 
   return router;
-};
-
+  });
+}

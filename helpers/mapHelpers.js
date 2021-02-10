@@ -3,6 +3,16 @@ const { Pool } = require('pg');
 const dbParams = require('../lib/db');
 const db = new Pool(dbParams)
 
+const fetchMapByMapID = function(mapID) {
+  return db.query(
+  `
+  SELECT *
+  FROM maps
+  WHERE id = $1
+  `
+  , [mapID])
+}
+
 const fetchMapsByUserID = function(userID) {
   return db.query(
   `
@@ -41,6 +51,7 @@ const insertMarker = function(details) {
 }
 
 const insertMap = function(details) {
+
   return db.query(
     `
     INSERT INTO markers
@@ -51,6 +62,7 @@ const insertMap = function(details) {
 
 
 module.exports = {
+  fetchMapByMapID,
   fetchMapsByUserID,
   fetchMarkersByMapID,
   deleteMarker,
