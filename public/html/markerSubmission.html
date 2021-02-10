@@ -9,6 +9,7 @@
 <body>
   <form id="submit-marker" action="/maps/:map_id/markers/add" method="PUT">
 
+    <!-- The inputs without labels still need to get labeled -->
     <input name="map_id"></input>
     <input name="lat"></input>
     <input name="lng"></input>
@@ -17,7 +18,7 @@
     <label for="description">Description: </label>
     <input name="description"></input>
 
-    <button type=submit>Submit</button>
+    <button class="submit-btn" type="submit">Submit</button>
   </form>
 
 </body>
