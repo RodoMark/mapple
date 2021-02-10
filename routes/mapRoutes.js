@@ -54,7 +54,7 @@ module.exports = (db) => {
     res.end()
   })
 
-  router.put("/:map_id/markers/add", (req,res) => {
+  router.put("/:map_id/markers/", (req,res) => {
     details = {
       map_id: req.params.map_id,
       lat: req.params.latlng.lat,

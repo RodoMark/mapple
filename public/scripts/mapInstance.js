@@ -67,8 +67,15 @@ const bindPopUp = function() {
 
 const populateMarkers = function(arr) {
   const popupContent =
-  `<p>Some Infomation</p></br>
-  <p>This is a test</p></br>
+  `
+  <form id="submit-marker" action="/maps/:map_id/markers/add" method="PUT">
+  <label for="title">Title: </label>
+  <input name="title"></input>
+  <label for="description">Description: </label>
+  <input name="description"></input>
+
+  <button type=submit>Submit</button>
+  </form>
   `
 
   for (const m of arr) {
@@ -89,12 +96,20 @@ $.ajax({
 
 const addMarker = function() {
   $.ajax({
-    url: 'maps/$map_id/marker/$marker_id/',
+    url: `/maps/${map_id}/marker/`,
     method: 'PUT'
   }).then( output => {
     location.reload()
   })
 }
+
+function onMapClick(e) {
+
+      console.log("lat", e.latlng.lat)
+      console.log("long", e.latlng.lng)
+  addMarker(e)
+}
+mymap.on('click', onMapClick);
 
 const marker_id = 7
 
@@ -157,23 +172,12 @@ const onLocationError = function(e) {
   alert(e.message);
 }
 
-const onMapClick = function (e) {
-  // popup
-  //     .setLatLng(e.latlng)
-  //     .setContent("You clicked the map at " + e.latlng.toString())
-  //     .openOn(mymap);
-
-      console.log(e)
-      console.log("lat", e.latlng.lat)
-      console.log("long", e.latlng.lng)
-  addMarker(e)
-}
 
 
 
 // mymap.on('locationfound', onLocationFound);
 // mymap.on('locationerror', onLocationError);
-mymap.on('click', onMapClick);
+// mymap.on('click', onMapClick);
 
 // mymap.locate({setView: true, maxZoom: 16});
 // mymap.locate({watch:true});
