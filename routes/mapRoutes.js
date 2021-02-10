@@ -40,6 +40,60 @@ module.exports = (db) => {
     ;
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   router.get("/:mapID", (req, res) => {
     fetchMapByMapID(req.params.mapID)
     .then(output => {
@@ -118,7 +172,7 @@ module.exports = (db) => {
 
 
 
-  
+
   router.post("/:mapID/markers/", (req,res) => {
     console.log(req.body)
     details = {
