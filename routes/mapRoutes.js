@@ -46,10 +46,6 @@ module.exports = (db) => {
     //:id/edit
   });
 
-  // router.get("/:id", (req, res) => {
-  //   res.render("map_show");
-  // });
-
   router.get("/specific", (req, res) => {
     res.render("specific_map");
   })
