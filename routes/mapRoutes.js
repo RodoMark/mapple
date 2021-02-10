@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMarkersByMapID } = require('../helpers/mapHelpers.js')
+const { fetchMarkersByMapID, deleteMarker, insertMarker } = require('../helpers/mapHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -28,20 +28,13 @@ module.exports = (db) => {
     // ;
   });
 
-  router.get("/:mapID/latlng/", (req, res) => {
-
-      // Search query goes here
-      // console.log('querying markers', req.params)
+  router.get("/:mapID/points/", (req, res) => {
       return fetchMarkersByMapID(req.params.mapID)
       .then(output => {
-      //     console.log("SENDING MAP COORDINATES")
           res.send(output.rows)
         })
     ;
   });
-
-
-
 
   router.get("/:id", (req, res) => {
     res.render("map_show");
@@ -55,6 +48,24 @@ module.exports = (db) => {
 
   });
 
+  router.delete("/:map_id/markers/:marker_id", (req, res) => {
+    console.log("MARKER ID", req.params.marker_id)
+    deleteMarker(req.params.marker_id)
+    res.end()
+  })
+
+  router.put("/:map_id/markers/add", (req,res) => {
+    details = {
+      map_id: req.params.map_id,
+      lat: req.params.latlng.lat,
+      lng: req.params.latlng.lng,
+      title: req.params.title,
+      description: req.params.title,
+    }
+
+    insertMarker(details)
+  })
+
   router.post("/new", (req, res) => {
     db.query(
 
@@ -63,3 +74,4 @@ module.exports = (db) => {
 
   return router;
 };
+
