@@ -4,6 +4,19 @@
 
 $(document).ready(function () {
 
+  const map_id = 1
+
+  const popupContent =
+  `
+  <form id="submit-marker" action="/maps/:map_id/markers/add" method="PUT">
+  <label for="title">Title: </label>
+  <input name="title"></input><br>
+  <label for="description">Description: </label>
+  <input name="description"></input><br>
+
+  <button type=submit>Submit</button>
+  </form>
+  `
 
 
   const openPopUp = function () {
@@ -23,7 +36,7 @@ $(document).ready(function () {
 
 
 
-const map_id = 1
+
 
 const details = {
  lat_start: 45.407031,
@@ -42,17 +55,7 @@ const bindPopUp = function() {
 }
 
 const populateMarkers = function(arr) {
-  const popupContent =
-  `
-  <form id="submit-marker" action="/maps/:map_id/markers/add" method="PUT">
-  <label for="title">Title: </label>
-  <input name="title"></input><br>
-  <label for="description">Description: </label>
-  <input name="description"></input><br>
 
-  <button type=submit>Submit</button>
-  </form>
-  `
 
   for (const m of arr) {
     let mp = L.marker([m.lat, m.lng]).addTo(mymap)
@@ -70,7 +73,7 @@ $.ajax({
   populateMarkers(output)
 });
 
-const addMarker = function() {
+const putMarker = function(markerID) {
   $.ajax({
     url: `/maps/${map_id}/marker/`,
     method: 'PUT'
@@ -79,12 +82,19 @@ const addMarker = function() {
   })
 }
 
-function onMapClick(e) {
-new L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
+
+$('submit-btn').on('click', putMarker())
+
+const onMapClick = function(e) {
+let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
       console.log("lat", e.latlng.lat)
       console.log("long", e.latlng.lng)
-  addMarker(e)
+
+      mp.bindPopup(popupContent, {
+        closeButton: false
+      });
 }
+
 mymap.on('click', onMapClick);
 
 const marker_id = 7
