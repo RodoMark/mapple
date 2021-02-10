@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marker Submission</title>
+</head>
+<body>
+  <form id="submit-marker" action="/maps/:map_id/markers/add" method="PUT">
+
+    <input name="map_id"></input>
+    <input name="lat"></input>
+    <input name="lng"></input>
+    <label for="title">Title: </label>
+    <input name="title"></input>
+    <label for="description">Description: </label>
+    <input name="description"></input>
+
+    <button type=submit>Submit</button>
+  </form>
+
+</body>
+</html>
+
+

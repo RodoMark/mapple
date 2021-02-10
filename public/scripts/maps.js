@@ -1,7 +1,9 @@
-// render map with starting lat and lng and zoom from user
-//
+// PG database client/connection setup
+// const { Pool } = require('pg');
+// const dbParams = require('../lib/db');
+// const db = new Pool(dbParams);
 
-
+// const { userExists } = require('../../helpers/userHelpers.js')
 
 // const greenIcon = L.icon({
 //   iconUrl: 'green.png',
@@ -14,47 +16,9 @@
 //   popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 // });
 
-$(document).ready(function () {
 
-const map_id = 1
-
-const details = {
- lat_start: 45.407031,
- lng_start: -75.690927,
-  zoom: 13
-}
-
-const mymap = L.map('mapid').setView([details.lat_start, details.lng_start], details.zoom);
-
-
-const populateMarkers = function(arr) {
-  for (const m of arr) {
-    L.marker([m.lat, m.lng]).addTo(mymap)
-  }
-}
-
-$.ajax({
-  url: `/maps/${map_id}/points`,
-  method: 'GET'
-}).then(output => {
-  populateMarkers(output)
-});
-
-const marker_id = 4
-
-const removeMarker = function() {
-  $.ajax({
-    url: `/maps/${map_id}/markers/${marker_id}`,
-    method: 'DELETE'
-  })
-}
-
-$('#delete-btn').on('click', removeMarker)
-
-
-
-// const mymap = L.map(`mapid-${details.id}`).setView([details.lat_start, details.lng_start], details.zoom)
-
+// const mymap = L.map('mapid').setView([45.407031, -75.690927], 13);
+const mymap = L.map('mapid').fitWorld();
 const popup = L.popup();
 // create an array to store markers in for addMarker and clearMarker
 let markers = []
@@ -123,7 +87,21 @@ const userMarkers = {
 //   [45.406646, -75.717087]
 // ]).addTo(mymap);
 
+const fetchMapsByUserID = function(userID) {
+    return db.query(
+    `
+    SELECT id
+    FROM maps
+    WHERE owner_id = 1
+    `
+    , [userID]).then(output => {
+      return {
+        lat: output.rows[0].lat,
+        lng: output.rows[0].lng}
+    }
 
+    )
+}
 
 
 
@@ -135,8 +113,6 @@ const addMarker = function (e) {
 console.log("addMArker", e);
 // {{latlng: {lat: 45.411406096232525, lng: -75.68974971771242}}
 mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
-
-
 
   let id;
   if (markers.length < 1) {
@@ -168,25 +144,31 @@ const clearMarker = function(id) {
 }
 
 
-// const onLocationFound = function(e) {
-//   console.log(e)
-//   const radius = e.accuracy / 2;
+const onLocationFound = function(e) {
+  console.log(e)
+  const radius = e.accuracy / 2;
 
-//   // L.marker(e.latlng, {icon: greenIcon} ).addTo(mymap)
-//   L.marker(e.latlng ).addTo(mymap)
-//     .bindPopup("You are within " + radius + " meters from this point").openPopup();
+  // L.marker(e.latlng, {icon: greenIcon} ).addTo(mymap)
+  L.marker(e.latlng ).addTo(mymap)
+    .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-//   L.circle(e.latlng, {
-//     color: 'red',
-//     fillColor: '#f03',
-//     fillOpacity: 0.5,
-//     radius: 200
-//   }).addTo(mymap).bindPopup('You are here');
+  L.circle(e.latlng, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 200
+  }).addTo(mymap).bindPopup('You are here');
 
+  for (let m in userMarkers) {
+    console.log("---------LOOP STARTS---------")
+  // addMarker({latlng: {lat: 45.411406096232525, lng: -75.68974971771242}})
+  addMarker({latlng: userMarkers[m]})
+  }
 
-
-// }
-
+}
+  // L.marker(userMarkers.m1).addTo(mymap);
+  // L.marker(userMarkers.m2).addTo(mymap);
+  // L.marker(userMarkers.m3).addTo(mymap);
 
 
 
@@ -208,11 +190,11 @@ const onMapClick = function (e) {
 
 
 
-// mymap.on('locationfound', onLocationFound);
-// mymap.on('locationerror', onLocationError);
+mymap.on('locationfound', onLocationFound);
+mymap.on('locationerror', onLocationError);
 mymap.on('click', onMapClick);
 
-// mymap.locate({setView: true, maxZoom: 16});
+mymap.locate({setView: true, maxZoom: 16});
 // mymap.locate({watch:true});
 
 
@@ -221,5 +203,6 @@ mymap.on('click', onMapClick);
 // circle1.bindPopup("Here is a circle");
 
 
-});
+
+
 

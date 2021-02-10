@@ -1,7 +1,7 @@
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('../lib/db');
-const db = new Pool(dbParams)c
+const db = new Pool(dbParams)
 
 const fetchMapsByUserID = function(userID) {
   return db.query(
@@ -23,21 +23,32 @@ const fetchMarkersByMapID = function(mapID) {
 
 }
 
-const clearMarker = function(markerID) {
+const deleteMarker = function(markerID) {
   return db.query(
     `
     DELETE FROM markers
-    WHERE marker_id = $1
-    `, [mapID])
+    WHERE id = $1
+    `, [markerID])
 
 }
+
+const insertMarker = function(details) {
+  return db.query(
+    `
+    INSERT INTO markers
+    VALUES ($1, $2, $3, $4, $5)
+    `, [details.map_id, details.lat, details.lng, details.title, details.description])
+}
+
 
 
 module.exports = {
-  fet
-chMarkersByMapID,
-  clearMarker
-
-
+  fetchMapsByUserID,
+  fetchMarkersByMapID,
+  deleteMarker,
+  insertMarker,
 }
-maps/
+
+
+
+
