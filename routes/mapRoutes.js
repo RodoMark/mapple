@@ -39,14 +39,20 @@ module.exports = (db) => {
         })
     ;
   });
-
-  router.get("/:id", (req, res) => {
-    res.render("map_show");
-  });
-
-  router.get("/:id/edit", (req, res) => {
+  
+  router.get("/editmap", (req, res) => {
     res.render("edit_map");
+
+    //:id/edit
   });
+
+  // router.get("/:id", (req, res) => {
+  //   res.render("map_show");
+  // });
+
+  router.get("/specific", (req, res) => {
+    res.render("specific_map");
+  })
 
   router.post("/:id", (req, res) => {
 
