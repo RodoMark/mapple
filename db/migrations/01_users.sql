@@ -19,8 +19,8 @@ CREATE TABLE interests (
 CREATE TABLE markers (
   id SERIAL PRIMARY KEY NOT NULL,
   map_id INTEGER REFERENCES maps(id),
-  x_coordinate DECIMAL(8, 6) NOT NULL,
-  y_coordinate DECIMAL(8, 6) NOT NULL,
+  lat DECIMAL(8, 6) NOT NULL,
+  lng DECIMAL(8, 6) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
   created_at TIMESTAMP
@@ -31,7 +31,7 @@ CREATE TABLE maps (
   owner_id INTEGER REFERENCES users(id) NOT NULL,
   interest_id INTEGER REFERENCES interests(id) NOT NULL,
   name VARCHAR(32) DEFAULT 'My Map',
-  description: TEXT,
+  description TEXT,
   created_at TIMESTAMP,
   last_edited TIMESTAMP
 );
