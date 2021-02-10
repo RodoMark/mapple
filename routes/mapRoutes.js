@@ -40,31 +40,15 @@ module.exports = (db) => {
     ;
   });
 
-
-
-  router.get("/:mapID", (req, res) => {
-    fetchMapByMapID(req.params.mapID)
-    .then(output => {
-      const table = output.rows[0]
-      const templateVars = {
-        map_id: table.id,
-        owner_id: table.owner_id,
-        interest_id: table.interest_id,
-        name: table.name,
-        description: table.description,
-        created_at: table.created_at,
-        last_edited: table.last_edited
-      }
-
-      console.log("----TEMPLATE VARS----", templateVars)
-
-      res.render("maps_show", templateVars);
-    })
-  });
-
-  router.get("/:id/edit", (req, res) => {
+  router.get("/editmap", (req, res) => {
     res.render("edit_map");
+
+    //:id/edit
   });
+
+  router.get("/specific", (req, res) => {
+    res.render("specific_map");
+  })
 
   router.post("/:id", (req, res) => {
 
