@@ -5,6 +5,48 @@
 $(document).ready(function () {
 
 
+
+  const openPopUp = function () {
+
+  }
+
+  // const addMarker = function (e) {
+  //   console.log("addMArker", e);
+  //   // {{latlng: {lat: 45.411406096232525, lng: -75.68974971771242}}
+  //   mp = new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
+
+  //     let id;
+  //     if (markers.length < 1) {
+  //       id = 0
+  //     } else {
+  //     id = markers[markers.length - 1].id + 1
+  //     }
+
+  //     const popupContent =
+  //       '<p>Some Infomation</p></br>' +
+  //       '<p>This is a test</p></br>' +
+  //       '<button onclick="clearMarker(' + id + ')">Delete</button>';
+
+  //       mp.id = id
+  //       mp.bindPopup(popupContent, {
+  //         closeButton: false
+  //       });
+  //       mymap.addLayer(mp)
+  //       markers.push(mp)
+  //   }
+
+    const clearMarker = function(id) {
+      console.log(markers)
+      let new_markers = []
+      markers.forEach(function(marker) {
+        if (marker.id === id) mymap.removeLayer(marker)
+        else new_markers.push(marker)
+      })
+      markers = new_markers
+    }
+
+
+
 const map_id = 1
 
 const details = {
@@ -16,10 +58,25 @@ const details = {
 const mymap = L.map('mapid').setView([details.lat_start, details.lng_start], details.zoom);
 
 
+const bindPopUp = function() {
+  // Give every marker that is populated a popup
+  // Popup should contain a title and a description
+  // It should also contain a delete button
+  // The delete button should DELETE.maps/:map_id/markers/:marker_id
+}
 
 const populateMarkers = function(arr) {
+  const popupContent =
+  `<p>Some Infomation</p></br>
+  <p>This is a test</p></br>
+  `
+
   for (const m of arr) {
-    L.marker([m.lat, m.lng]).addTo(mymap)
+    let mp = L.marker([m.lat, m.lng]).addTo(mymap)
+    mp.bindPopup(popupContent, {
+      closeButton: false
+    });
+
   }
 }
 
@@ -36,9 +93,7 @@ const addMarker = function() {
     method: 'PUT'
   }).then( output => {
     location.reload()
-  }
-    
-  )
+  })
 }
 
 const marker_id = 7
