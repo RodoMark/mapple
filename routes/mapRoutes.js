@@ -39,7 +39,11 @@ module.exports = (db) => {
         })
     ;
   });
+  
+  router.get("/editmap", (req, res) => {
+    res.render("edit_map");
 
+<<<<<<< HEAD
   router.get("/:mapID", (req, res) => {
     fetchMapByMapID(req.params.mapID)
     .then(output => {
@@ -58,11 +62,18 @@ module.exports = (db) => {
 
       res.render("maps_show", templateVars);
     })
+=======
+    //:id/edit
+>>>>>>> master
   });
 
-  router.get("/:id/edit", (req, res) => {
-    res.render("edit_map");
-  });
+  // router.get("/:id", (req, res) => {
+  //   res.render("map_show");
+  // });
+
+  router.get("/specific", (req, res) => {
+    res.render("specific_map");
+  })
 
   router.post("/:id", (req, res) => {
 
