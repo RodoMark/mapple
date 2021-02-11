@@ -6,7 +6,7 @@ const db = new Pool(dbParams)
 const fetchMapByMapID = function(mapID) {
   return db.query(
   `
-  SELECT *
+  SELECT id as map_id, owner_id as user_id, interest_id, name, description, lat_start, lng_start, zoom, created_at
   FROM maps
   WHERE id = $1
   `

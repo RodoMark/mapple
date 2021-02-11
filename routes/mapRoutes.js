@@ -62,7 +62,7 @@ module.exports = (db) => {
       const table = output.rows[0]
       const templateVars = {
         map_id: table.id,
-        owner_id: table.owner_id,
+        user_id: table.user_id,
         interest_id: table.interest_id,
         name: table.name,
         description: table.description,
