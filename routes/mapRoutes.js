@@ -23,6 +23,7 @@ module.exports = (db) => {
     res.render("edit_marker");
   });
 
+
   router.get("/search/:interestName", (req, res) => {
     fetchMapByInterestName(req.params.interestName)
       .then(output => {
