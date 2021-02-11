@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, fetchMapByInterestName, deleteMarker, insertMarker, addFavourite, removeFavourite } = require('../helpers/mapHelpers.js')
+const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, fetchMapByInterestName, deleteMarker, insertMarker, addFavourite, removeFavourite, updateMarker } = require('../helpers/mapHelpers.js')
 
 const { fetchUserByID } = require('../helpers/userHelpers.js')
 
@@ -42,6 +42,7 @@ module.exports = (db) => {
   router.get("/:mapID/points/", (req, res) => {
       return fetchMarkersByMapID(req.params.mapID)
       .then(output => {
+        console.log(output.rows)
           res.send(output.rows)
         })
     ;
@@ -99,6 +100,22 @@ module.exports = (db) => {
 
   })
 
+  // use old delete marker funtion to delete marker
+
+  // add new funtion to update marker
+  router.post("/:mapID/markers/edit/:markerID", (req,res) => {
+    console.log(req.body)
+    details = {
+      marker_id: Number(req.params.markerID),
+      title: req.body.title,
+      description: req.body.description,
+    }
+    console.log(details)
+    updateMarker(details)
+
+    res.redirect(`/maps/${req.params.mapID}`)
+
+  })
 
   router.post("/:mapID/markers/", (req,res) => {
     console.log(req.body)
@@ -115,6 +132,7 @@ module.exports = (db) => {
     res.redirect(`/maps/${req.params.mapID}`)
 
   })
+
 
   router.post("/:mapID/favourites/add", (req, res) => {
     if(req.session.user) {
