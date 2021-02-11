@@ -34,7 +34,7 @@ $(document).ready(function () {
     `
     <p>${markerObj.title}</p>
     <p>${markerObj.description}</p>
-    <button id="edit-btn">EDIT</button>
+    <button class="edit-btn" id="edit-btn-${markerObj.marker_id}">EDIT</button>
     `
     return popup
   }
@@ -53,6 +53,7 @@ $(document).ready(function () {
 const populateMarkers = function(markerArr) {
   console.log("MARKER ARRAY------>", markerArr)
   for (const m of markerArr) {
+    console.log(m.marker_id)
     let mp = L.marker([m.lat, m.lng]).addTo(mymap)
     mp.bindPopup(getPopupContent(m), {
       closeButton: false
