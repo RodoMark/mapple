@@ -117,7 +117,7 @@ const populateMarkers = function(markerArr, mymap) {
       const $editBtn = $($('.edit-btn')[0]);
       console.log($editBtn);
       $editBtn.on('click', function(){
-      console.log('HEllO---------->');
+      console.log('EDIT BUTTON CLICKED---------->');
       })
     })
   }
