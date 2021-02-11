@@ -2,6 +2,35 @@
 //
 $(document).ready(function () {
 
+  const getMapObject = function() {
+    return $.ajax({
+      url: `/maps/${map_id}/info`,
+      method: 'GET'
+    }).then(output => {
+
+      const mapObj = {
+            map_id: output.map_id,
+            user_id: output.user_id,
+            name: output.name,
+            description: output.description || null,
+            lat_start: output.lat_start,
+            lng_start: output.lng_start,
+            zoom: output.zoom || 10,
+           }
+
+      console.log("MAPOBJ INSIDE OF FUNCTION", mapObj)
+      return mapObj
+
+    });
+
+  }
+
+  const initializeMap = function(mapObj) {
+    generateMap(mapObj.map_id)
+    return L.map('mapid').setView([mapObj.lat_start, mapObj.lng_start], mapObj.zoom);
+  }
+
+
 
   const getMapID = function() {
   // Use jquery to get the map_id from <div id="mymap">
@@ -21,38 +50,40 @@ $(document).ready(function () {
     $('.mapContainer').append($mapContent)
   }
 
-  const getMapObject = function() {
-    $.ajax({
-      url: `/maps/${map_id}/info`,
-      method: 'GET'
-    }).then(output => {
 
-      const mapObj = {
-            map_id: output.map_id,
-            user_id: output.user_id,
-            name: output.name,
-            description: output.description || null,
-            lat_start: output.lat_start,
-            lng_start: output.lng_start,
-            zoom: output.zoom || 10,
-           }
-
-      console.log("MAPOBJ INSIDE OF FUNCTION", mapObj)
-      return mapObj
-
-    });
-    
-  }
 
  const mapObj = getMapObject()
- console.log("mapObj OUTSIDE of FUNCTION", mapObj)
+  .then(mapObj => {
+
+    const mymap = initializeMap(mapObj)
+
+  mymap.on('click', onMapClick);
 
 
-  const initializeMap = function(mapObj) {
-    generateMap(mapObj.map_id)
-    return L.map('mapid').setView([mapObj.lat_start, mapObj.lng_start], mapObj.zoom);
-  }
-  const mymap = initializeMap(mapObj)
+
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoibWFja2lzb24iLCJhIjoiY2trdTN4M3FvMHBhdzJwbjB2bWFua2RwNSJ9.66BkZT9vhAC042qQSiQdiA'
+}).addTo(mymap);
+
+    $.ajax({
+      url: `/maps/${map_id}/points`,
+      method: 'GET'
+    }).then(output => {
+      populateMarkers(output, mymap)
+    });
+
+ }
+ )
+
+
+
+
+
   // const markerObj = {
   //   "marker_id":1,
   //   "map_id":1,
@@ -83,7 +114,7 @@ $(document).ready(function () {
       markers = new_markers
     }
 
-const populateMarkers = function(markerArr) {
+const populateMarkers = function(markerArr, mymap) {
   console.log("MARKER ARRAY------>", markerArr)
   for (const m of markerArr) {
     console.log(m.marker_id)
@@ -91,15 +122,18 @@ const populateMarkers = function(markerArr) {
     mp.bindPopup(getPopupContent(m), {
       closeButton: false
     });
+    mp.on('click', function() {
+
+      const $editBtn = $($('.edit-btn')[0]);
+      console.log($editBtn);
+      $editBtn.on('click', function(){
+      console.log('HEllO---------->');
+      })
+    })
   }
 }
 
-$.ajax({
-  url: `/maps/${map_id}/points`,
-  method: 'GET'
-}).then(output => {
-  populateMarkers(output)
-});
+
 
 const putMarker = function(markerObj) {
   // How do we communicate the map ID in the PUT form?
@@ -118,6 +152,7 @@ const insertMarker = function() {
 
 const onMapClick = function(e) {
 let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
+console.log("MAP CLICK ----------->")
 const markerInputPopUp = `
 <form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${1}/markers" method="POST">
 <label for="title">Title: </label>
@@ -137,7 +172,7 @@ const markerInputPopUp = `
       });
 }
 
-mymap.on('click', onMapClick);
+
 
 const removeMarker = function() {
   $.ajax({
@@ -152,14 +187,8 @@ $('delete-btn').on('click', removeMarker)
 const popup = L.popup();
 // create an array to store markers in for addMarker and clearMarker
 let markers = []
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoibWFja2lzb24iLCJhIjoiY2trdTN4M3FvMHBhdzJwbjB2bWFua2RwNSJ9.66BkZT9vhAC042qQSiQdiA'
-}).addTo(mymap);
+
+
 // latlng: m1 ----> {latlng: {lat: x, lng: y}}
 const onLocationError = function(e) {
   alert(e.message);
