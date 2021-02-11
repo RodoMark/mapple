@@ -1,10 +1,22 @@
 // render map with starting lat and lng and zoom from user
 //
 $(document).ready(function () {
-  const map_id = 1
-  const mapContent = `<div data-map-id="${map_id} id="mapid" class="map"></div>`
+
+
+  const getMapID = function() {
+  // Use jquery to get the map_id from <div id="mymap">
+  // it's <%= map_id %> in the class class data-map-id-<%= map_id %>
+
+  return map_id
+  }
+
+  // let map_id = getMapID()
+  let map_id = 1
+
+  const $mapContent = $('#mapid')
+
   const generateMap = function(map_id) {
-    $('body').append(mapContent)
+    $('.mapContainer').append($mapContent)
   }
   const mapObj = {
     id: 1,
