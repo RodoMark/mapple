@@ -20,17 +20,36 @@ $(document).ready(function () {
   const generateMap = function(map_id) {
     $('.mapContainer').append($mapContent)
   }
-  const mapObj = {
-    id: 1,
-    owner_id: 1,
-    title: "THE TITLE",
-    description: "",
-    lat_start: 45.407031,
-    lng_start: -75.690927,
-     zoom: 13
-   }
+
+  const getMapObject = function() {
+    $.ajax({
+      url: `/maps/${map_id}/info`,
+      method: 'GET'
+    }).then(output => {
+
+      const mapObj = {
+            map_id: output.map_id,
+            user_id: output.user_id,
+            name: output.name,
+            description: output.description || null,
+            lat_start: output.lat_start,
+            lng_start: output.lng_start,
+            zoom: output.zoom || 10,
+           }
+
+      console.log("MAPOBJ INSIDE OF FUNCTION", mapObj)
+      return mapObj
+
+    });
+    
+  }
+
+ const mapObj = getMapObject()
+ console.log("mapObj OUTSIDE of FUNCTION", mapObj)
+
+
   const initializeMap = function(mapObj) {
-    generateMap(mapObj.id)
+    generateMap(mapObj.map_id)
     return L.map('mapid').setView([mapObj.lat_start, mapObj.lng_start], mapObj.zoom);
   }
   const mymap = initializeMap(mapObj)

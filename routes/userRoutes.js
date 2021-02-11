@@ -52,7 +52,8 @@ module.exports = (db) => {
   });
 
   router.post("/register", (req, res) => {
-    console.log('HEY')
+    console.log(req.body.handle)
+    console.log(req.body.email)
 
     details = {
       incomingName: req.body.handle,
