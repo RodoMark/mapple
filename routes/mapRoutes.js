@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, deleteMarker, insertMarker } = require('../helpers/mapHelpers.js')
+const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, deleteMarker, insertMarker, addFavourite, removeFavourite } = require('../helpers/mapHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -74,7 +74,8 @@ module.exports = (db) => {
   router.post("/:mapID/markers/:markerID/delete", (req, res) => {
     console.log("MARKER ID", req.params.markerID)
     deleteMarker(req.params.markerID)
-    res.redirect("/maps/example")
+    res.redirect(`/maps/${req.params.mapID}`)
+
   })
 
 
@@ -88,11 +89,38 @@ module.exports = (db) => {
       description: req.body.description,
     }
 
-    insertMarker(details).then(() => {
-      res.redirect('/maps/example')
-    }
-    )
+    insertMarker(details)
+
+    res.redirect(`/maps/${req.params.mapID}`)
+
   })
+
+  router.post("/:mapID/favourites/add", (req, res) => {
+    const details = {
+      mapID: req.params.mapID,
+      userID: req.session.user
+    }
+
+    addFavourite(details)
+      .then(() => {
+        res.reload()
+      }
+    )
+  });
+
+  router.post("/:mapID/favourites/remove", (req, res) => {
+
+    const details = {
+    userID: req.params.userID,
+    mapID: req.params.mapID
+    }
+
+    removeFavourite(details)
+      .then(() => {
+        res.reload()
+      }
+    )
+  });
 
   router.post("/new", (req, res) => {
     db.query(

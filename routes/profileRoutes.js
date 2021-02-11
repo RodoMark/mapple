@@ -10,9 +10,9 @@ module.exports = (db) => {
     res.render("user_profile");
   });
 
-  router.get("/", (req, res) => {
-    res.render("user_profile");
-  });
-  
+
+
+
+
   return router;
 };

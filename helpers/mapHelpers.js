@@ -59,9 +59,25 @@ const insertMap = function(details) {
     `, [details.map_id, details.lat, details.lng, details.title, details.description])
 }
 
+const addFavourite = function(details) {
+  return db.query(
+    `
+    INSERT INTO favourites
+    VALUES ($1)
+    `, [details.userID, details.mapID])
+}
 
+const removeFavourite = function(details) {
+  return db.query(
+    `
+    REMOVE FROM favourites
+    WHERE user_id = $1 AND map_id = $2
+    `, [details.userID, details.mapID])
+}
 
 module.exports = {
+  addFavourite,
+  removeFavourite,
   fetchMapByMapID,
   fetchMapsByUserID,
   fetchMarkersByMapID,
