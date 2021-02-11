@@ -10,13 +10,14 @@
   <div class="collapse navbar-collapse " id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="/maps">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" style="margin-right:1em; margin-left:1em; color:whitesmoke" href="/maps">Home <span
+            class="sr-only">(current)</span></a>
       </li>
 
 
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtnNav" type="submit">Search</button>
+        <input class="form-control mr-sm-2" id="searchNav" type="search" placeholder="Search" aria-label="Search">
       </form>
 
     </ul>
@@ -27,9 +28,7 @@
       <button type="submit" class="btn btn-info" class="btn btn-outline-success my-2 my-sm-0">Register</button>
     </form>
 
-    <span class="navbar navbar-dark">
 
-    </span>
     <form method="GET" action="/maps/:id/edit">
       <button type="submit" class="btn btn-outline-dark">Create/Edit Map</button>
     </form>
