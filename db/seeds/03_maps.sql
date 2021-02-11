@@ -20,10 +20,10 @@ INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, name, description
 VALUES (2, 4, 45.407021, -75.67670545306398, 'Good Hiking Trails', 'These are some of my favourite places to hike');
 
 INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, name, description)
-VALUES (5, 2, 45.407021, -75.67670545306398, 'Get Your Culture');
+VALUES (5, 2, 45.407021, -75.67670545306398, 'Get Your Culture', 'RIGHT HERE');
 
 INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, name, description)
-VALUES (2, 3, 45.427021, -75.67670555386398, 'Get Your Culture');
+VALUES (2, 3, 45.427021, -75.67670555386398, 'Get Your Culture', 'AND ENJOY IT');
 
 INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, name, description)
 VALUES (1, 2, 45.407031, -75.67670345306398, 'Cool Bars', 'Where to grab some Drinks' );
