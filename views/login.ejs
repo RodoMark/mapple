@@ -35,11 +35,12 @@
           <form method="POST" action="/auth/login" class="d-flex-column" style="width: 47%">
             <img class="mb-4" id="logoAuth" src="/images/Mapple2just_logo.png" alt width="115" height="110">
             <h1 class="h3 mb-3 fw-normal">Please login</h1>
-            <input type="email" id="emailReg" class="form-control" placeholder="Email address"
+            <input name="email" type="email" id="emailReg" class="form-control" placeholder="Email address"
               style="margin-bottom:10px" required autofocus></input>
-            <input type="password" id="passwordReg" class="form-control" placeholder="Password" required></input>
-            <button type="submit" id="authSubmit" class="w-40 btn btn-lg btn-primary"
-              style="margin-top: 1.5em">Register</button>
+            <input name="password" type="password" id="passwordReg" class="form-control" placeholder="Password"
+              required></input>
+            <button name="login" type="submit" id="authSubmit" class="w-40 btn btn-lg btn-primary"
+              style="margin-top: 1.5em">Login</button>
             <p class="mt-5 mb-3 text-muted">© Mapple 2021</p>
           </form>
         </main>
