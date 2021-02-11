@@ -144,6 +144,15 @@ const populateMarkers = function(markerArr, mymap) {
     mp.bindPopup(getPopupContent(m), {
       closeButton: false
     });
+    mp.on('click', function() {
+      const $editBtn = $($('.edit-btn')[0]);
+      console.log($editBtn);
+      $editBtn.on('click', function(){
+      console.log('HEllO---------->');
+      
+      })
+    })
+
   }
 }
 
