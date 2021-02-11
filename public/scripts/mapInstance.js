@@ -56,7 +56,7 @@ $(document).ready(function () {
     const onMapClick = function(e) {
       let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
       const markerInputPopUp = `
-      <form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${1}/markers" method="POST">
+      <form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${map_id}/markers" method="POST">
       <label for="title">Title: </label>
       <input name="title"></input><br>
       <label for="description">Description: </label>
@@ -72,7 +72,7 @@ $(document).ready(function () {
             mp.bindPopup(markerInputPopUp, {
               closeButton: false
             });
-      }
+    }
       mymap.on('click', onMapClick);
  }
  )
@@ -95,33 +95,32 @@ $(document).ready(function () {
     $('.edit-btn', $popup).on('click', function() {
 
       $popup.empty()
-      $popup.html(
-        `
-        <form  id="submit-marker" action="/maps/${1}/markers" method="POST">
+      $popup.html(`<form  id="submit-marker" action="/maps/${map_id}/markers/edit/${markerObj.marker_id}" method="POST">
         <label for="title">Title: </label>
         <input name="title"></input><br>
         <label for="description">Description: </label>
         <input name="description"></input><br>
         <button class="submit-btn" type="submit">Submit</button><br>
-        <button class="delete-btn">DELETE MARKER</button>
-        </form>
-        `
-
+        <button class="delete-btn" id="delete-btn-${markerObj.marker_id}">DELETE MARKER</button>
+        </form>`
       )
+      $('.delete-btn', $popup).on('click', function() {
+        console.log('DELETE BUTTON CLICKED --------->')
+      })
     })
     return $popup[0]
   }
-  const openPopUp = function () {
-  }
-    const clearMarker = function(id) {
-      console.log(markers)
-      let new_markers = []
-      markers.forEach(function(marker) {
-        if (marker.id === id) mymap.removeLayer(marker)
-        else new_markers.push(marker)
-      })
-      markers = new_markers
-    }
+  // const openPopUp = function () {
+  // }
+  //   const clearMarker = function(id) {
+  //     console.log(markers)
+  //     let new_markers = []
+  //     markers.forEach(function(marker) {
+  //       if (marker.id === id) mymap.removeLayer(marker)
+  //       else new_markers.push(marker)
+  //     })
+  //     markers = new_markers
+  //   }
 const populateMarkers = function(markerArr, mymap) {
   console.log("MARKER ARRAY------>", markerArr)
   for (const m of markerArr) {
@@ -130,13 +129,13 @@ const populateMarkers = function(markerArr, mymap) {
     mp.bindPopup(getPopupContent(m), {
       closeButton: false
     });
-    // mp.on('click', function() {
-    //   const $editBtn = $($('.edit-btn')[0]);
-    //   console.log($editBtn);
-    //   $editBtn.on('click', function(){
-    //   console.log('EDIT BUTTON CLICKED---------->');
-    //   })
-    // })
+    mp.on('click', function() {
+      const $editBtn = $($('.edit-btn')[0]);
+      console.log($editBtn);
+      $editBtn.on('click', function(){
+      console.log('EDIT BUTTON CLICKED---------->');
+      })
+    })
   }
 }
 const putMarker = function(markerObj) {
