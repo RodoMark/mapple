@@ -26,8 +26,8 @@ CREATE TABLE maps (
   lat_start DECIMAL(8, 6) DEFAULT 0,
   lng_start DECIMAL(8, 6) DEFAULT 0,
   zoom INTEGER DEFAULT 10,
-  created_at TIMESTAMP DEFAULT current_timestamp,
-  last_edited TIMESTAMP DEFAULT current_timestamp
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  last_edited TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -38,13 +38,13 @@ CREATE TABLE markers (
   lng DECIMAL(8, 6) NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT,
-  created_at TIMESTAMP DEFAULT current_timestamp
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE favourites (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id),
   map_id INTEGER REFERENCES maps(id),
-  created_at TIMESTAMP DEFAULT current_timestamp
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
