@@ -1,11 +1,8 @@
 const express = require('express');
 const router  = express.Router();
 
-const bcrypt = require("bcrypt");
-const saltRounds = 10
-
-const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrationTripmine, addNewUser } = require('../helpers/userHelpers.js')
-
+// const bcrypt = require("bcrypt");
+// const saltRounds = 10
 module.exports = (db) => {
   router.get("", (req, res) => {
     res.redirect("/maps");
@@ -17,8 +14,7 @@ module.exports = (db) => {
   } else {
     res.redirect("/maps")
   }
-
-  });
+  });[0]
 
   router.get("/register", (req, res) => {
     if(!req.session.user) {
@@ -71,7 +67,6 @@ module.exports = (db) => {
 
 
       req.session.cookie = newUser
-      addNewUser(newUser)
       res.redirect("/maps")
     } else {
       res.status(400)

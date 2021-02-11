@@ -3,9 +3,6 @@ const { Pool } = require('pg');
 const dbParams = require('../lib/db');
 const db = new Pool(dbParams);
 
-const bcrypt = require("bcrypt");
-const saltRounds = 10
-
 
 //CHECKS IF THE USER IS IN OUR DATABASE
 const userExists = function(email) {
@@ -17,8 +14,7 @@ const userExists = function(email) {
     `, [email]
   )
     .then((output) => {
-        console.log("OUTPUT ROWS====>", output.rows)
-        return output.rows;
+        return output.rows[0];
     })
     .catch(err => console.error('query error', err.stack));
 };
@@ -88,7 +84,7 @@ const checkObjectKeyLength = function (obj) {
 const registrationTripmine = function(details) {
   let message = null;
 
-  if (userExists(details.incomingEmail).length) {
+  if (userExists(details.incomingEmail)) {
     message = `User with the email ${details.incomingEmail} already exists. Please enter a different one.`;
   } else if (
     checkObjectKeyLength(details)
@@ -105,22 +101,7 @@ const registrationTripmine = function(details) {
 const addNewUser = function (details) {
 
   const newUser = {
-    name: details.incomingName || null,
-    email: details.incomingEmail,
-    password: bcrypt.hashSync(details.incomingPassword, saltRounds),
-  };
-
-  return newUser;
-};
-
-module.exports = {
+    name: incomingName || null,
   fetchUserByID,
-  authenticateUser,
-  userExists,
-  fetchUserByEmail,
-  fetchUserByID,
-  registrationTripmine,
-  addNewUser,
+  }
 }
-
-
