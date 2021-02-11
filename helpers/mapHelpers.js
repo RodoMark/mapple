@@ -44,10 +44,22 @@ const insertMap = function(details) {
 
   return db.query(
     `
-    INSERT INTO markers
+    INSERT INTO maps
     VALUES ($1, $2, $3, $4, $5)
     `, [details.map_id, details.lat, details.lng, details.title, details.description])
 }
+
+const fetchMapByInterestName = function(interestID) {
+  return db.query(
+    `
+    SELECT maps.id as map_id, maps.owner_id as user_id, maps.interest_id, maps.name, maps.created_at
+    FROM maps
+    JOIN interests ON interests.id = interest_id
+    WHERE interests.name = $1
+    `, [interestID])
+
+}
+
 
 const fetchMapsByUserID = function(userID) {
   return db.query(
@@ -89,6 +101,7 @@ module.exports = {
   fetchMapByMapID,
   fetchMapsByUserID,
   fetchMarkersByMapID,
+  fetchMapByInterestName,
   deleteMarker,
   insertMarker,
 }

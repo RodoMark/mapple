@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, deleteMarker, insertMarker, addFavourite, removeFavourite } = require('../helpers/mapHelpers.js')
+const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, fetchMapByInterestName, deleteMarker, insertMarker, addFavourite, removeFavourite } = require('../helpers/mapHelpers.js')
 
 const { fetchUserByID } = require('../helpers/userHelpers.js')
 
@@ -18,20 +18,28 @@ module.exports = (db) => {
     res.render("map_template");
   });
 
-  router.get("/search", (req, res) => {
-    // return db.query(
-    //   // Search query goes here
-    //   `
-    //   SELECT map_id
-    //   FROM maps
-    //   JOIN interests ON interests.id = interest_id
-    //   WHERE interests.name = $1
-    //   `
-    // , [req.body.search]).then(
+  router.get("/search/:interestName", (req, res) => {
+    fetchMapByInterestName(req.params.interestName)
+      .then(output => {
+        const table = output.rows[0]
+        console.log(table)
 
-      res.render("maps_show")
-    // )
-    // ;
+        const templateVars = {
+          map_id: table.map_id,
+          user_id: table.user_id,
+          interest_id: table.interest_id,
+          name: table.name,
+          created_at: table.create_at,
+        }
+
+        res.render("maps_by_interest", templateVars)
+      }
+
+
+      )
+
+
+
   });
 
   router.get("/:mapID/points/", (req, res) => {
