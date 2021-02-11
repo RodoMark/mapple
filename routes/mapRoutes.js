@@ -46,12 +46,29 @@ module.exports = (db) => {
     //:id/edit
   });
 
+  router.get("/:mapID", (req, res) => {
+    fetchMapByMapID(req.params.mapID)
+    .then(output => {
+      const table = output.rows[0]
+      const templateVars = {
+        map_id: table.id,
+        owner_id: table.owner_id,
+        interest_id: table.interest_id,
+        name: table.name,
+        description: table.description,
+        created_at: table.created_at,
+        last_edited: table.last_edited
+      }
+
+      res.render("specific_map", templateVars);
+    })
+  });
+
   router.get("/specific", (req, res) => {
     res.render("specific_map");
   })
 
-  router.post("/:id", (req, res) => {
-
+  router.post("/:mapID", (req, res) => {
   });
 
   router.post("/:mapID/markers/:markerID/delete", (req, res) => {

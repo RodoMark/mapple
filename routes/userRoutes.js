@@ -38,7 +38,6 @@ module.exports = (db) => {
         if(authenticateUser(incomingEmail, incomingPassword)) {
           fetchUserByEmail(incomingEmail)
             .then(output => {
-              console.log("OUTPUT!", output)
               req.session.user = output.id
               res.redirect("/profile")
           }).catch(err => console.error('query error', err.stack));
@@ -53,10 +52,12 @@ module.exports = (db) => {
   });
 
   router.post("/register", (req, res) => {
+    console.log('HEY')
+
     details = {
-      incomingName: req.handle,
-      incomingEmail: req.email,
-      incomingPassword: req.password
+      incomingName: req.body.handle,
+      incomingEmail: req.body.email,
+      incomingPassword: req.body.password
     }
 
     if(!registrationTripmine(details)) {
