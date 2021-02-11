@@ -9932,7 +9932,10 @@ h3 {
 .navbar-brand {
   font-family: "Pacifico", cursive;
   font-size: 1.8em;
-  color: aliceblue, fill;
+}
+
+.navbar-light .navbar-brand {
+  color: #fcfcfc;
 }
 
 .avatar {
@@ -9942,7 +9945,7 @@ h3 {
 }
 
 .navbar {
-  background: linear-gradient(to bottom right, #bedbb6 40%, #d4dbd2 100%);
+  background: linear-gradient(to bottom right, #a3cd97 40%, #d4dbd2 100%);
 }
 
 .container {
@@ -10000,6 +10003,16 @@ h3 {
 
 #authSubmit {
   background: linear-gradient(to bottom right, #0c4500 40%, #9cbea1 100%);
+}
+
+#searchNav {
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
+  background: none;
+  border: none;
+}
+
+#searchBtnNav {
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
 }
 
 /*# sourceMappingURL=custom.css.map */
