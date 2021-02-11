@@ -16,23 +16,25 @@
 
 
       <form class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtnNav" type="submit">Search</button>
         <input class="form-control mr-sm-2" id="searchNav" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtnNav" type="submit">Search</button>
       </form>
 
     </ul>
     <form method="GET" action="/auth/login" class="form-inline my-2 my-lg-0">
-      <button type="submit" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0">Login</button>
+      <button type="submit" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0" id="navLogin"
+        style="margin-right: 10px;">Login</button>
     </form>
     <form method="GET" action="/auth/register" class="form-inline my-2 my-lg-0">
-      <button type="submit" class="btn btn-info" class="btn btn-outline-success my-2 my-sm-0">Register</button>
+      <button type="submit" id="navReg" class="btn btn-info"
+        class="btn btn-outline-success my-2 my-sm-0">Register</button>
     </form>
 
 
     <form method="GET" action="/maps/:id/edit">
-      <button type="submit" class="btn btn-outline-dark">Create/Edit Map</button>
+      <button type="submit" class="btn btn-outline-dark" style="margin-right: 10px;">Create/Edit Map</button>
     </form>
-    <form method="POST" action="/auth/logout">
+    <form method=" POST" action="/auth/logout">
       <button type="submit" class="btn btn-outline-dark">Logout</button>
     </form>
   </div>
