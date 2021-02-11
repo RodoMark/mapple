@@ -52,14 +52,14 @@ module.exports = (db) => {
   });
 
   router.post("/register", (req, res) => {
-    console.log(req.body.handle)
-    console.log(req.body.email)
 
     details = {
       incomingName: req.body.handle,
       incomingEmail: req.body.email,
       incomingPassword: req.body.password
     }
+
+    console.log(details)
 
     if(!registrationTripmine(details)) {
 
