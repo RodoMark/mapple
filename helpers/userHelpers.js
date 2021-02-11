@@ -104,10 +104,12 @@ const registrationTripmine = function(details) {
 
 const addNewUser = function (details) {
 
+  console.log("DETAILS INSIDE NEW USER", details)
+
   const newUser = {
-    name: details.incomingName || null,
-    email: details.incomingEmail,
-    password: bcrypt.hashSync(details.incomingPassword, saltRounds),
+    name: details.name || null,
+    email: details.email,
+    password: bcrypt.hashSync(details.password, saltRounds),
   };
 
   return newUser;

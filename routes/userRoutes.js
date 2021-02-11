@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 const bcrypt = require("bcrypt");
-const saltRounds = 10
+const saltRounds = bcrypt.genSaltSync(10)
 
 const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrationTripmine, addNewUser } = require('../helpers/userHelpers.js')
 
@@ -63,9 +63,9 @@ module.exports = (db) => {
       incomingPassword: req.body.password
     }
 
-    console.log(details)
-
     if(!registrationTripmine(details)) {
+
+      console.log("NO TRIP MINE DETECTED")
 
       const newUser = {
         name: details.incomingName || null,
