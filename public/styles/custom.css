@@ -9972,6 +9972,11 @@ h3 {
   border: none;
 }
 
+#emptyHeart {
+  background: none;
+  border: none;
+}
+
 #newSubmit {
   background: darkgreen;
   color: whitesmoke;

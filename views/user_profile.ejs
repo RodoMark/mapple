@@ -24,6 +24,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="/styles/custom.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
 <body>
   <%- include("partials/_header") %>
@@ -48,6 +49,12 @@
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <div class="emptyHeart d-flex justify-content-center">
+                      <form action='/maps/:mapID/favourites/remove' method='POST'>
+                        <button type="submit" id="emptyHeart"><i class="bi bi-heart"
+                            style="font-size: 1em; color:rgb(0, 0, 0)"></i></button>
+                      </form>
                     </div>
                   </div>
               </div>
