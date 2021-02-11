@@ -7,8 +7,11 @@
 .navbar-brand {
   font-family: 'Pacifico', cursive;
   font-size: 1.8em;
-  color:aliceblue, fill
 }
+
+.navbar-light .navbar-brand {
+  color:rgb(252, 252, 252);
+  }
 
 
 .avatar {
@@ -18,7 +21,7 @@
 }
 
 .navbar {
-  background: linear-gradient(to bottom right, #bedbb6 40%, #d4dbd2 100%);
+  background: linear-gradient(to bottom right, #a3cd97 40%, #d4dbd2 100%);
 }
 
 .container {
@@ -65,3 +68,28 @@
   width: 500px;
   height: 500px;
 }
+
+.form-register {
+  width: 50%;
+}
+
+#logoAuth {
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
+  border-radius: 50%;
+}
+
+#authSubmit {
+  background: linear-gradient(to bottom right, #0c4500 40%, #9cbea1 100%);
+}
+
+
+#searchNav {
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
+  background: none;
+  border: none;
+}
+
+#searchBtnNav {
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
+}
+
