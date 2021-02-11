@@ -32,16 +32,9 @@ $(document).ready(function () {
   const getPopupContent = function(markerObj) {
     const popup =
     `
-    <form data-marker-id="${markerObj.marker_id}" id="submit-marker" action="/maps/${markerObj.map_id}/markers" method="POST">
-    <label for="title">Title: </label>
-    <input name="title"></input><br>
-    <label for="description">Description: </label>
-    <input name="description"></input><br>
-    <button class="submit-btn" type="submit">Submit</button><br>
-    </form>
-    <form method="POST" action="/maps/${markerObj.map_id}/markers/${markerObj.marker_id}/delete">
-    <button class="delete-btn">DELETE MARKER</button>
-    </form>
+    <p>${markerObj.title}</p>
+    <p>${markerObj.description}</p>
+    <button id="edit-btn">EDIT</button>
     `
     return popup
   }
