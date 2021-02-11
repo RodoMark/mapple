@@ -26,17 +26,19 @@ const userExists = function(email) {
 const authenticateUser = function(incomingEmail, incomingPassword) {
   return db.query(
     `
-    SELECT password
+    SELECT *
     FROM users
     WHERE email = $1
     `, [incomingEmail]
     ).then(output => {
 
-      if(output.rows[0].password === bcrypt.hashSync(incomingPassword, saltRounds)) {
+      if(output.rows[0].password === incomingPassword) {
+
+        console.log("ENCRYPTED", output.rows[0].password)
         return true
       }
     })
-    .catch(err => console.error('query error', err.stack));
+    .catch(err => console.error('query error', err));
 
 }
 
@@ -104,15 +106,18 @@ const registrationTripmine = function(details) {
 
 const addNewUser = function (details) {
 
-  console.log("DETAILS INSIDE NEW USER", details)
-
   const newUser = {
     name: details.name || null,
     email: details.email,
-    password: bcrypt.hashSync(details.password, saltRounds),
-  };
+    password: details.password,
+  }
 
-  return newUser;
+  return db.query(
+    `
+    INSERT INTO users (name, email, password)
+    VALUES ($1, $2, $3)
+    `
+  , [newUser.name, newUser.email, newUser.password])
 };
 
 module.exports = {
