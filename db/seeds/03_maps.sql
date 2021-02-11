@@ -1,21 +1,20 @@
 INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, name, description)
-
-VALUES (1, 3, 'Food In The City', 'Some of my favourite places to eat.');
+VALUES (1, 3, 'Food In The City', 'Some of my favourite places to eat.', NULL);
 
 INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, name, description)
-VALUES (2, 1, 45.407031, -75.67670345306398, 'Art Tour');
+VALUES (2, 1, 45.407031, -75.67670345306398, 'Art Tour', NULL);
 
 INSERT INTO maps (owner_id, interest_id,lat_start, lng_start, name, description)
-VALUES (4, 5, 45.407031, -75.67670345306398, 'Famous Landmarks');
+VALUES (4, 5, 45.407031, -75.67670345306398, 'Famous Landmarks', NULL);
 
 INSERT INTO maps (owner_id, interest_id,lat_start, lng_start, name, description)
-VALUES (1, 7, 45.407031, -75.67670345306398, 'yay shopping!');
+VALUES (1, 7, 45.407031, -75.67670345306398, 'yay shopping!', NULL);
 
 INSERT INTO maps (owner_id, interest_id,lat_start, lng_start, name, description)
-VALUES (3, 7, 45.407031, -75.67670345306398, 'Shopping Destinations');
+VALUES (3, 7, 45.407031, -75.67670345306398, 'Shopping Destinations', NULL);
 
 INSERT INTO maps (owner_id, interest_id,lat_start, lng_start, name, description)
-VALUES (1, 8, 45.407631, -75.67670645306398, 'I Like Sports');
+VALUES (1, 8, 45.407631, -75.67670645306398, 'I Like Sports', 'And I dont care who knows');
 
 INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, name, description)
 VALUES (2, 4, 45.407021, -75.67670545306398, 'Good Hiking Trails', 'These are some of my favourite places to hike');

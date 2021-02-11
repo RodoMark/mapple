@@ -22,7 +22,7 @@ CREATE TABLE maps (
   owner_id INTEGER REFERENCES users(id) NOT NULL,
   interest_id INTEGER REFERENCES interests(id) NOT NULL,
   name VARCHAR(32) DEFAULT 'My Map',
-  description TEXT,
+  description TEXT DEFAULT NULL,
   lat_start DECIMAL(8, 6) DEFAULT 0,
   lng_start DECIMAL(8, 6) DEFAULT 0,
   zoom INTEGER DEFAULT 10,
