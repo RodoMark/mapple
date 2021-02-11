@@ -28,7 +28,7 @@
 
 <body>
   <%- include("partials/_header") %>
-    <div class="container" style="border-top:0">
+    <div class="container" style="border-top:0; height: 800px;">
       <div class="container2" style="height:70px"></div>
       <div class="container1">
         <div class="mapName col-12" style="margin-bottom: 3em; text-align: center"><b>Map Name</b></div>
@@ -41,10 +41,12 @@
 
         <div class="saveDelete d-flex justify-content-center" style="margin-bottom:4em; margin-top:3em;">
           <form method="POST" action="/" class="form-inline my-2 my-lg-0">
-            <button type="submit" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0">Save</button>
+            <button type="submit" id="editMapSave" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0"
+              style="width:90px;">Save</button>
           </form>
           <form method="POST" action="/delete" class="form-inline my-2 my-lg-0">
-            <button type="submit" class="btn btn-info" class="btn btn-outline-success my-2 my-sm-0">Delete</button>
+            <button type="submit" id="editMapDelete" class="btn btn-primary"
+              class="btn btn-outline-success my-2 my-sm-0">Delete</button>
           </form>
         </div>
       </div>
@@ -53,8 +55,4 @@
 
 </body>
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> a79c5e81785aa8192e0e69ee2c17303b0b47eb9e

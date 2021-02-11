@@ -18,6 +18,11 @@ module.exports = (db) => {
     res.render("map_template");
   });
 
+  // temp route to show edit_marker.ejs
+  router.get("/marker", (req, res) => {
+    res.render("edit_marker");
+  });
+
   router.get("/search/:interestName", (req, res) => {
     fetchMapByInterestName(req.params.interestName)
       .then(output => {
@@ -80,6 +85,8 @@ module.exports = (db) => {
   router.get("/specific", (req, res) => {
     res.render("specific_map");
   })
+
+
 
   router.post("/:mapID", (req, res) => {
   });
