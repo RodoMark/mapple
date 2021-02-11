@@ -57,7 +57,7 @@ $(document).ready(function () {
 
     const mymap = initializeMap(mapObj)
 
-  mymap.on('click', onMapClick);
+
 
 
 
@@ -77,6 +77,28 @@ $(document).ready(function () {
       populateMarkers(output,mymap)
     });
 
+    const onMapClick = function(e) {
+      let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
+      const markerInputPopUp = `
+      <form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${1}/markers" method="POST">
+      <label for="title">Title: </label>
+      <input name="title"></input><br>
+      <label for="description">Description: </label>
+      <input name="description"></input><br>
+      <input type="hidden" name="lat" value="${e.latlng.lat}"/>
+      <input type="hidden" name="lng" value="${e.latlng.lng}"/>
+      <button class="submit-btn" type="submit">Submit</button><br>
+      <button class="delete-btn">DELETE MARKER</button>
+      </form>
+      `
+            console.log("lat", e.latlng.lat)
+            console.log("long", e.latlng.lng)
+            mp.bindPopup(markerInputPopUp, {
+              closeButton: false
+            });
+      }
+
+      mymap.on('click', onMapClick);
  }
  )
 
@@ -122,6 +144,15 @@ const populateMarkers = function(markerArr, mymap) {
     mp.bindPopup(getPopupContent(m), {
       closeButton: false
     });
+    mp.on('click', function() {
+      const $editBtn = $($('.edit-btn')[0]);
+      console.log($editBtn);
+      $editBtn.on('click', function(){
+      console.log('HEllO---------->');
+      
+      })
+    })
+
   }
 }
 
@@ -142,26 +173,7 @@ const insertMarker = function() {
   $('submit-btn').on('click', putMarker(markerObj))
 }
 
-const onMapClick = function(e) {
-let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
-const markerInputPopUp = `
-<form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${1}/markers" method="POST">
-<label for="title">Title: </label>
-<input name="title"></input><br>
-<label for="description">Description: </label>
-<input name="description"></input><br>
-<input type="hidden" name="lat" value="${e.latlng.lat}"/>
-<input type="hidden" name="lng" value="${e.latlng.lng}"/>
-<button class="submit-btn" type="submit">Submit</button><br>
-<button class="delete-btn">DELETE MARKER</button>
-</form>
-`
-      console.log("lat", e.latlng.lat)
-      console.log("long", e.latlng.lng)
-      mp.bindPopup(markerInputPopUp, {
-        closeButton: false
-      });
-}
+
 
 
 

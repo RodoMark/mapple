@@ -1,13 +1,32 @@
 const express = require('express');
 const router  = express.Router();
 
-// const bcrypt = require("bcrypt");
-// const saltRounds = 10
+const { fetchUserProfile } = require('../helpers/profileHelpers.js')
+
+const bcrypt = require("bcrypt");
+const saltRounds = 10
+
+
 
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-    res.render("user_profile");
+    if(req.session.user){
+      fetchUserProfile(req.session.user)
+        .then(output => {
+          console.log(output.rows)
+          const templateVars = {
+            table: output.rows
+          }
+          res.render("user_profile", templateVars)
+        }
+
+
+        )
+    } else {
+      res.redirect("/maps")
+    }
+
   });
 
 

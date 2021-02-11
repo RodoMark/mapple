@@ -1,8 +1,11 @@
 const express = require('express');
 const router  = express.Router();
 
-// const bcrypt = require("bcrypt");
-// const saltRounds = 10
+const bcrypt = require("bcrypt");
+const saltRounds = 10
+
+const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrationTripmine, addNewUser } = require('../helpers/userHelpers.js')
+
 module.exports = (db) => {
   router.get("", (req, res) => {
     res.redirect("/maps");
@@ -14,7 +17,8 @@ module.exports = (db) => {
   } else {
     res.redirect("/maps")
   }
-  });[0]
+
+  });
 
   router.get("/register", (req, res) => {
     if(!req.session.user) {
@@ -30,16 +34,20 @@ module.exports = (db) => {
 
     if(!req.session.user) {
       if(userExists(incomingEmail)) {
+        (authenticateUser(incomingEmail, incomingPassword)).then(output => {
+          if(output){
 
-        if(authenticateUser(incomingEmail, incomingPassword)) {
-          fetchUserByEmail(incomingEmail)
+            console.log("user authenticated!!")
+            fetchUserByEmail(incomingEmail)
             .then(output => {
               req.session.user = output.id
               res.redirect("/profile")
           }).catch(err => console.error('query error', err.stack));
-
-        }
-
+          } else {
+            res.status(400)
+            res.send('Login info incorrect.')
+          }
+        })
       } else {
         res.status(400)
         res.send('Login info incorrect.')
@@ -67,6 +75,7 @@ module.exports = (db) => {
 
 
       req.session.cookie = newUser
+      addNewUser(newUser)
       res.redirect("/maps")
     } else {
       res.status(400)
