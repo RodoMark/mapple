@@ -52,7 +52,7 @@ const insertMap = function(details) {
 const fetchMapByInterestName = function(interestID) {
   return db.query(
     `
-    SELECT maps.id as map_id, maps.owner_id as user_id, maps.interest_id, maps.name, maps.created_at
+    SELECT maps.id as map_id, maps.owner_id as user_id, interests.name as interest_name, maps.name, maps.created_at
     FROM maps
     JOIN interests ON interests.id = interest_id
     WHERE interests.name = $1

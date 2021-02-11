@@ -27,18 +27,14 @@ module.exports = (db) => {
   router.get("/search/:interestName", (req, res) => {
     fetchMapByInterestName(req.params.interestName)
       .then(output => {
+
         const table = output.rows[0]
         console.log(table)
 
         const templateVars = {
-          map_id: table.map_id,
-          user_id: table.user_id,
-          interest_id: table.interest_id,
-          name: table.name,
-          description: table.description,
-          created_at: table.create_at,
-        }
 
+        }
+        res.send(table)
         res.render("maps_show", templateVars)
       }
       )

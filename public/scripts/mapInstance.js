@@ -74,7 +74,7 @@ $(document).ready(function () {
       url: `/maps/${map_id}/points`,
       method: 'GET'
     }).then(output => {
-      populateMarkers(output, mymap)
+      populateMarkers(output,mymap)
     });
 
  }
@@ -122,14 +122,6 @@ const populateMarkers = function(markerArr, mymap) {
     mp.bindPopup(getPopupContent(m), {
       closeButton: false
     });
-    mp.on('click', function() {
-
-      const $editBtn = $($('.edit-btn')[0]);
-      console.log($editBtn);
-      $editBtn.on('click', function(){
-      console.log('HEllO---------->');
-      })
-    })
   }
 }
 
@@ -152,7 +144,6 @@ const insertMarker = function() {
 
 const onMapClick = function(e) {
 let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
-console.log("MAP CLICK ----------->")
 const markerInputPopUp = `
 <form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${1}/markers" method="POST">
 <label for="title">Title: </label>
