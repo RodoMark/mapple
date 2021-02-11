@@ -13,16 +13,6 @@ const fetchMapByMapID = function(mapID) {
   , [mapID])
 }
 
-const fetchMapsByUserID = function(userID) {
-  return db.query(
-  `
-  SELECT id
-  FROM maps
-  WHERE owner_id = $1
-  `
-  , [userID])
-}
-
 const fetchMarkersByMapID = function(mapID) {
   return db.query(
     `
@@ -59,18 +49,36 @@ const insertMap = function(details) {
     `, [details.map_id, details.lat, details.lng, details.title, details.description])
 }
 
+const fetchMapsByUserID = function(userID) {
+  return db.query(
+  `
+  SELECT id
+  FROM maps
+  WHERE owner_id = $1
+  `
+  , [userID])
+}
+
+const fetchFavouritesByUserID = function(userID) {
+  return db.query(
+    `
+    SELECT id FROM favourites
+    WHERE user_id = $1
+    `, [userID])
+}
+
 const addFavourite = function(details) {
   return db.query(
     `
-    INSERT INTO favourites
-    VALUES ($1)
+    INSERT INTO favourites (user_id, map_id)
+    VALUES ($1, $2
     `, [details.userID, details.mapID])
 }
 
 const removeFavourite = function(details) {
   return db.query(
     `
-    REMOVE FROM favourites
+    DELETE FROM favourites
     WHERE user_id = $1 AND map_id = $2
     `, [details.userID, details.mapID])
 }

@@ -3,6 +3,8 @@ const router  = express.Router();
 
 const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, deleteMarker, insertMarker, addFavourite, removeFavourite } = require('../helpers/mapHelpers.js')
 
+const { fetchUserByID } = require('../helpers/userHelpers.js')
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
     res.render("maps_by_interest");
@@ -96,16 +98,29 @@ module.exports = (db) => {
   })
 
   router.post("/:mapID/favourites/add", (req, res) => {
-    const details = {
-      mapID: req.params.mapID,
-      userID: req.session.user
+    if(req.session.user) {
+      console.log("REQ PARAMS", req.params)
+      const incomingMapID = req.params.mapID
+      console.log("MAP ID", incomingMapID)
+
+      fetchUserByID(req.session.user)
+        .then(output => {
+
+          const table = output.rows[0]
+
+          const details = {
+            mapID: Number(incomingMapID),
+            userID: Number(table.id),
+            }
+            console.log(`FAVOURITING ${details.mapID} by ${details.userID}!!!`)
+            addFavourite(details)
+            res.redirect(req.get('referer'));
+          }
+        )
+    } else {
+      res.redirect('/auth/login')
     }
 
-    addFavourite(details)
-      .then(() => {
-        res.reload()
-      }
-    )
   });
 
   router.post("/:mapID/favourites/remove", (req, res) => {
@@ -116,10 +131,7 @@ module.exports = (db) => {
     }
 
     removeFavourite(details)
-      .then(() => {
-        res.reload()
-      }
-    )
+    res.redirect(req.get('referer'));
   });
 
   router.post("/new", (req, res) => {

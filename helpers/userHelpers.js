@@ -59,22 +59,14 @@ const fetchUserByEmail = function(incomingEmail){
 
 // FETCHES USER INFO BY EMAIL SO WE CAN MAKE A COOKIE
 const fetchUserByID = function(userID){
-  db.query(
+  return db.query(
     `
     SELECT id, name, email
     FROM users
     WHERE id = $1
     `
   , [userID]
-  ).then(output => {
-    return {
-      id: output.rows[0].id,
-      name: output.rows[0].name,
-      email: output.rows[0].email,
-      }
-    }
-  ).catch(err => console.error('query error', err.stack));
-
+  )
 }
 
 // CHECKS IF OBJECT KEY HAS AT LEAST 1 CHARACTER
@@ -118,6 +110,7 @@ const addNewUser = function (details) {
 };
 
 module.exports = {
+  fetchUserByID,
   authenticateUser,
   userExists,
   fetchUserByEmail,
