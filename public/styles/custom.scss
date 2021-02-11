@@ -24,7 +24,9 @@
 .container {
   background: linear-gradient(to bottom right,#eef7ec 30%,#e5f4e1  100%);
   // background-color:#edf6eb; 
-  border: 4px outset #C3E3C1;
+  // border: 4px outset #C3E3C1;
+  border: none;
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
 }
 
 .col:hover{
@@ -45,4 +47,16 @@
 #heartButton {
   background: none;
   border: none;
+}
+
+#newSubmit {
+  background: darkgreen;
+  color: whitesmoke;
+  border: none;
+  box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);
+}
+
+.map {
+  width: 500px;
+  height: 500px;
 }

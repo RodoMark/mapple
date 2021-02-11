@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMarkersByMapID, deleteMarker, insertMarker } = require('../helpers/mapHelpers.js')
+const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, deleteMarker, insertMarker } = require('../helpers/mapHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -39,40 +39,62 @@ module.exports = (db) => {
         })
     ;
   });
-  
+
   router.get("/editmap", (req, res) => {
     res.render("edit_map");
 
     //:id/edit
   });
 
+  router.get("/:mapID", (req, res) => {
+    fetchMapByMapID(req.params.mapID)
+    .then(output => {
+      const table = output.rows[0]
+      const templateVars = {
+        map_id: table.id,
+        owner_id: table.owner_id,
+        interest_id: table.interest_id,
+        name: table.name,
+        description: table.description,
+        created_at: table.created_at,
+        last_edited: table.last_edited
+      }
+
+      res.render("specific_map", templateVars);
+    })
+  });
+
   router.get("/specific", (req, res) => {
     res.render("specific_map");
   })
 
-  router.post("/:id", (req, res) => {
-
+  router.post("/:mapID", (req, res) => {
   });
 
-  router.delete("/:map_id/markers/:marker_id", (req, res) => {
-    console.log("MARKER ID", req.params.marker_id)
-    deleteMarker(req.params.marker_id)
-    res.end()
+  router.post("/:mapID/markers/:markerID/delete", (req, res) => {
+    console.log("MARKER ID", req.params.markerID)
+    deleteMarker(req.params.markerID)
+    res.redirect("/maps/example")
   })
 
-  router.put("/:map_id/markers/", (req,res) => {
+
+  router.post("/:mapID/markers/", (req,res) => {
+    console.log(req.body)
     details = {
-      map_id: req.params.map_id,
-      lat: req.params.latlng.lat,
-      lng: req.params.latlng.lng,
-      title: req.params.title,
-      description: req.params.title,
+      map_id: Number(req.params.mapID),
+      lat: Number(req.body.lat),
+      lng: Number(req.body.lng),
+      title: req.body.title,
+      description: req.body.description,
     }
 
-    insertMarker(details)
+    insertMarker(details).then(() => {
+      res.redirect('/maps/example')
+    }
+    )
   })
 
-  router.put("/new", (req, res) => {
+  router.post("/new", (req, res) => {
     db.query(
       details = {
         owner_id: req.session.id,
