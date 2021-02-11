@@ -4,7 +4,7 @@ const dbParams = require('../lib/db');
 const db = new Pool(dbParams);
 
 const bcrypt = require("bcrypt");
-const saltRounds = 10
+const saltRounds = bcrypt.genSaltSync(10)
 
 
 //CHECKS IF THE USER IS IN OUR DATABASE
@@ -17,7 +17,6 @@ const userExists = function(email) {
     `, [email]
   )
     .then((output) => {
-        console.log("OUTPUT ROWS====>", output.rows)
         return output.rows;
     })
     .catch(err => console.error('query error', err.stack));
@@ -25,7 +24,6 @@ const userExists = function(email) {
 
 // CHECKS PASSWORD AGAINST EMAIL
 const authenticateUser = function(incomingEmail, incomingPassword) {
-  console.log('IncomingEmail', incomingEmail)
   return db.query(
     `
     SELECT password
@@ -33,6 +31,7 @@ const authenticateUser = function(incomingEmail, incomingPassword) {
     WHERE email = $1
     `, [incomingEmail]
     ).then(output => {
+
       if(output.rows[0].password === bcrypt.hashSync(incomingPassword, saltRounds)) {
         return true
       }

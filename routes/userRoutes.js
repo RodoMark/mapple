@@ -36,6 +36,7 @@ module.exports = (db) => {
       if(userExists(incomingEmail)) {
         (authenticateUser(incomingEmail, incomingPassword)).then(output => {
           if(output){
+
             console.log("user authenticated!!")
             fetchUserByEmail(incomingEmail)
             .then(output => {
@@ -43,7 +44,6 @@ module.exports = (db) => {
               res.redirect("/profile")
           }).catch(err => console.error('query error', err.stack));
           } else {
-            console.log("Authenication failed!!")
             res.status(400)
             res.send('Login info incorrect.')
           }
