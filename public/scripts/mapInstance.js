@@ -11,7 +11,9 @@ $(document).ready(function () {
   }
 
   // let map_id = getMapID()
-  let map_id = 1
+  let $map = $("[class*=data-map-id]")[0].classList[0]
+  let map_id = $map[$map.length-1]
+  console.log("This map's map_id is", map_id)
 
   const $mapContent = $('#mapid')
 
