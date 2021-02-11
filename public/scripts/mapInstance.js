@@ -86,13 +86,30 @@ $(document).ready(function () {
   //   "created_at":null,
   // }
   const getPopupContent = function(markerObj) {
-    const popup =
-    `
+    const $popup =
+    $(`<div>
     <p>${markerObj.title}</p>
     <p>${markerObj.description}</p>
     <button class="edit-btn" id="edit-btn-${markerObj.marker_id}">EDIT</button>
-    `
-    return popup
+    </div>`)
+    $('.edit-btn', $popup).on('click', function() {
+
+      $popup.empty()
+      $popup.html(
+        `
+        <form  id="submit-marker" action="/maps/${1}/markers" method="POST">
+        <label for="title">Title: </label>
+        <input name="title"></input><br>
+        <label for="description">Description: </label>
+        <input name="description"></input><br>
+        <button class="submit-btn" type="submit">Submit</button><br>
+        <button class="delete-btn">DELETE MARKER</button>
+        </form>
+        `
+
+      )
+    })
+    return $popup[0]
   }
   const openPopUp = function () {
   }
@@ -113,13 +130,13 @@ const populateMarkers = function(markerArr, mymap) {
     mp.bindPopup(getPopupContent(m), {
       closeButton: false
     });
-    mp.on('click', function() {
-      const $editBtn = $($('.edit-btn')[0]);
-      console.log($editBtn);
-      $editBtn.on('click', function(){
-      console.log('EDIT BUTTON CLICKED---------->');
-      })
-    })
+    // mp.on('click', function() {
+    //   const $editBtn = $($('.edit-btn')[0]);
+    //   console.log($editBtn);
+    //   $editBtn.on('click', function(){
+    //   console.log('EDIT BUTTON CLICKED---------->');
+    //   })
+    // })
   }
 }
 const putMarker = function(markerObj) {
