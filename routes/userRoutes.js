@@ -1,10 +1,10 @@
 const express = require('express');
 const router  = express.Router();
 
-// const bcrypt = require("bcrypt");
-// const saltRounds = 10
+const bcrypt = require("bcrypt");
+const saltRounds = 10
 
-const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrationTripmine } = require('../helpers/userHelpers.js')
+const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrationTripmine, addNewUser } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("", (req, res) => {
@@ -71,6 +71,7 @@ module.exports = (db) => {
 
 
       req.session.cookie = newUser
+      addNewUser(newUser)
       res.redirect("/maps")
     } else {
       res.status(400)

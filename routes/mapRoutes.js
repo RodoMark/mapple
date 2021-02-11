@@ -29,13 +29,12 @@ module.exports = (db) => {
           user_id: table.user_id,
           interest_id: table.interest_id,
           name: table.name,
+          description: table.description,
           created_at: table.create_at,
         }
 
-        res.render("maps_by_interest", templateVars)
+        res.render("maps_show", templateVars)
       }
-
-
       )
 
 
