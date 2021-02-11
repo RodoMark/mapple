@@ -1,22 +1,55 @@
 // render map with starting lat and lng and zoom from user
 //
 $(document).ready(function () {
-  const map_id = 1
-  const mapContent = `<div data-map-id="${map_id} id="mapid" class="map"></div>`
-  const generateMap = function(map_id) {
-    $('body').append(mapContent)
+
+
+  const getMapID = function() {
+  // Use jquery to get the map_id from <div id="mymap">
+  // it's <%= map_id %> in the class class data-map-id-<%= map_id %>
+
+  return map_id
   }
-  const mapObj = {
-    id: 1,
-    owner_id: 1,
-    title: "THE TITLE",
-    description: "",
-    lat_start: 45.407031,
-    lng_start: -75.690927,
-     zoom: 13
-   }
+
+  // let map_id = getMapID()
+  let $map = $("[class*=data-map-id]")[0].classList[0]
+  let map_id = $map[$map.length-1]
+  console.log("This map's map_id is", map_id)
+
+  const $mapContent = $('#mapid')
+
+  const generateMap = function(map_id) {
+    $('.mapContainer').append($mapContent)
+  }
+
+  const getMapObject = function() {
+    $.ajax({
+      url: `/maps/${map_id}/info`,
+      method: 'GET'
+    }).then(output => {
+
+      const mapObj = {
+            map_id: output.map_id,
+            user_id: output.user_id,
+            name: output.name,
+            description: output.description || null,
+            lat_start: output.lat_start,
+            lng_start: output.lng_start,
+            zoom: output.zoom || 10,
+           }
+
+      console.log("MAPOBJ INSIDE OF FUNCTION", mapObj)
+      return mapObj
+
+    });
+    
+  }
+
+ const mapObj = getMapObject()
+ console.log("mapObj OUTSIDE of FUNCTION", mapObj)
+
+
   const initializeMap = function(mapObj) {
-    generateMap(mapObj.id)
+    generateMap(mapObj.map_id)
     return L.map('mapid').setView([mapObj.lat_start, mapObj.lng_start], mapObj.zoom);
   }
   const mymap = initializeMap(mapObj)

@@ -55,6 +55,13 @@ module.exports = (db) => {
     ;
   });
 
+  router.get("/:mapID/info", (req, res) => {
+    fetchMapByMapID(req.params.mapID)
+    .then(output => {
+      res.send(output.rows[0]);
+    })
+  });
+
   router.get("/editmap", (req, res) => {
     res.render("edit_map");
 
@@ -66,7 +73,7 @@ module.exports = (db) => {
     .then(output => {
       const table = output.rows[0]
       const templateVars = {
-        map_id: table.id,
+        map_id: table.map_id,
         user_id: table.user_id,
         interest_id: table.interest_id,
         lat_start: table.lat_start,
@@ -81,6 +88,8 @@ module.exports = (db) => {
       res.render("specific_map", templateVars);
     })
   });
+
+
 
   router.get("/specific", (req, res) => {
     res.render("specific_map");
