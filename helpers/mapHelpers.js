@@ -37,7 +37,17 @@ const insertMarker = function(details) {
     `
     INSERT INTO markers (map_id, lat, lng, title, description)
     VALUES ($1, $2, $3, $4, $5)
-    `, [details.map_id, details.lat_start, details.lng_start, details.title, details.description])
+    `, [details.map_id, details.lat, details.lng, details.title, details.description])
+}
+
+
+const updateMarker = function(details) {
+  return db.query(
+    `
+    UPDATE markers SET title = $1, description = $2
+    WHERE id = $3
+    `, [details.title, details.description, details.marker_id])
+
 }
 
 const insertMap = function(details) {
@@ -114,6 +124,7 @@ const removeFavourite = function(details) {
 }
 
 module.exports = {
+  updateMarker,
   deleteMap,
   insertMap,
   addFavourite,

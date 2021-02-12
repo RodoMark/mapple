@@ -2,7 +2,7 @@
 //
 $(document).ready(function () {
 
-  // let map_id = getMapID()
+  // Gets the map id from the req params
   let $map = $("[class*=data-map-id]")[0].classList[0]
   let map_id = $map[$map.length-1]
   console.log("This map's map_id is", map_id)
@@ -30,7 +30,6 @@ $(document).ready(function () {
             zoom: output.zoom || 10,
            }
 
-      console.log("MAPOBJ INSIDE OF FUNCTION", mapObj)
       return mapObj
 
     });
@@ -44,23 +43,10 @@ $(document).ready(function () {
 
 
 
-  const getMapID = function() {
-  // Use jquery to get the map_id from <div id="mymap">
-  // it's <%= map_id %> in the class class data-map-id-<%= map_id %>
-
-  return map_id
-  }
-
-
-
-
  const mapObj = getMapObject()
   .then(mapObj => {
 
     const mymap = initializeMap(mapObj)
-
-
-
 
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -96,7 +82,7 @@ $(document).ready(function () {
             console.log("lat", e.latlng.lat)
             console.log("long", e.latlng.lng)
             mp.bindPopup(markerInputPopUp, {
-              closeButton: false
+              closeButton: true
             });
       }
 
@@ -105,38 +91,50 @@ $(document).ready(function () {
  )
 
 
-
-
-
-  // const markerObj = {
-  //   "marker_id":1,
-  //   "map_id":1,
-  //   "lat":"45.39603920754866",
-  //   "lng":"-75.67670345306398",
-  //   "title":"THIS IS THE NEW MARKER",
-  //   "description":"Description",
-  //   "created_at":null,
+  // const getPopupContent = function(markerObj) {
+  //   const popup =
+  //   `
+  //   <p>${markerObj.title}</p>
+  //   <p>${markerObj.description}</p>
+  //   <button class="edit-btn" id="edit-btn-${markerObj.marker_id}">EDIT</button>
+  //   `
+  //   return popup
   // }
+
   const getPopupContent = function(markerObj) {
-    const popup =
-    `
+    const $popup =
+    $(`<div>
     <p>${markerObj.title}</p>
     <p>${markerObj.description}</p>
     <button class="edit-btn" id="edit-btn-${markerObj.marker_id}">EDIT</button>
-    `
-    return popup
-  }
-  const openPopUp = function () {
-  }
-    const clearMarker = function(id) {
-      console.log(markers)
-      let new_markers = []
-      markers.forEach(function(marker) {
-        if (marker.id === id) mymap.removeLayer(marker)
-        else new_markers.push(marker)
+    </div>`)
+    $('.edit-btn', $popup).on('click', function() {
+
+      $popup.empty()
+      $popup.html(`<form  id="submit-marker" action="/maps/${map_id}/markers/edit/${markerObj.marker_id}" method="POST">
+        <label for="title">Title: </label>
+        <input name="title"></input><br>
+        <label for="description">Description: </label>
+        <input name="description"></input><br>
+        <button class="submit-btn" type="submit">Submit</button><br>
+        <button class="delete-btn" id="delete-btn-${markerObj.marker_id}">DELETE MARKER</button>
+
+        </form>`
+      )
+      $('.delete-btn', $popup).on('click', function() {
+        console.log('DELETE BUTTON CLICKED --------->')
+        $.ajax({
+          url: `/maps/${map_id}/markers/${markerObj.marker_id}/delete`,
+          method: 'POST'
+        }).then(output => {
+          console.log(output)
+        });
       })
-      markers = new_markers
-    }
+
+    })
+    return $popup[0]
+  }
+
 
 const populateMarkers = function(markerArr, mymap) {
   console.log("MARKER ARRAY------>", markerArr)
@@ -144,13 +142,13 @@ const populateMarkers = function(markerArr, mymap) {
     console.log(m.marker_id)
     let mp = L.marker([m.lat, m.lng]).addTo(mymap)
     mp.bindPopup(getPopupContent(m), {
-      closeButton: false
+      closeButton: true
     });
     mp.on('click', function() {
       const $editBtn = $($('.edit-btn')[0]);
       console.log($editBtn);
       $editBtn.on('click', function(){
-      console.log('HEllO---------->');
+      console.log('EDIT BUTTON CLICKED---------->');
 
       })
     })
@@ -161,7 +159,6 @@ const populateMarkers = function(markerArr, mymap) {
 
 
 const putMarker = function(markerObj) {
-  // How do we communicate the map ID in the PUT form?
   $.ajax({
     url: `/maps/${markerObj["map_id"]}/markers/`,
     method: 'POST'
@@ -194,16 +191,8 @@ const popup = L.popup();
 let markers = []
 
 
-// latlng: m1 ----> {latlng: {lat: x, lng: y}}
 const onLocationError = function(e) {
   alert(e.message);
 }
-// mymap.on('locationfound', onLocationFound);
-// mymap.on('locationerror', onLocationError);
-// mymap.on('click', onMapClick);
-// mymap.locate({setView: true, maxZoom: 16});
-// mymap.locate({watch:true});
-// polygon1.bindPopup("I am a polygon.");
-// marker1.bindPopup('You are here');
-// circle1.bindPopup("Here is a circle");
+
 });
