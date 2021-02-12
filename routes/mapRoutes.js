@@ -151,12 +151,12 @@ module.exports = (db) => {
   router.post("/:mapID/favourites/remove", (req, res) => {
 
     const details = {
-    userID: req.params.userID,
-    mapID: req.params.mapID
+    userID: req.session.user,
+    mapID: req.params.mapID,
     }
 
     removeFavourite(details)
-    res.redirect(req.get('referer'));
+    res.redirect('/profile');
   });
 
   router.post("/new", (req, res) => {

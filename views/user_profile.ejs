@@ -49,7 +49,7 @@
                       </form>
                     </div>
                     <div class="emptyHeart d-flex justify-content-center">
-                      <form action='/maps/:mapID/favourites/remove' method='POST'>
+                      <form action='/maps/<%= `${like.map_favourite_id}` %>/favourites/remove' method='POST'>
                         <button type="submit" id="emptyHeart"><i class="bi bi-heart"
                             style="font-size: 1em; color:rgb(0, 0, 0)"></i></button>
                       </form>
