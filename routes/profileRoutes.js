@@ -12,28 +12,26 @@ module.exports = (db) => {
 
   router.get("/", (req, res) => {
     if(req.session.user){
-        let map_id;
-        let map_name;
-        let description;
+        let userTable
+        let favouritesTable
+
       mapsByUserID(req.session.user)
       .then(output => {
-        console.log("mapsByUserID", output.rows)
+        console.log("mapsByUserID00000000------>>>>>>", output.rows)
 
-        map_id = output.rows.map_id;
-        map_name = output.rows.map_name;
-        description = output.rows.description;
+        userTable = output.rows
+
 
       }).catch(err => {
         console.log("ERROR FROM mapsByUserID", err)
       })
       favouritesByUserID(req.session.user).then(output => {
+        console.log("mapsByFavouriteID00000000------>>>>>>", output.rows)
+        favouritesTable = output.rows
+
         const templateVars = {
-          map_id,
-          map_name,
-          description,
-          favourite_id: output.rows.favourite_id,
-          map_favourite_id: output.rows.map_favourite_id,
-          table: output.rows,
+          userTable,
+          favouritesTable,
           userInfo: req.session.user,
         }
         res.render("user_profile", templateVars)
