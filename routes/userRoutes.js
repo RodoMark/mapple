@@ -14,9 +14,12 @@ module.exports = (db) => {
 
   router.get("/login", (req, res) => {
     if(!req.session.user) {
-    res.render("login");
+      const templateVars = {
+        userInfo: req.session.user,
+      }
+    res.render("login", templateVars);
   } else {
-  
+
     res.redirect("/maps")
   }
 
@@ -24,7 +27,10 @@ module.exports = (db) => {
 
   router.get("/register", (req, res) => {
     if(!req.session.user) {
-      res.render("register");
+      const templateVars = {
+        userInfo: req.session.user,
+      }
+      res.render("register", templateVars);
     } else {
 
       res.redirect("/maps")

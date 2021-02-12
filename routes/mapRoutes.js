@@ -7,20 +7,32 @@ const { fetchUserByID } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("maps_by_interest");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("maps_by_interest", templateVars);
   });
 
   router.get("/new", (req, res) => {
-    res.render("new_map");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("new_map", templateVars);
   });
 
   router.get("/example", (req, res) => {
-    res.render("map_template");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("map_template", templateVars);
   });
 
   // temp route to show edit_marker.ejs
   router.get("/marker", (req, res) => {
-    res.render("edit_marker");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("edit_marker", templateVars);
   });
 
 
