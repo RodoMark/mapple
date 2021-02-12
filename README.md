@@ -5,6 +5,10 @@ Mapple is a mulitpage, full-stack app, that saves and manages maps and map locat
 
 Mapple is built using the `LEAFLET.js` API, ES^ server side NodeJS, EXPRESS, CSS and SASS, and PostgreSQL and pg for DBMS
 
+## Screenshots
+
+!["Mapple"](https://github.com/RodoMark/mapple/blob/master/public/images/Mapple2just_logo.png)
+
 ## Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
