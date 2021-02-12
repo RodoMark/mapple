@@ -13,9 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <!-- Bootstrap JS -->
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
@@ -25,6 +23,11 @@
   <!-- Bootstrap CSS -->
 
   <link rel="stylesheet" href="/styles/custom.css" type="text/css" />
+
+   <!-- leaflet -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin="" />
 
 </head>
 
@@ -69,20 +72,15 @@
                     <div class="row featurette" style="margin-top:4em; margin-left:40px; margin-right:40px;">
                       <div class="col-md-7">
                         <h2 class="featurette-heading" style="color:rgb(81, 81, 81)">
-                          "Super cool example map"
+                          "SUPER COOL MAP"
                           <span class="text-muted">"Check it out"</span>
                         </h2>
-                        <p class="lead">"description text inside"</p>
+                        <p class="lead">"A sample map for your cartographogolical needs."</p>
                       </div>
                       <div class="col-md-5">
-                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                          width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
-                          aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-                          <title>Placeholder</title>
-                          <rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa"
-                            dy=".3em">"Example
-                            map"</text>
-                        </svg>
+                        <div style="width: 50%">
+                        <div class="data-map-id-3 map" id="mapid"></div>
+                        </div>
                       </div>
                     </div>
                     <hr class="featurette-divider" style="margin-top:4em; margin-bottom:1em">
@@ -93,8 +91,17 @@
         </div>
 
 
+ <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+ integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ crossorigin=""></script>
+
+
 </body>
 
+<script type="text/javascript" src="/scripts/mapInstance.js"></script>
+<script type="text/javascript" src="/scripts/markerForm.js"></script>
 <script type="text/javascript" src="/scripts/mapsShow.js"></script>
+
 
 </html>
