@@ -1,31 +1,34 @@
-LHL Node Skeleton
+# MAPPLE
 =========
 
-## Project Setup
+Mapple is a mulitpage, full-stack app, that saves and manages maps and map locations with tags for a user. Maps are orgainzed by interest and can be edited, organized, and favorited.
 
-The following steps are only for _one_ of the group members to perform.
-
-1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project. The repo should be marked Public
-2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected
-3. Clone your copy of the repo to your dev machine
-4. Add your team members as collaborators to the project so that they can push to this repo
-5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
-
+Mapple is built using the `LEAFLET.js` API, ES^ server side NodeJS, EXPRESS, CSS and SASS, and PostgreSQL and pg for DBMS
 
 ## Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
 2. Update the .env file with your correct local information 
-  - username: `labber` 
-  - password: `labber` 
+  - username: `labber2` 
+  - password: `labber2` 
   - database: `midterm`
 3. Install dependencies: `npm i`
 4. Fix to binaries for sass: `npm rebuild node-sass`
-5. Reset database: `npm run db:reset`
+5. In `psql`, run the command `CREATE ROLE labber2 WITH SUPERUSER LOGIN PASSWORD 'labber2';`
+6. Create the database: `CREATE DATABASE midterm`
+7. Install the table schema with `\i db/schema/01_schema.sql`
+  - Then seed the database tables, in the following order:
+      - `\i db/seeds/01_users.sql`
+      - `\i db/seeds/02_interests`
+      - `\i db/seeds/03_mapss.sql`
+      - `\i db/seeds/04_maps.sql`
+      - `\i db/seeds/05_maps.sql`
+    - Check the db folder to see what gets created and seeded in the SDB
+
   - Check the db folder to see what gets created and seeded in the SDB
-7. Run the server: `npm run local`
+8. Run the server: `npm run local`
   - Note: nodemon is used, so you should not have to restart your server
-8. Visit `http://localhost:8080/`
+9. Visit `http://localhost:8080/`
 
 ## Warnings & Tips
 
@@ -36,8 +39,24 @@ The following steps are only for _one_ of the group members to perform.
   - It runs through each of the files, in order, and executes them against the database. 
   - Note: you will lose all newly created (test) data each time this is run, since the schema files will tend to `DROP` the tables and recreate them.
 
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change
+
 ## Dependencies
 
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+
+- Bcrypt 5.0.0 or above
+- Body-parser 1.19.0 or above
+- Bootstrap 4.6.0 or above
+- Chalk 2.4.2 or above
+- Cookie-session 1.4.0 or above
+- Dotenv 2.0.0 or above
+- ejs 2.6.2 or above
+- Express 4.17.1 or above
+- Organ 1.9.1 or above
+- Node-sass-middleware 0.11.0 or above
+- Pg 6.4.2 or above
+- Pg-native 3.0.0 or above
