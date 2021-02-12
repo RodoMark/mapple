@@ -7,20 +7,32 @@ const { fetchUserByID } = require('../helpers/userHelpers.js')
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("maps_by_interest");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("maps_by_interest", templateVars);
   });
 
   router.get("/new", (req, res) => {
-    res.render("new_map");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("new_map", templateVars);
   });
 
   router.get("/example", (req, res) => {
-    res.render("map_template");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("map_template", templateVars);
   });
 
   // temp route to show edit_marker.ejs
   router.get("/marker", (req, res) => {
-    res.render("edit_marker");
+    const templateVars = {
+      userInfo: req.session.user,
+    }
+    res.render("edit_marker", templateVars);
   });
 
 
@@ -29,6 +41,7 @@ module.exports = (db) => {
       .then(output => {
         templateVars = {
           table: output.rows,
+          userInfo: req.session.user
         }
 
         res.render("maps_show", templateVars)
@@ -55,10 +68,11 @@ module.exports = (db) => {
     })
   });
 
-  router.get("/editmap", (req, res) => {
-    res.render("edit_map");
-
-    //:id/edit
+  router.get("/:mapID/edit", (req, res) => {
+    const templateVars = {
+      userInfo: req.session.user
+    }
+    res.render("edit_map", templateVars);
   });
 
   router.get("/:mapID", (req, res) => {
@@ -75,19 +89,13 @@ module.exports = (db) => {
         name: table.name,
         description: table.description,
         created_at: table.created_at,
-        last_edited: table.last_edited
+        last_edited: table.last_edited,
+        userInfo: req.session.user,
       }
 
       res.render("specific_map", templateVars);
     })
   });
-
-
-
-  router.get("/specific", (req, res) => {
-    res.render("specific_map");
-  })
-
 
 
   router.post("/:mapID", (req, res) => {
@@ -136,9 +144,7 @@ module.exports = (db) => {
 
   router.post("/:mapID/favourites/add", (req, res) => {
     if(req.session.user) {
-      console.log("REQ PARAMS", req.params)
       const incomingMapID = req.params.mapID
-      console.log("MAP ID", incomingMapID)
 
       fetchUserByID(req.session.user)
         .then(output => {
@@ -163,12 +169,12 @@ module.exports = (db) => {
   router.post("/:mapID/favourites/remove", (req, res) => {
 
     const details = {
-    userID: req.params.userID,
-    mapID: req.params.mapID
+    userID: req.session.user,
+    mapID: req.params.mapID,
     }
 
     removeFavourite(details)
-    res.redirect(req.get('referer'));
+    res.redirect('/profile');
   });
 
   router.post("/new", (req, res) => {

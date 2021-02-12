@@ -18,6 +18,8 @@
       <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtnNav" type="submit">Search</button>
 
     </ul>
+    <% if (!userInfo) { %>
+
     <form method="GET" action="/auth/login" class="form-inline my-2 my-lg-0">
       <button type="submit" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0" id="navLogin"
         style="margin-right: 10px;">Login</button>
@@ -27,13 +29,17 @@
         class="btn btn-outline-success my-2 my-sm-0">Register</button>
     </form>
 
+    <% } else { %>
+
 
     <form method="GET" action="/maps/:id/edit">
       <button type="submit" class="btn btn-outline-dark" style="margin-right: 10px;">Create/Edit Map</button>
     </form>
-    <form method=" POST" action="/auth/logout">
+    <form method="POST" action="/auth/logout">
       <button type="submit" class="btn btn-outline-dark">Logout</button>
     </form>
+    <% } %>
+
   </div>
 </nav>
 

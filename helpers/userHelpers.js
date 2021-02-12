@@ -3,6 +3,9 @@ const { Pool } = require('pg');
 const dbParams = require('../lib/db');
 const db = new Pool(dbParams);
 
+const bcrypt = require("bcrypt");
+const saltRounds = bcrypt.genSaltSync(10)
+
 
 //CHECKS IF THE USER IS IN OUR DATABASE
 const userExists = function(email) {
@@ -14,7 +17,7 @@ const userExists = function(email) {
     `, [email]
   )
     .then((output) => {
-        return output.rows[0];
+        return output.rows;
     })
     .catch(err => console.error('query error', err.stack));
 };
@@ -23,16 +26,19 @@ const userExists = function(email) {
 const authenticateUser = function(incomingEmail, incomingPassword) {
   return db.query(
     `
-    SELECT password
+    SELECT *
     FROM users
     WHERE email = $1
     `, [incomingEmail]
     ).then(output => {
+
       if(output.rows[0].password === incomingPassword) {
+
+        console.log("ENCRYPTED", output.rows[0].password)
         return true
       }
     })
-    .catch(err => console.error('query error', err.stack));
+    .catch(err => console.error('query error', err));
 
 }
 
@@ -84,7 +90,7 @@ const checkObjectKeyLength = function (obj) {
 const registrationTripmine = function(details) {
   let message = null;
 
-  if (userExists(details.incomingEmail)) {
+  if (userExists(details.incomingEmail).length) {
     message = `User with the email ${details.incomingEmail} already exists. Please enter a different one.`;
   } else if (
     checkObjectKeyLength(details)
@@ -101,7 +107,25 @@ const registrationTripmine = function(details) {
 const addNewUser = function (details) {
 
   const newUser = {
-    name: incomingName || null,
-  fetchUserByID,
+    name: details.name || null,
+    email: details.email,
+    password: details.password,
   }
+
+  return db.query(
+    `
+    INSERT INTO users (name, email, password)
+    VALUES ($1, $2, $3)
+    `
+  , [newUser.name, newUser.email, newUser.password])
+};
+
+module.exports = {
+  fetchUserByID,
+  authenticateUser,
+  userExists,
+  fetchUserByEmail,
+  fetchUserByID,
+  registrationTripmine,
+  addNewUser,
 }

@@ -3,41 +3,35 @@ const { Pool } = require('pg');
 const dbParams = require('../lib/db');
 const db = new Pool(dbParams);
 
-const mapsByUser = function (ownerID) {
+const mapsByUserID = function (userID) {
   return db.query(
     `
-    SELECT id
+    SELECT maps.id as map_id, maps.name as map_name, interests.name as interest_name, maps.description, maps.created_at as map_created_at
     FROM maps
-    JOIN users on users.id = owner_id
-    WHERE owner_id = ownerID
-    ORDER BY maps.last_edited
+    JOIN interests ON interests.id = interest_id
+    WHERE owner_id = $1
     `
-  , [userID]).then(output => {
-    return output.rows
-  })
+  , [userID])
+}
 
-
-};
-
-const userFavourites = function (userID) {
+const favouritesByUserID = function (userID) {
   return db.query(
     `
-    SELECT map_id
+    SELECT favourites.id as favourite_id, favourites.map_id as map_favourite_id, favourites.created_at as favourited_at, interests.name as interest_name
     FROM favourites
-    JOIN users ON users.id = user_id
-    WHERE user_id = $1
-    ORDER BY created_at
+    JOIN maps ON maps.id = map_id
+    JOIN interests ON interests.id = interest_id
+    WHERE favourites.user_id = $1
     `
-  , [userID]).then(output => {
-    return output.rows
-  })
+  , [userID])
+}
 
 
-};
+
 
 module.exports = {
-  userFavourites,
-  mapsByUser,
+  mapsByUserID,
+  favouritesByUserID,
 }
 
 
