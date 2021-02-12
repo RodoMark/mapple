@@ -67,13 +67,11 @@ module.exports = (db) => {
     })
   });
 
-  router.get("/editmap", (req, res) => {
+  router.get("/:mapID/edit", (req, res) => {
     const templateVars = {
       userInfo: req.session.user
     }
     res.render("edit_map", templateVars);
-
-    //:id/edit
   });
 
   router.get("/:mapID", (req, res) => {
