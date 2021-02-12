@@ -12,6 +12,10 @@
       <li class="nav-item active">
         <a class="nav-link" style="margin-right:1em; margin-left:1em; color:whitesmoke" href="/maps">Home <span
             class="sr-only">(current)</span></a>
+        </li>
+      <li>
+        <a class="nav-link" style="margin-right:1em; margin-left:1em; color:whitesmoke" href="/profile">Profile <span
+          class="sr-only">(current)</span></a>
       </li>
 
       <input id="searchNav">
@@ -32,8 +36,8 @@
     <% } else { %>
 
 
-    <form method="GET" action="/maps/:id/edit">
-      <button type="submit" class="btn btn-outline-dark" style="margin-right: 10px;">Create/Edit Map</button>
+    <form method="GET" action="/maps/new">
+      <button type="submit" class="btn btn-outline-dark" style="margin-right: 10px;">Create Map</button>
     </form>
     <form method="POST" action="/auth/logout">
       <button type="submit" class="btn btn-outline-dark">Logout</button>

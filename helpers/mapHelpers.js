@@ -101,7 +101,7 @@ const addFavourite = function(details) {
   return db.query(
     `
     INSERT INTO favourites (user_id, map_id)
-    VALUES ($1, $2
+    VALUES ($1, $2)
     `, [details.userID, details.mapID])
 }
 

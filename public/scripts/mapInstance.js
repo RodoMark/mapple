@@ -2,6 +2,18 @@
 //
 $(document).ready(function () {
 
+  // let map_id = getMapID()
+  let $map = $("[class*=data-map-id]")[0].classList[0]
+  let map_id = $map[$map.length-1]
+  console.log("This map's map_id is", map_id)
+
+  const $mapContent = $('#mapid')
+
+  const generateMap = function(map_id) {
+    $('.mapContainer').append($mapContent)
+  }
+
+
   const getMapObject = function() {
     return $.ajax({
       url: `/maps/${map_id}/info`,
@@ -39,16 +51,6 @@ $(document).ready(function () {
   return map_id
   }
 
-  // let map_id = getMapID()
-  let $map = $("[class*=data-map-id]")[0].classList[0]
-  let map_id = $map[$map.length-1]
-  console.log("This map's map_id is", map_id)
-
-  const $mapContent = $('#mapid')
-
-  const generateMap = function(map_id) {
-    $('.mapContainer').append($mapContent)
-  }
 
 
 
@@ -80,7 +82,7 @@ $(document).ready(function () {
     const onMapClick = function(e) {
       let mp = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap)
       const markerInputPopUp = `
-      <form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${1}/markers" method="POST">
+      <form data-marker-id="${mp._leaflet_id}" id="submit-marker" action="/maps/${map_id}/markers" method="POST">
       <label for="title">Title: </label>
       <input name="title"></input><br>
       <label for="description">Description: </label>
@@ -149,7 +151,7 @@ const populateMarkers = function(markerArr, mymap) {
       console.log($editBtn);
       $editBtn.on('click', function(){
       console.log('HEllO---------->');
-      
+
       })
     })
 

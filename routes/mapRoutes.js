@@ -163,14 +163,16 @@ module.exports = (db) => {
         .then(output => {
 
           const table = output.rows[0]
+          console.log("fetchUserByID", output.row)
 
           const details = {
             mapID: Number(incomingMapID),
             userID: Number(table.id),
             }
+
             console.log(`FAVOURITING ${details.mapID} by ${details.userID}!!!`)
             addFavourite(details)
-            res.redirect(req.get('referer'));
+            res.redirect('/profile');
           }
         )
     } else {
