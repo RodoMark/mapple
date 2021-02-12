@@ -67,13 +67,11 @@ module.exports = (db) => {
     })
   });
 
-  router.get("/editmap", (req, res) => {
+  router.get("/:mapID/edit", (req, res) => {
     const templateVars = {
       userInfo: req.session.user
     }
     res.render("edit_map", templateVars);
-
-    //:id/edit
   });
 
   router.get("/:mapID", (req, res) => {
@@ -153,12 +151,12 @@ module.exports = (db) => {
   router.post("/:mapID/favourites/remove", (req, res) => {
 
     const details = {
-    userID: req.params.userID,
-    mapID: req.params.mapID
+    userID: req.session.user,
+    mapID: req.params.mapID,
     }
 
     removeFavourite(details)
-    res.redirect(req.get('referer'));
+    res.redirect('/profile');
   });
 
   router.post("/new", (req, res) => {

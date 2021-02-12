@@ -12,9 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <!-- Bootstrap JS -->
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
@@ -30,28 +28,28 @@
   <%- include("partials/_header") %>
     <div class="container" style="border-top:0">
       <div class="container2" style="height:70px"></div>
-      <div class="containerFav text-center">Favourites</div>
+      <h1 class="containerFav text-center">Favourites</h1>
       <hr class="featurette-divider" style="margin-bottom:3.5em; margin-top:3.5em">
       <div class="container1">
+        <% for (const like of favouritesTable) { %>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="margin-left:3em; margin-right:3em">
           <div class="col">
             <div class="card box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/sports.png"
+              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/<%= like.interest_name %>.png"
                 role=" img" preserveAspectRatio="xMidYMid slice" focusable="false">
               </img>
 
               <div class="card-body">
-                <This class="card-text"><b>Sports</b><br>This is a wider card with supporting text below as a
-                  natural
-                  lead-in to additional
-                  content. This content is a little bit longer.</p>
+                <This class="card-text"><b><%= `${like.interest_name[0].toUpperCase()}${like.interest_name.slice(1)}` %></b>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <form method="GET" action="/maps/<%= `${like.map_favourite_id}` %>">
+                        <button name="view" type="submit" class="w-40 btn btn-lg btn-primary"
+                        style="margin-top: 1.5em">View</button>
+                      </form>
                     </div>
                     <div class="emptyHeart d-flex justify-content-center">
-                      <form action='/maps/:mapID/favourites/remove' method='POST'>
+                      <form action='/maps/<%= `${like.map_favourite_id}` %>/favourites/remove' method='POST'>
                         <button type="submit" id="emptyHeart"><i class="bi bi-heart"
                             style="font-size: 1em; color:rgb(0, 0, 0)"></i></button>
                       </form>
@@ -60,112 +58,42 @@
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="card box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/music.png" role=" img"
-                preserveAspectRatio="xMidYMid slice" focusable="false">
-              </img>
-
-              <div class="card-body">
-                <This class="card-text"><b>Music</b><br>This is a wider card with supporting text below as a
-                  natural
-                  lead-in to additional
-                  content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/mountains.png"
-                role=" img" preserveAspectRatio="xMidYMid slice" focusable="false">
-              </img>
-
-              <div class="card-body">
-                <This class="card-text"><b>Hiking</b><br>This is a wider card with supporting text below as a
-                  natural
-                  lead-in to additional
-                  content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="containerProf text-center" style="margin-top:3.5em">My maps</div>
+
+        <% } %>
+
+
+        <h1 class="containerProf text-center" style="margin-top:3.5em">My maps</h1>
         <hr class="featurette-divider" style="margin-bottom:3.5em; margin-top:3.5em">
+
+        <% for (const map of userTable) { %>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
           style="margin-bottom:4em; margin-left:3em; margin-right:3em">
           <div class="col">
             <div class="card box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/sports.png"
+              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/<%= map.interest_name %>.png"
                 role=" img" preserveAspectRatio="xMidYMid slice" focusable="false">
               </img>
 
               <div class="card-body">
-                <This class="card-text"><b>Sports</b><br>This is a wider card with supporting text below as a
-                  natural
-                  lead-in to additional
-                  content. This content is a little bit longer.</p>
+                <This class="card-text"><b><%= `${map.interest_name[0].toUpperCase()}${map.interest_name.slice(1)}` %></b>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/music.png" role=" img"
-                preserveAspectRatio="xMidYMid slice" focusable="false">
-              </img>
-
-              <div class="card-body">
-                <This class="card-text"><b>Music</b><br>This is a wider card with supporting text below as a
-                  natural
-                  lead-in to additional
-                  content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card box-shadow: -1px 9px 40px -12px rgba(1, 42, 0, 0.75);">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="130" src="/images/mountains.png"
-                role=" img" preserveAspectRatio="xMidYMid slice" focusable="false">
-              </img>
-
-              <div class="card-body">
-                <This class="card-text"><b>Hiking</b><br>This is a wider card with supporting text below as a
-                  natural
-                  lead-in to additional
-                  content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <form method="GET" action="/maps/<%= `${map.map_id}` %>">
+                        <button name="view" type="submit" class="w-40 btn btn-lg btn-primary"
+                        style="margin-top: 1.5em">View</button>
+                      </form>
+                      <form method="GET" action="/maps/<%= `${map.map_id}` %>/edit">
+                        <button name="view" type="submit" class="w-40 btn btn-lg btn-primary"
+                        style="margin-top: 1.5em">Edit</button>
+                      </form>
                     </div>
                   </div>
               </div>
             </div>
           </div>
         </div>
+      <% } %>
       </div>
       <hr class="featurette-divider" style="margin-top:4em; margin-bottom:1em">
       <footer class="container4">
@@ -174,29 +102,6 @@
     </div>
 
 </body>
-
 <script type="text/javascript" src="/scripts/mapsShow.js"></script>
 
 </html>
-
-
-
-
-
-<!-- <section id="favourites">
-  <div class="fav-map">FAV MAP 1</div>
-  <div class="fav-map">FAV MAP 2</div>
-  <div class="fav-map">FAV MAP 3</div>
-  <div class="fav-map">FAV MAP 4</div>
-  <div class="fav-map">FAV MAP 5</div>
-  <div class="fav-map">FAV MAP 6</div>
-
-</section>
-<section id="creations">
-  <div class="user-map">USER MAP 1</div>
-  <div class="user-map">USER MAP 2</div>
-  <div class="user-map">USER MAP 3</div>
-  <div class="user-map">USER MAP 4</div>
-
-</section>
-</form> -->
