@@ -9,6 +9,8 @@ Mapple is built using the `LEAFLET.js` API, ES^ server side NodeJS, EXPRESS, CSS
 
 !["Mapple"](https://github.com/RodoMark/mapple/blob/master/public/images/Mapple2just_logo.png)
 
+!["Login"](https://github.com/RodoMark/mapple/blob/master/public/images/Screen%20Shot%202021-02-12%20at%209.16.33%20AM.png?raw=true)
+
 ## Getting Started
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
