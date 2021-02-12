@@ -35,9 +35,9 @@
     <div class="container" style="border-top:0; height: 800px;">
       <div class="container2" style="height:70px"></div>
       <div class="container1">
-        <div class="mapName col-12" style="margin-bottom: 3em; text-align: center"><b><%= table.name %></b></div>
+        <div class="mapName col-12" style="margin-bottom: 3em; text-align: center"><H1><%= table.name %></H1></div>
         <div class="mapContainer d-flex flex-column align-items-center">
-          <div style="width: 50%"><div class="data-map-id-<%= table.map_id %> map" id="mapid"></div>
+          <div style="width: 50%"><div class="data-map-id-<%= map_id %> map" id="mapid"></div>
           </div>
         </div>
 
@@ -46,9 +46,8 @@
             <button type="submit" id="editMapSave" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0"
               style="width:90px;">Save</button>
           </form>
-          <form method="POST" action="/delete" class="form-inline my-2 my-lg-0">
-            <button type="submit" id="editMapDelete" class="btn btn-primary"
-              class="btn btn-outline-success my-2 my-sm-0">Delete</button>
+          <form method="POST" action="/maps/<%= map_id %>/delete">
+            <button type="submit" id="editMapDelete">Delete</button>
           </form>
         </div>
       </div>

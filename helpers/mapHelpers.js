@@ -49,6 +49,24 @@ const insertMap = function(details) {
     `, [details.map_id, details.lat, details.lng, details.title, details.description])
 }
 
+const deleteAllMarkers = function(mapID) {
+  return db.query(
+    `
+    DELETE FROM markers
+    WHERE map_id = $1
+    `, [mapID])
+
+}
+
+const deleteMap = function(mapID) {
+  return db.query(
+    `
+    DELETE FROM maps
+    WHERE id = $1
+    `, [mapID])
+
+}
+
 const fetchMapByInterestName = function(interestID) {
   return db.query(
     `
@@ -96,6 +114,7 @@ const removeFavourite = function(details) {
 }
 
 module.exports = {
+  deleteMap,
   addFavourite,
   removeFavourite,
   fetchMapByMapID,
@@ -104,6 +123,7 @@ module.exports = {
   fetchMapByInterestName,
   deleteMarker,
   insertMarker,
+  deleteAllMarkers,
 }
 
 
