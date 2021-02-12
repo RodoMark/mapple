@@ -65,12 +65,13 @@ $(document).ready(function () {
       <input type="hidden" name="lng" value="${e.latlng.lng}"/>
       <button class="submit-btn" type="submit">Submit</button><br>
       <button class="delete-btn">DELETE MARKER</button>
+
       </form>
       `
             console.log("lat", e.latlng.lat)
             console.log("long", e.latlng.lng)
             mp.bindPopup(markerInputPopUp, {
-              closeButton: false
+              closeButton: true
             });
     }
       mymap.on('click', onMapClick);
@@ -102,6 +103,7 @@ $(document).ready(function () {
         <input name="description"></input><br>
         <button class="submit-btn" type="submit">Submit</button><br>
         <button class="delete-btn" id="delete-btn-${markerObj.marker_id}">DELETE MARKER</button>
+
         </form>`
       )
       $('.delete-btn', $popup).on('click', function() {
@@ -134,7 +136,7 @@ const populateMarkers = function(markerArr, mymap) {
     console.log(m.marker_id)
     let mp = L.marker([m.lat, m.lng]).addTo(mymap)
     mp.bindPopup(getPopupContent(m), {
-      closeButton: false
+      closeButton: true
     });
     mp.on('click', function() {
       const $editBtn = $($('.edit-btn')[0]);
