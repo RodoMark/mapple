@@ -12,39 +12,37 @@
       <li class="nav-item active">
         <a class="nav-link" style="margin-right:1em; margin-left:1em; color:whitesmoke" href="/maps">Home <span
             class="sr-only">(current)</span></a>
-        </li>
+      </li>
       <li>
-        <a class="nav-link" style="margin-right:1em; margin-left:1em; color:whitesmoke" href="/profile">Profile <span
-          class="sr-only">(current)</span></a>
+        <a class="nav-link" style="margin-right:1em; color:whitesmoke" href="/profile">Profile <span
+            class="sr-only">(current)</span></a>
       </li>
 
-      <input id="searchNav">
+      <input placeholder="Search interest" id="searchNav" style="border-radius:3%;">
       <button class="btn btn-outline-success my-2 my-sm-0" id="searchBtnNav" type="submit">Search</button>
 
     </ul>
     <% if (!userInfo) { %>
 
-    <form method="GET" action="/auth/login" class="form-inline my-2 my-lg-0">
-      <button type="submit" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0" id="navLogin"
-        style="margin-right: 10px;">Login</button>
-    </form>
-    <form method="GET" action="/auth/register" class="form-inline my-2 my-lg-0">
-      <button type="submit" id="navReg" class="btn btn-info"
-        class="btn btn-outline-success my-2 my-sm-0">Register</button>
-    </form>
+      <form method="GET" action="/auth/login" class="form-inline my-2 my-lg-0">
+        <button type="submit" class="btn btn-primary" class="btn btn-outline-success my-2 my-sm-0" id="navLogin"
+          style="margin-right: 10px;">Login</button>
+      </form>
+      <form method="GET" action="/auth/register" class="form-inline my-2 my-lg-0">
+        <button type="submit" id="navReg" class="btn btn-info"
+          class="btn btn-outline-success my-2 my-sm-0">Register</button>
+      </form>
 
-    <% } else { %>
+      <% } else { %>
 
 
-    <form method="GET" action="/maps/new">
-      <button type="submit" class="btn btn-outline-dark" style="margin-right: 10px;">Create Map</button>
-    </form>
-    <form method="POST" action="/auth/logout">
-      <button type="submit" class="btn btn-outline-dark">Logout</button>
-    </form>
-    <% } %>
+        <form method="GET" action="/maps/new">
+          <button type="submit" class="btn btn-outline-dark" style="margin-right: 10px;">Create Map</button>
+        </form>
+        <form method="POST" action="/auth/logout">
+          <button type="submit" class="btn btn-outline-dark">Logout</button>
+        </form>
+        <% } %>
 
   </div>
 </nav>
-
-

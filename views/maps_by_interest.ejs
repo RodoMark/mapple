@@ -24,77 +24,77 @@
 
   <link rel="stylesheet" href="/styles/custom.css" type="text/css" />
 
-   <!-- leaflet -->
-   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-   crossorigin="" />
+  <!-- leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
 
 </head>
 
 <body>
   <%- include("partials/_header") %>
-    <div class="container" style="border-top:0">
+    <div class="container" style="border-top:0; height: 1200px;">
       <div class="container2" style="height:70px"></div>
-      <div class="container1">
-        <div class="row" style="margin-bottom:4em; margin-right:0px; margin-left: 0px;">
-          <div class="col-lg-4 d-flex flex-column align-items-center">
-            <img src="/images/Art.png" class="interestIMG" width="140" height="140"
-              style="border-radius:50%; box-shadow: -1px 9px 30px -12px rgba(1, 42, 0, 0.75);">
-            <h2 style="margin-top: 20px;">Art</h2>
-            <p>Maps that show locations related to art</p>
-            <p>
-              <a class="btn btn-secondary" href="#" role="button"
-                style="background: linear-gradient(to right, #0c4500 40%, #9cbea1 100%);">View</a>
+      <div class="container1"">
+        <div class=" row" style="margin-bottom:4em; margin-right:0px; margin-left: 0px;">
+        <div class="col-lg-4 d-flex flex-column align-items-center">
+          <img src="/images/arts.png" class="interestIMG" width="140" height="140"
+            style="border-radius:50%; box-shadow: -1px 9px 30px -12px rgba(1, 42, 0, 0.75);">
+          <h2 style="margin-top: 20px;">Art</h2>
+          <p>Maps that show locations related to art</p>
+          <p>
+            <a class="btn btn-secondary" href="#" role="button"
+              style="background: linear-gradient(to right, #0c4500 40%, #9cbea1 100%);">View</a>
+          </p>
+        </div>
+        <div class=" col-lg-4 d-flex flex-column align-items-center">
+          <img src="/images/culture.png" class="interestIMG" width="140" height="140"
+            style="border-radius:50%; box-shadow: -1px 9px 30px -12px rgba(1, 42, 0, 0.75);">
+          <h2 style="margin-top: 20px;">Culture</h2>
+          <p>Places you can satisfy your cultural needs</p>
+          <p>
+            <a class="btn btn-secondary" href="#" role="button"
+              style="background: linear-gradient(to right, #0c4500 40%, #9cbea1 100%);"">View</a>
             </p>
           </div>
           <div class=" col-lg-4 d-flex flex-column align-items-center">
-            <img src="/images/culture.png" class="interestIMG" width="140" height="140"
-              style="border-radius:50%; box-shadow: -1px 9px 30px -12px rgba(1, 42, 0, 0.75);">
-            <h2 style="margin-top: 20px;">Culture</h2>
-            <p>Places you can satisfy your cultural needs</p>
-            <p>
-              <a class="btn btn-secondary" href="#" role="button"
-                style="background: linear-gradient(to right, #0c4500 40%, #9cbea1 100%);"">View</a>
-            </p>
-          </div>
-          <div class=" col-lg-4 d-flex flex-column align-items-center">
-                <img src="/images/food.png" class="interestIMG" width="140" height="140"
-                  style="border-radius:50%; box-shadow: -1px 9px 30px -12px rgba(1, 42, 0, 0.75);">
-                <h2 style="margin-top: 20px;">Food</h2>
-                <p>Find the best food places</p>
-                <p>
-                  <a class="btn btn-secondary" href="#" role="button"
-                    style="background: linear-gradient(to right, #0c4500 40%, #9cbea1 100%);"">View</a>
+              <img src="/images/food.png" class="interestIMG" width="140" height="140"
+                style="border-radius:50%; box-shadow: -1px 9px 30px -12px rgba(1, 42, 0, 0.75);">
+              <h2 style="margin-top: 20px;">Food</h2>
+              <p>Find the best food places</p>
+              <p>
+                <a class="btn btn-secondary" href="#" role="button"
+                  style="background: linear-gradient(to right, #0c4500 40%, #9cbea1 100%);"">View</a>
             </p>
           </div>
         </div>
         <hr class=" featurette-divider">
-                    <div class="row featurette" style="margin-top:4em; margin-left:40px; margin-right:40px;">
-                      <div class="col-md-7">
-                        <h2 class="featurette-heading" style="color:rgb(81, 81, 81)">
-                          "SUPER COOL MAP"
-                          <span class="text-muted">"Check it out"</span>
-                        </h2>
-                        <p class="lead">"A sample map for your cartographogolical needs."</p>
-                      </div>
-                      <div class="col-md-5">
-                        <div style="width: 50%">
-                        <div class="data-map-id-3 map" id="mapid"></div>
-                        </div>
-                      </div>
+                  <div class="row featurette" style="margin-top:86px; margin-left:40px; margin-right:40px;">
+                    <div class="col-md-5" style="text-align: center;">
+                      <h2 class="featurette-heading" style="color:rgb(81, 81, 81)">
+                        "SUPER COOL MAP"
+                        <span class="text-muted">"Check it out"</span>
+                      </h2>
+                      <p class="lead" style="margin-top: 40px;">"A sample map for your cartographogolical needs."</p>
                     </div>
-                    <hr class="featurette-divider" style="margin-top:4em; margin-bottom:1em">
-          </div>
-          <footer class="container4">
-            <p>© 2021 Mapple project</p>
-          </footer>
+                    <div class="col-md-7 d-flex justify-content-center">
+
+                      <div class="data-map-id-3 map" id="mapid"></div>
+                    </div>
+
+                  </div>
+                  <hr class="featurette-divider" style="margin-top:4em; margin-bottom:1em">
         </div>
+        <footer class="container4">
+          <p>© 2021 Mapple project</p>
+        </footer>
+      </div>
 
 
- <!-- Make sure you put this AFTER Leaflet's CSS -->
- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
- integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
- crossorigin=""></script>
+      <!-- Make sure you put this AFTER Leaflet's CSS -->
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
 
 
 </body>
