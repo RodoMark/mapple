@@ -10071,4 +10071,10 @@ h3 {
   border: none;
 }
 
+@media only screen and (max-width: 991px) {
+  #mainContainer {
+    height: 1800px;
+  }
+}
+
 /*# sourceMappingURL=custom.css.map */

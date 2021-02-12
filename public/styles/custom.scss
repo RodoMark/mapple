@@ -148,3 +148,10 @@
   color: whitesmoke;
   border: none;
 }
+
+@media only screen and (max-width: 991px) {
+  #mainContainer {
+    height: 1800px;
+  }
+
+}

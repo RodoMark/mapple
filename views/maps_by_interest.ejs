@@ -33,7 +33,7 @@
 
 <body>
   <%- include("partials/_header") %>
-    <div class="container" style="border-top:0; height: 1200px;">
+    <div class="container" id="mainContainer" style="border-top:0; height: 1200px;">
       <div class="container2" style="height:70px"></div>
       <div class="container1"">
         <div class=" row" style="margin-bottom:4em; margin-right:0px; margin-left: 0px;">
@@ -89,12 +89,13 @@
           <p>© 2021 Mapple project</p>
         </footer>
       </div>
+    </div>
 
 
-      <!-- Make sure you put this AFTER Leaflet's CSS -->
-      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""></script>
 
 
 </body>
