@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, fetchMapByInterestName, deleteMarker, insertMarker, addFavourite, removeFavourite } = require('../helpers/mapHelpers.js')
+const { deleteMap, fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, fetchMapByInterestName, deleteMarker, insertMarker, addFavourite, removeFavourite, deleteAllMarkers } = require('../helpers/mapHelpers.js')
 
 const { fetchUserByID } = require('../helpers/userHelpers.js')
 
@@ -70,11 +70,16 @@ module.exports = (db) => {
 
   router.get("/:mapID/edit", (req, res) => {
     if(req.session.user) {
-      fetchMapByMapID(req.session.user).then (output => {
+      fetchMapByMapID(req.params.mapID).then (output => {
+
+
         const templateVars = {
           userInfo: req.session.user,
           table: output.rows[0],
+          map_id: req.params.mapID,
         }
+
+        console.log("OUR TABLE000000--->", templateVars.table)
         res.render("edit_map", templateVars);
       })
 
@@ -108,7 +113,17 @@ module.exports = (db) => {
   });
 
 
-  router.post("/:mapID", (req, res) => {
+  router.post("/:mapID/delete", (req, res) => {
+    if(req.session.user) {
+      deleteAllMarkers(req.params.mapID)
+        .then(() => {
+        deleteMap(req.params.mapID)
+      }).then(() => {
+        res.redirect('/profile')
+      })
+    } else {
+      res.redirect('/maps')
+    }
   });
 
   router.post("/:mapID/markers/:markerID/delete", (req, res) => {
