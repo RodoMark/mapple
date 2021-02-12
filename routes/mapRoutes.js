@@ -29,6 +29,7 @@ module.exports = (db) => {
       .then(output => {
         templateVars = {
           table: output.rows,
+          userInfo: req.session.user
         }
 
         res.render("maps_show", templateVars)
@@ -55,7 +56,10 @@ module.exports = (db) => {
   });
 
   router.get("/editmap", (req, res) => {
-    res.render("edit_map");
+    const templateVars = {
+      userInfo: req.session.user
+    }
+    res.render("edit_map", templateVars);
 
     //:id/edit
   });
@@ -74,19 +78,13 @@ module.exports = (db) => {
         name: table.name,
         description: table.description,
         created_at: table.created_at,
-        last_edited: table.last_edited
+        last_edited: table.last_edited,
+        userInfo: req.session.user,
       }
 
       res.render("specific_map", templateVars);
     })
   });
-
-
-
-  router.get("/specific", (req, res) => {
-    res.render("specific_map");
-  })
-
 
 
   router.post("/:mapID", (req, res) => {
@@ -118,9 +116,7 @@ module.exports = (db) => {
 
   router.post("/:mapID/favourites/add", (req, res) => {
     if(req.session.user) {
-      console.log("REQ PARAMS", req.params)
       const incomingMapID = req.params.mapID
-      console.log("MAP ID", incomingMapID)
 
       fetchUserByID(req.session.user)
         .then(output => {

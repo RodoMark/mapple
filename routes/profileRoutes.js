@@ -14,9 +14,9 @@ module.exports = (db) => {
     if(req.session.user){
       fetchUserProfile(req.session.user)
         .then(output => {
-          console.log(output.rows)
           const templateVars = {
-            table: output.rows
+            table: output.rows,
+            userInfo: req.session.user
           }
           res.render("user_profile", templateVars)
         }

@@ -8,6 +8,7 @@ const { fetchUserByEmail, fetchUserByID, userExists, authenticateUser, registrat
 
 module.exports = (db) => {
   router.get("", (req, res) => {
+
     res.redirect("/maps");
   });
 
@@ -15,6 +16,7 @@ module.exports = (db) => {
     if(!req.session.user) {
     res.render("login");
   } else {
+  
     res.redirect("/maps")
   }
 
@@ -24,6 +26,7 @@ module.exports = (db) => {
     if(!req.session.user) {
       res.render("register");
     } else {
+
       res.redirect("/maps")
     }
   });
@@ -31,23 +34,19 @@ module.exports = (db) => {
   router.post("/login", (req, res) => {
     const incomingEmail = req.body.email;
     const incomingPassword = req.body.password;
-
-    console.log("BODY", req.body)
-
     if(!req.session.user) {
       if(userExists(incomingEmail)) {
-        console.log("USER EXISTS")
         authenticateUser(incomingEmail, incomingPassword)
           .then(output => {
-            console.log("OUTPUT", output)
 
           if(output){
             console.log("user authenticated!!")
             fetchUserByEmail(incomingEmail)
               .then(output => {
-              req.session.user = output.id
-              res.redirect("/profile")
-              }).catch(err => console.error('query error', err.stack));
+                req.session.user = output.id
+                res.redirect("/profile")
+                })
+              .catch(err => console.error('query error', err.stack));
 
           } else {
             res.status(400)
@@ -62,9 +61,6 @@ module.exports = (db) => {
   });
 
   router.post("/register", (req, res) => {
-
-    console.log("PASSWORD", req.body.password)
-
     details = {
       incomingName: req.body.handle,
       incomingEmail: req.body.email,
@@ -72,9 +68,6 @@ module.exports = (db) => {
     }
 
     if(!registrationTripmine(details)) {
-      console.log("NO TRIP MINE DETECTED")
-      console.log("NOW HERE ARE THE DETAILS")
-      console.log(details)
 
       const newUser = {
         name: details.incomingName || null,
