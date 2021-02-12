@@ -106,7 +106,14 @@ $(document).ready(function () {
       )
       $('.delete-btn', $popup).on('click', function() {
         console.log('DELETE BUTTON CLICKED --------->')
+        $.ajax({
+          url: `/maps/${map_id}/markers/${markerObj.marker_id}/delete`,
+          method: 'POST'
+        }).then(output => {
+          console.log(output)
+        });
       })
+
     })
     return $popup[0]
   }
