@@ -29,6 +29,7 @@ module.exports = (db) => {
 
   // temp route to show edit_marker.ejs
   router.get("/marker", (req, res) => {
+
     const templateVars = {
       userInfo: req.session.user,
     }
@@ -68,10 +69,20 @@ module.exports = (db) => {
   });
 
   router.get("/:mapID/edit", (req, res) => {
-    const templateVars = {
-      userInfo: req.session.user
+    if(req.session.user) {
+      fetchMapByMapID(req.session.user).then (output => {
+        const templateVars = {
+          userInfo: req.session.user,
+          table: output.rows[0],
+        }
+        res.render("edit_map", templateVars);
+      })
+
+
+    } else {
+      res.redirect('/maps')
     }
-    res.render("edit_map", templateVars);
+
   });
 
   router.get("/:mapID", (req, res) => {
