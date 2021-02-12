@@ -37,16 +37,16 @@ const insertMarker = function(details) {
     `
     INSERT INTO markers (map_id, lat, lng, title, description)
     VALUES ($1, $2, $3, $4, $5)
-    `, [details.map_id, details.lat, details.lng, details.title, details.description])
+    `, [details.map_id, details.lat_start, details.lng_start, details.title, details.description])
 }
 
 const insertMap = function(details) {
 
   return db.query(
     `
-    INSERT INTO maps
-    VALUES ($1, $2, $3, $4, $5)
-    `, [details.map_id, details.lat, details.lng, details.title, details.description])
+    INSERT INTO maps (owner_id, interest_id, lat_start, lng_start, zoom, name, description)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    `, [details.owner_id, details.interest_id, details.lat_start, details.lng_start, details.zoom, details.name, details.description])
 }
 
 const deleteAllMarkers = function(mapID) {
@@ -101,7 +101,7 @@ const addFavourite = function(details) {
   return db.query(
     `
     INSERT INTO favourites (user_id, map_id)
-    VALUES ($1, $2
+    VALUES ($1, $2)
     `, [details.userID, details.mapID])
 }
 
@@ -115,6 +115,7 @@ const removeFavourite = function(details) {
 
 module.exports = {
   deleteMap,
+  insertMap,
   addFavourite,
   removeFavourite,
   fetchMapByMapID,

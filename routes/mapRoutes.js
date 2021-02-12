@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const { deleteMap, fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, fetchMapByInterestName, deleteMarker, insertMarker, addFavourite, removeFavourite, deleteAllMarkers } = require('../helpers/mapHelpers.js')
+const { deleteMap, insertMap, fetchMapByMapID, fetchMapsByUserID, fetchMarkersByMapID, fetchMapByInterestName, deleteMarker, insertMarker, addFavourite, removeFavourite, deleteAllMarkers } = require('../helpers/mapHelpers.js')
 
 const { fetchUserByID } = require('../helpers/userHelpers.js')
 
@@ -14,10 +14,15 @@ module.exports = (db) => {
   });
 
   router.get("/new", (req, res) => {
-    const templateVars = {
-      userInfo: req.session.user,
+    if(req.session.user) {
+      const templateVars = {
+        userInfo: req.session.user,
+      }
+      res.render("new_map", templateVars);
+    } else {
+      res.redirect('/maps')
     }
-    res.render("new_map", templateVars);
+
   });
 
   router.get("/example", (req, res) => {
@@ -158,14 +163,16 @@ module.exports = (db) => {
         .then(output => {
 
           const table = output.rows[0]
+          console.log("fetchUserByID", output.row)
 
           const details = {
             mapID: Number(incomingMapID),
             userID: Number(table.id),
             }
+
             console.log(`FAVOURITING ${details.mapID} by ${details.userID}!!!`)
             addFavourite(details)
-            res.redirect(req.get('referer'));
+            res.redirect('/profile');
           }
         )
     } else {
@@ -186,15 +193,21 @@ module.exports = (db) => {
   });
 
   router.post("/new", (req, res) => {
-    db.query(
-      details = {
-        owner_id: req.session.id,
-        interest_id: req.params.interest_id,
-        name: req.params.name,
-        name: req.params.description,
+
+     const details = {
+        owner_id: Number(req.session.user),
+        name: req.body.name,
+        interest_id: Number(req.body.interest_id),
+        description: req.body.description,
+        lat_start: Number(req.body.lat_start),
+        lng_start: Number(req.body.lng_start),
+        zoom: Number(req.body.lng_start),
       }
 
-    )
+      console.log("DETAILS-----0>", details)
+    insertMap(details).then(() => {
+      res.redirect('/profile')
+    })
   });
 
   return router;
