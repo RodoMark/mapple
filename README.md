@@ -3,7 +3,7 @@
 
 Mapple is a mulitpage, full-stack app, that saves and manages maps and map locations with tags for a user. Maps are orgainzed by interest and can be edited, organized, and favorited.
 
-Mapple is built using the `LEAFLET.js` API, ES^ server side NodeJS, EXPRESS, CSS and SASS, and PostgreSQL and pg for DBMS
+Mapple is built using the `LEAFLET.js` with attribution to `OpenStreetMap` API, ES6 server side NodeJS, EXPRESS, CSS and SASS, and PostgreSQL and pg for DBMS
 
 ## Screenshots
 
